@@ -1,6 +1,6 @@
 
 body {
-  background: url(https://s3.amazonaws.com/db-attachments/Utensils-in-red_preview.jpeg__215326e7-5a23-447c-ae55-2109b1921b88) no-repeat center center fixed;
+  background: url(https://i0.wp.com/www.crowneagency.com/wp-content/uploads/2017/01/wood-court-3.jpg?ssl=1) no-repeat center center fixed;
   background-size: cover;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -35,56 +35,6 @@ opacity: 0.9;
 right: 10%;
 }
 
-#utc {
-  position: fixed;
-bottom: 50px;
-left: 0px;
-font-size: 1.5vw;	
-color: white;
-background-color: #f20f0f;
-opacity: 0.9;
-border-radius: 0px 30px 30px 0px;
-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-padding: 10px;
-}
-
-#pst {
-  position: fixed;
-bottom: 100px;
-left: 0px;
-font-size: 1.5vw;	
-color: white;
-background-color: black;
-opacity: 0.9;
-  border-radius: 0px 30px 30px 0px;
-padding: 10px;
-}
-
-#nab {
-  position: fixed;
-bottom: 0px;
-left: 0px;
-font-size: 1.5vw;	
-color: #f20f0f;
-background-color: white;
-opacity: 0.9;
-  border-radius: 0px 30px 30px 0px;
-padding: 10px;
-}
-
-#weekNumber {
-  position: fixed;
-bottom: 0px;
-font-size: 2vw;
-right: 0px;
-opacity: 0.9;
-color: white;
-background-color: #f20f0f;	
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-  border-radius: 30px 0px 0px 30px;
-padding: 10px;
-}
-
 #table {
 margin: 30px;
 }
@@ -117,36 +67,6 @@ a:hover, a {
 text-decoration: none;
 color: black;
 cursor: pointer;
-}
-
-#Red {
-  color: white;
-  background-color: #f20f0f;
-  border-radius: 30px;
-}
-
-#Blue {
-  color: white;
-  background-color: dodgerblue;
-  border-radius: 30px;
-}
-
-#Orange {
-  color: white;
-  background-color: darkorange;
-  border-radius: 30px;
-}
-
-#Purple {
-  color: white;
-  background-color: rgb(152, 106, 199);
-  border-radius: 30px;
-}
-
-#Black {
-color: white;
-background-color: black;
-border-radius: 30px;
 }
 
 .center {
