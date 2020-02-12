@@ -91,9 +91,9 @@ export class NavBar extends Component {
                         <div class="navbar-nav">
                             <Link className="nav-item nav-link active" to="/"> Live Scoreboard</Link>
                             {teamLinks}
-                            <Link className={this.props.currentPage === "AzureCanary1" ? "nav-item nav-link active" : "nav-item nav-link"} to="/AzureCanary1">NBA</Link>
-                            <Link className={this.props.currentPage === "AzureCanary2" ? "nav-item nav-link active" : "nav-item nav-link"} to="/AzureCanary2">Utah Jazz</Link>
-                            <Link className={this.props.currentPage === "SoftlayerCanaries" ? "nav-item nav-link active" : "nav-item nav-link"} to="/SoftlayerCanaries">BYU</Link>
+                            <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
+                            <Link className={this.props.currentPage === "UtahJazz" ? "nav-item nav-link active" : "nav-item nav-link"} to="/UtahJazz">Utah Jazz</Link>
+                            <Link className={this.props.currentPage === "BYU" ? "nav-item nav-link active" : "nav-item nav-link"} to="/BYU">BYU</Link>
                         </div>
                     </div>
                 </nav>

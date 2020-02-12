@@ -12,13 +12,13 @@ function App() {
           />
 
       <Route 
-          path='/AzureCanary1'
+          path='/NBA'
 />
       <Route 
-          path='/AzureCanary2'
+          path='/UtahJazz'
  />
       <Route 
-          path='/SoftlayerCanaries'
+          path='/BYU'
   />
       <br/><br/><br/><br/><br/><br/><br/><br/>
     </Layout >
