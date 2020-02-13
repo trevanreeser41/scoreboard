@@ -10,13 +10,15 @@ export class Scoreboard extends Component {
 			title: props.title,
             id: props.id,
             matchups: [],
-            loading: true
+            loading: true,
+            sport: props.sport,
+            league: props.league
         };
     }
 
     async componentWillMount() {
         await this.populateScoreboard();
-        //this.interval = setInterval(() => this.populateScoreboard(), 2000);
+        //this.interval = setInterval(() => this.populateScoreboard(), 5000);
     }
 
     // componentWillUnmount() {
@@ -25,7 +27,7 @@ export class Scoreboard extends Component {
 
     populateScoreboard = () => { 
         this.setState({ matchups: [] })
-        fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard')
+        fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -61,38 +63,55 @@ export class Scoreboard extends Component {
             let tableData = [];
             let status = '';
             for (let x = 0; x < this.state.matchups.length; x++) {
-                if (this.state.matchups[x].status.type.completed === true) {//&& this.state.matchups[x].status.period > 3){
-                    status = <tr><strong>FINAL</strong></tr>
+                if (this.state.matchups[x].status.type.completed === true) {
+                    if (this.state.matchups[x].status.period > 4) {
+                    status = <tr id="status"><strong>FINAL/OT</strong></tr>
+                    }
+                    status = <tr id="status"><strong>FINAL</strong></tr>
                 }
                 else if (this.state.matchups[x].status.period < 5 && this.state.matchups[x].status.period > 0) {
-                    status = <tr>Q{this.state.matchups[x].status.period} - {this.state.matchups[x].status.displayClock}</tr>
+                    status = <tr id="status">Q{this.state.matchups[x].status.period} - {this.state.matchups[x].status.displayClock}</tr>
                 } 
-                else if (this.state.matchups[x].status.period == 0) {
-                    status = <tr>{this.state.matchups[x].status.type.detail}</tr>
+                else if (this.state.matchups[x].status.period === 0) {
+                    status = <tr id="status">{this.state.matchups[x].status.type.detail}</tr>
                 } else {
                     let overtime_period = '';
                     if (this.state.matchups[x].status.period > 5) {
                         overtime_period = Number(this.state.matchups[x].status.period) - 4
                     }
-                    status = <tr><strong>FINAL/{overtime_period}OT</strong></tr>
+                    status = <tr id="status"><strong>FINAL/{overtime_period}OT</strong></tr>
                 }
+                let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.matchups[x].venue.fullName
+                // let homeColor = () => {
+                //     background: 
+                // }
+                let homeColor = "background: " + this.state.matchups[x].competitors[0].team.color + ";"
+                let awayColor = "background: " + this.state.matchups[x].competitors[1].team.color + ";"
                 tableData.push(
+                    <span>
                     <tbody className="scoreboard">
                     <tr>
-                        <td><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[x].competitors[0].team.displayName}</td>
+                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
+                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams" style={{homeColor}}><strong>{this.state.matchups[x].competitors[0].team.displayName}</strong></td>: <td id="teams" style={{homeColor}}>{this.state.matchups[x].competitors[0].team.displayName}</td>}
                         <td id="scores">{this.state.matchups[x].competitors[0].score}</td>
                     </tr>
                     <tr>
-                        <td><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[x].competitors[1].team.displayName}</td>
+                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
+                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams" style={{awayColor}}><strong>{this.state.matchups[x].competitors[1].team.displayName}</strong></td>: <td id="teams" style={{awayColor}}>{this.state.matchups[x].competitors[1].team.displayName}</td>}
                         <td id="scores">{this.state.matchups[x].competitors[1].score}</td>
                     </tr>
                     <tr>
                         <td colSpan="3">{status}</td>
                     </tr>
-                    <br/>
                     </tbody>
+                    <tfoot>
+                        <td colSpan="3">
+                            <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName} ({this.state.matchups[x].venue.address.city}, {this.state.matchups[x].venue.address.state})</a>
+                        </td>
+                    </tfoot>
+                    <br/>
+                    <br/>
+                    </span>
                 )   
             }
 

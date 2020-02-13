@@ -88,11 +88,11 @@ export class NavBar extends Component {
                     </button>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <Link className="nav-item nav-link active" to="/"> Live Scoreboard</Link>
+                            <Link className="nav-item nav-link active" to="/">Personal Scoreboard</Link>
                             {teamLinks}
                             <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
-                            <Link className={this.props.currentPage === "UtahJazz" ? "nav-item nav-link active" : "nav-item nav-link"} to="/UtahJazz">Utah Jazz</Link>
-                            <Link className={this.props.currentPage === "BYU" ? "nav-item nav-link active" : "nav-item nav-link"} to="/BYU">BYU</Link>
+                            <Link className={this.props.currentPage === "CollegeBasketball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeBasketball">NCAAM</Link>
+                            <Link className={this.props.currentPage === "NCAAF" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NCAAF">NCAAF</Link>
                         </div>
                     </div>
                 </nav>
