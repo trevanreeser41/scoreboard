@@ -9,12 +9,13 @@ export class Scoreboard extends Component {
 			team: props.team,
 			title: props.title,
             id: props.id,
-            matchups: []
+            matchups: [],
+            loading: true
         };
     }
 
-    componentDidMount() {
-        this.populateScoreboard();
+    async componentWillMount() {
+        await this.populateScoreboard();
     }
 
     populateScoreboard = () => { 
@@ -34,35 +35,74 @@ export class Scoreboard extends Component {
                         games.push(events[i].competitions[j]);
                     }
                 }
-                console.log(games)
                 return games
             })
-            .then(games => 
-                this.setState({ matchups: games })
-            )           
+            .then(games => {
+                for (let index = 0; index < games.length; index++) {
+                    var joined = this.state.matchups.concat(games[index]);
+                    this.setState({ matchups: joined })
+                    
+                }
+                this.setState({ loading: false })
+            })
             .catch(function (error) {
             console.log("Error: ", error.message);
         });
     }
 
     render() {
-        return (
-            //image src link found in json under team > links > logo
-        <table>
-            <thead></thead>
-                <tbody className="scoreboard">
-                <tr>
-                    <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[0].team.logo}/></td>
-                    <td id="teams">{this.state.matchups[0].competitors[0].team.displayName}</td>
-                    <td id="scores">{this.state.matchups[0].competitors[0].score}</td>
-                </tr>
-                <tr>
-                    <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[1].team.logo}/></td>
-                    <td id="teams">{this.state.matchups[0].competitors[1].team.displayName}</td>
-                    <td id="scores">{this.state.matchups[0].competitors[1].score}</td>
-                </tr>
-            </tbody>
-            </table>
-        )
+
+        if (this.state.loading===false){
+
+            return (
+                //image src link found in json under team > links > logo
+            
+            <table>
+                <thead></thead>
+                    <tbody className="scoreboard">
+                    <tr>
+                        
+                        <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[0].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[0].competitors[0].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[0].competitors[0].score}</td>
+                    </tr>
+                    <tr>
+                        <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[1].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[0].competitors[1].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[0].competitors[1].score}</td>
+                    </tr>
+                    <br class="trans"/>
+                    <tr>
+                        
+                        <td><img id="thumb" alt="" src={this.state.matchups[1].competitors[0].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[1].competitors[0].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[1].competitors[0].score}</td>
+                    </tr>
+                    <tr>
+                        <td><img id="thumb" alt="" src={this.state.matchups[1].competitors[1].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[1].competitors[1].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[1].competitors[1].score}</td>
+                    </tr>
+                    <br class="trans"/>
+                    <tr>
+                        
+                        <td><img id="thumb" alt="" src={this.state.matchups[10].competitors[0].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[10].competitors[0].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[10].competitors[0].score}</td>
+                    </tr>
+                    <tr>
+                        <td><img id="thumb" alt="" src={this.state.matchups[10].competitors[1].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[10].competitors[1].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[10].competitors[1].score}</td>
+                    </tr>
+                    <br class="trans"/>
+                </tbody>
+                </table>
+            )
+        }
+        else{
+        return(
+            <h1>Loading...</h1>
+        )}
     }
 }
