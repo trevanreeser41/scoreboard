@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-//import logo from '../logo.png';
 import './Scoreboard.css';
 
 export class Scoreboard extends Component {
+
+    constructor(props) {
+        super(props)
+		this.state = {
+			team: props.team,
+			title: props.title,
+            id: props.id,
+            matchups: []
+        };
+    }
+
+    componentDidMount() {
+        this.populateScoreboard();
+    }
 
     populateScoreboard = () => { 
         fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard')
@@ -16,29 +27,42 @@ export class Scoreboard extends Component {
                 throw new Error("Unable to retrieve required data from server.");
             })
             .then(function (data) {
-                console.log(data);
-
+                let events = data.events;
+                var games = [];
+                for (var i = 0; i < events.length; i++) {
+                    for (var j = 0; j < events[i].competitions.length; j++) {
+                        games.push(events[i].competitions[j]);
+                    }
+                }
+                console.log(games)
+                return games
             })
+            .then(games => 
+                this.setState({ matchups: games })
+            )           
             .catch(function (error) {
             console.log("Error: ", error.message);
         });
     }
+
     render() {
         return (
-        <Table striped size="lg">
-            <thead>
-                <tbody>
+            //image src link found in json under team > links > logo
+        <table>
+            <thead></thead>
+                <tbody className="scoreboard">
                 <tr>
-                    <td className="center">Team One Name</td>
-                    <td className="center">Score</td>
+                    <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[0].team.logo}/></td>
+                    <td id="teams">{this.state.matchups[0].competitors[0].team.displayName}</td>
+                    <td id="scores">{this.state.matchups[0].competitors[0].score}</td>
                 </tr>
                 <tr>
-                    <td className="center">Team Two Name</td>
-                    <td className="center">Score</td>
+                    <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[1].team.logo}/></td>
+                    <td id="teams">{this.state.matchups[0].competitors[1].team.displayName}</td>
+                    <td id="scores">{this.state.matchups[0].competitors[1].score}</td>
                 </tr>
-                </tbody>
-            </thead>
-        </Table>
+            </tbody>
+            </table>
         )
     }
 }
