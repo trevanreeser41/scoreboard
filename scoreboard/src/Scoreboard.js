@@ -53,50 +53,47 @@ export class Scoreboard extends Component {
     render() {
 
         if (this.state.loading===false){
+            let tableData = [];
+            let status = '';
+            for (let x = 0; x < this.state.matchups.length; x++) {
+                if (this.state.matchups[x].status.displayClock === "0.0" && this.state.matchups[x].status.period > 3){
+                    status = <tr><strong>FINAL</strong></tr>
+                }
+                else if (this.state.matchups[x].status.period < 5) {
+                    status = <tr>Q{this.state.matchups[x].status.period} - {this.state.matchups[x].status.displayClock}</tr>
+                } else {
+                    let overtime_period = '';
+                    if (this.state.matchups[x].status.period > 5) {
+                        overtime_period = Number(this.state.matchups[x].status.period) - 4
+                    }
+                    status = <tr><strong>FINAL/{overtime_period}OT</strong></tr>
+                }
+                tableData.push(
+                    <tbody className="scoreboard">
+                    <tr>
+                        <td><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[x].competitors[0].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[x].competitors[0].score}</td>
+                    </tr>
+                    <tr>
+                        <td><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
+                        <td id="teams">{this.state.matchups[x].competitors[1].team.displayName}</td>
+                        <td id="scores">{this.state.matchups[x].competitors[1].score}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>{status}</td>
+                        <td></td>
+                    </tr>
+                    <br/>
+                    </tbody>
+                )   
+            }
 
             return (
                 //image src link found in json under team > links > logo
-            
-            <table>
-                <thead></thead>
-                    <tbody className="scoreboard">
-                    <tr>
-                        
-                        <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[0].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[0].competitors[0].team.displayName}</td>
-                        <td id="scores">{this.state.matchups[0].competitors[0].score}</td>
-                    </tr>
-                    <tr>
-                        <td><img id="thumb" alt="" src={this.state.matchups[0].competitors[1].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[0].competitors[1].team.displayName}</td>
-                        <td id="scores">{this.state.matchups[0].competitors[1].score}</td>
-                    </tr>
-                    <br class="trans"/>
-                    <tr>
-                        
-                        <td><img id="thumb" alt="" src={this.state.matchups[1].competitors[0].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[1].competitors[0].team.displayName}</td>
-                        <td id="scores">{this.state.matchups[1].competitors[0].score}</td>
-                    </tr>
-                    <tr>
-                        <td><img id="thumb" alt="" src={this.state.matchups[1].competitors[1].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[1].competitors[1].team.displayName}</td>
-                        <td id="scores">{this.state.matchups[1].competitors[1].score}</td>
-                    </tr>
-                    <br class="trans"/>
-                    <tr>
-                        
-                        <td><img id="thumb" alt="" src={this.state.matchups[10].competitors[0].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[10].competitors[0].team.displayName}</td>
-                        <td id="scores">{this.state.matchups[10].competitors[0].score}</td>
-                    </tr>
-                    <tr>
-                        <td><img id="thumb" alt="" src={this.state.matchups[10].competitors[1].team.logo}/></td>
-                        <td id="teams">{this.state.matchups[10].competitors[1].team.displayName}</td>
-                        <td id="scores">{this.state.matchups[10].competitors[1].score}</td>
-                    </tr>
-                    <br class="trans"/>
-                </tbody>
+                <table>
+                    {tableData}
                 </table>
             )
         }
