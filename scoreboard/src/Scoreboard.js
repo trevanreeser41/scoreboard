@@ -62,7 +62,11 @@ export class Scoreboard extends Component {
         if (this.state.loading===false){
             let tableData = [];
             let status = '';
+            let team1Record = '';
+            let team2Record = '';
             for (let x = 0; x < this.state.matchups.length; x++) {
+                this.state.league !== 'college-football' ? team1Record = this.state.matchups[x].competitors[1].records[0].summary : team1Record = "0-0"
+                this.state.league !== 'college-football' ? team2Record = this.state.matchups[x].competitors[0].records[0].summary : team2Record = "0-0"
                 if (this.state.matchups[x].status.type.completed === true) {
                     if (this.state.matchups[x].status.period > 4) {
                     status = <tr id="status"><strong>FINAL/OT</strong></tr>
@@ -82,23 +86,20 @@ export class Scoreboard extends Component {
                     status = <tr id="status"><strong>FINAL/{overtime_period}OT</strong></tr>
                 }
                 let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.matchups[x].venue.fullName
-                // let homeColor = () => {
-                //     background: 
-                // }
-                let homeColor = "background: " + this.state.matchups[x].competitors[0].team.color + ";"
-                let awayColor = "background: " + this.state.matchups[x].competitors[1].team.color + ";"
+                let homeColor = "background: " + this.state.matchups[x].competitors[1].team.color + ";"
+                let awayColor = "background: " + this.state.matchups[x].competitors[0].team.color + ";"
                 tableData.push(
                     <span>
                     <tbody className="scoreboard">
                     <tr>
-                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
-                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams" style={{homeColor}}><strong>{this.state.matchups[x].competitors[0].team.displayName}</strong></td>: <td id="teams" style={{homeColor}}>{this.state.matchups[x].competitors[0].team.displayName}</td>}
-                        <td id="scores">{this.state.matchups[x].competitors[0].score}</td>
+                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
+                        {this.state.matchups[x].competitors[1].winner === true ? <td id="teams" style={{homeColor}}><strong>{this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams" style={{homeColor}}>{this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
+                        <td id="scores">{this.state.matchups[x].competitors[1].score}</td>
                     </tr>
                     <tr>
-                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams" style={{awayColor}}><strong>{this.state.matchups[x].competitors[1].team.displayName}</strong></td>: <td id="teams" style={{awayColor}}>{this.state.matchups[x].competitors[1].team.displayName}</td>}
-                        <td id="scores">{this.state.matchups[x].competitors[1].score}</td>
+                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
+                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams" style={{awayColor}}><strong>{this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams" style={{awayColor}}>{this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
+                        <td id="scores">{this.state.matchups[x].competitors[0].score}</td>
                     </tr>
                     <tr>
                         <td colSpan="3">{status}</td>
