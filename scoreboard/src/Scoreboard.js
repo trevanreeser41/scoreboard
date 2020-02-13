@@ -16,10 +16,16 @@ export class Scoreboard extends Component {
 
     async componentWillMount() {
         await this.populateScoreboard();
+        //this.interval = setInterval(() => this.populateScoreboard(), 2000);
     }
 
+    // componentWillUnmount() {
+    //     clearInterval(this.interval);
+    // }
+
     populateScoreboard = () => { 
-        fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard')
+        this.setState({ matchups: [] })
+        fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard')
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -41,7 +47,6 @@ export class Scoreboard extends Component {
                 for (let index = 0; index < games.length; index++) {
                     var joined = this.state.matchups.concat(games[index]);
                     this.setState({ matchups: joined })
-                    
                 }
                 this.setState({ loading: false })
             })
@@ -56,11 +61,14 @@ export class Scoreboard extends Component {
             let tableData = [];
             let status = '';
             for (let x = 0; x < this.state.matchups.length; x++) {
-                if (this.state.matchups[x].status.displayClock === "0.0" && this.state.matchups[x].status.period > 3){
+                if (this.state.matchups[x].status.type.completed === true) {//&& this.state.matchups[x].status.period > 3){
                     status = <tr><strong>FINAL</strong></tr>
                 }
-                else if (this.state.matchups[x].status.period < 5) {
+                else if (this.state.matchups[x].status.period < 5 && this.state.matchups[x].status.period > 0) {
                     status = <tr>Q{this.state.matchups[x].status.period} - {this.state.matchups[x].status.displayClock}</tr>
+                } 
+                else if (this.state.matchups[x].status.period == 0) {
+                    status = <tr>{this.state.matchups[x].status.type.detail}</tr>
                 } else {
                     let overtime_period = '';
                     if (this.state.matchups[x].status.period > 5) {
@@ -81,9 +89,7 @@ export class Scoreboard extends Component {
                         <td id="scores">{this.state.matchups[x].competitors[1].score}</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td>{status}</td>
-                        <td></td>
+                        <td colSpan="3">{status}</td>
                     </tr>
                     <br/>
                     </tbody>
