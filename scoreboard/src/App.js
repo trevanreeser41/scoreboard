@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route } from 'react-router';
 import { Layout } from './layout';
 import './App.css';
@@ -12,14 +12,14 @@ function App() {
             exact path='/'
             />
         <Route path='/NBA'>
-            <Scoreboard team="Mobile" title="Welcome to the R365 Version Dashboard!" id="Red" dotcom={true} isCanary={false} />}
+            <Scoreboard sport="basketball" league="nba" team="Mobile" title="Welcome to the R365 Version Dashboard!" id="Red" dotcom={true} isCanary={false} />
         </Route>
-        <Route 
-            path='/UtahJazz'
-    />
-        <Route 
-            path='/BYU'
-    />
+        <Route path='/CollegeBasketball'>
+          <Scoreboard sport="basketball" league="mens-college-basketball" team="Mobile" title="Welcome to the R365 Version Dashboard!" id="Red" dotcom={true} isCanary={false} />
+        </Route>
+        <Route path='/NCAAF'>
+          <Scoreboard sport="football" league="college-football" team="Mobile" title="Welcome to the R365 Version Dashboard!" id="Red" dotcom={true} isCanary={false} />
+        </Route>
         <br/><br/><br/><br/><br/><br/><br/><br/>
       </Layout >
     );
