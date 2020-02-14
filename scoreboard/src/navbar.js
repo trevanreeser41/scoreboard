@@ -93,6 +93,7 @@ export class NavBar extends Component {
                             <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
                             <Link className={this.props.currentPage === "CollegeBasketball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeBasketball">NCAAM</Link>
                             <Link className={this.props.currentPage === "NCAAF" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NCAAF">NCAAF</Link>
+                            <Link className={this.props.currentPage === "MyTeams" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MyTeams">My Teams</Link>
                         </div>
                     </div>
                 </nav>
