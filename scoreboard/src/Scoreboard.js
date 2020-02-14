@@ -19,7 +19,7 @@ export class Scoreboard extends Component {
         };
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         await this.populateScoreboard();
     }
 
@@ -55,13 +55,20 @@ export class Scoreboard extends Component {
                         awayScores: awayScores
                     })
                 }
-                console.log("home:" + homeScores)
-                console.log("away:" + awayScores)
                 this.setState({ loading: false })
             })
             .catch(function (error) {
             console.log("Error: ", error.message);
         });
+    }
+
+    splitScoreTable (array, chunk_size) {
+        var tempArray = [];     
+        for (var index = 0; index < array.length; index += chunk_size) {
+            var myChunk = array.slice(index, index+chunk_size);
+            tempArray.push(myChunk);
+        }    
+        return tempArray;
     }
 
     render() {
@@ -71,8 +78,8 @@ export class Scoreboard extends Component {
             let team1Record = '';
             let team2Record = '';
             for (let x = 0; x < this.state.matchups.length; x++) {
-                this.state.league !== 'college-football' ? team1Record = this.state.matchups[x].competitors[1].records[0].summary : team1Record = "0-0"
-                this.state.league !== 'college-football' ? team2Record = this.state.matchups[x].competitors[0].records[0].summary : team2Record = "0-0"
+                this.state.matchups[x].competitors[1].records !== undefined ? team1Record = this.state.matchups[x].competitors[1].records[0].summary : team1Record = "0-0"
+                this.state.matchups[x].competitors[0].records !== undefined ? team2Record = this.state.matchups[x].competitors[0].records[0].summary : team2Record = "0-0"
                 if (this.state.matchups[x].status.type.completed === true) {
                     if (this.state.matchups[x].status.period === 5) {
                         status = <tr id="status"><strong>FINAL/OT</strong></tr>
@@ -123,6 +130,7 @@ export class Scoreboard extends Component {
                     </span>
                 )   
             }
+            var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
             
             return (
                 //image src link found in json under team > links > logo
@@ -130,13 +138,13 @@ export class Scoreboard extends Component {
                     <tr>
                         <td>
                             <table class="card-table">
-                                {tableData}
+                                {splitData[0]}
                             </table>
                         </td>
-                        <td>            </td>
+                        <td id="separator"></td>
                         <td>
                             <table class="card-table">
-                                {tableData}
+                                {splitData[1]}
                             </table>
                         </td>
                     </tr>

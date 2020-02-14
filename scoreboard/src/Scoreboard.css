@@ -23,6 +23,15 @@ h1 {
     font-weight: bold;
 }
 
+#winner {
+    background: darkgray;
+    color: white;
+    width: 3em;
+    padding: 15px 15px 15px 15px;
+    text-align: center;
+    font-weight: bold;
+}
+
 #teams {
     background: white;
     width: 17em;
@@ -38,14 +47,29 @@ h1 {
     color:gray;
 }
 
+#separator {
+    width: 10em;
+}
+
+#teamthumb {
+    width: 6em;
+    height: 6em;
+}
+
 #thumb {
     width:2em; 
     height:2em;
-  }
+}
+
 #thumb img {
   height: auto;
   width: auto;
   margin:0 auto;
+}
+
+#team-sport {
+    text-align: center;
+    font-weight: bold;
 }
 
 #venue {
