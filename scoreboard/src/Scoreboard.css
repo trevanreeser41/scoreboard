@@ -35,6 +35,8 @@ h1 {
 #teams {
     background: white;
     width: 17em;
+    font-size: small;
+    padding: 5px 5px 5px 5px ;
 }
 
 #logo {
@@ -67,6 +69,10 @@ h1 {
   margin:0 auto;
 }
 
+#status{
+    font-size: small;
+}
+
 #team-sport {
     text-align: center;
     font-weight: bold;
@@ -77,4 +83,9 @@ h1 {
     color: rgb(64, 109, 255);
     font-size: small;
     font-weight: bolder;
+}
+
+#tableContainer{
+    padding-left: 0;
+    padding-right: 0;
 }

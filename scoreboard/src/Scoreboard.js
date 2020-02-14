@@ -130,24 +130,37 @@ export class Scoreboard extends Component {
                     </span>
                 )   
             }
-            var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
-            
+            //var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
+            var newData = []
+            for (let index = 0; index < tableData.length; index++) {
+                newData.push(
+                        <span>
+                            <td>
+                                <table class="card-table">
+                                    {tableData[index]}
+                                </table>
+                            </td>
+                            <td id="separator"></td>
+                            <td >
+                                <table class="card-table">
+                                    {tableData[index+1]}
+                                </table>
+                            </td>
+                            <td id="separator"></td>
+                            <td >
+                                <table class="card-table">
+                                    {tableData[index+2]}
+                                </table>
+                            </td>
+                        </span>
+                )
+                index+=2
+            }
+
             return (
                 //image src link found in json under team > links > logo
                 <table> 
-                    <tr>
-                        <td>
-                            <table class="card-table">
-                                {splitData[0]}
-                            </table>
-                        </td>
-                        <td id="separator"></td>
-                        <td>
-                            <table class="card-table">
-                                {splitData[1]}
-                            </table>
-                        </td>
-                    </tr>
+                    {newData}
                 </table>
             )
         }

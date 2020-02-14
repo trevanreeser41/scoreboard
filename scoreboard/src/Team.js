@@ -69,7 +69,7 @@ export class Team extends Component {
                 // },
 
             ],
-            data: []
+            data: [],
         };
     }
 
@@ -104,6 +104,15 @@ export class Team extends Component {
         });
         }   
         console.log(this.state.data)
+    }
+
+    splitScoreTable (array, chunk_size) {
+        var tempArray = [];     
+        for (var index = 0; index < array.length; index += chunk_size) {
+            var myChunk = array.slice(index, index+chunk_size);
+            tempArray.push(myChunk);
+        }    
+        return tempArray;
     }
 
     render() {
@@ -174,7 +183,7 @@ export class Team extends Component {
                         <td id="scores"><td>{this.state.data[index].team.nextEvent[0].competitions[0].competitors[1].team.abbreviation} {awayScores}</td><td>{this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].team.abbreviation} {homeScores}</td></td>
                     </tr>
                     <tr>
-                        <td colSpan="2">{this.state.data[index].team.standingSummary}</td>
+                        <td colSpan="2">{this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Information Not Available"}</td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -187,22 +196,36 @@ export class Team extends Component {
                     </span>
                 )   
                 }
+                //var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
+                var newData = []
+                for (let index = 0; index < tableData.length; index++) {
+                    newData.push(
+                            <span>
+                                <td>
+                                    <table class="card-table">
+                                        {tableData[index]}
+                                    </table>
+                                </td>
+                                <td id="separator"></td>
+                                <td >
+                                    <table class="card-table">
+                                        {tableData[index+1]}
+                                    </table>
+                                </td>
+                                <td id="separator"></td>
+                                <td >
+                                    <table class="card-table">
+                                        {tableData[index+2]}
+                                    </table>
+                                </td>
+                            </span>
+                    )
+                    index+=index+2
+                }
 
                 return (
                     <table> 
-                        <tr>
-                            <td>
-                                <table class="card-table">
-                                    {tableData}
-                                </table>
-                            </td>
-                            <td>            </td>
-                            {/* <td>
-                                <table class="card-table">
-                                    {tableData}
-                                </table>
-                            </td> */}
-                        </tr>
+                        {newData}
                     </table>
                 )
            
