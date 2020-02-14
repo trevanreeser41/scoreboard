@@ -19,7 +19,7 @@ export class Scoreboard extends Component {
         };
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         await this.populateScoreboard();
     }
 
@@ -54,8 +54,6 @@ export class Scoreboard extends Component {
                         awayScores: awayScores
                     })
                 }
-                console.log("home:" + homeScores)
-                console.log("away:" + awayScores)
                 this.setState({ loading: false })
             })
             .catch(function (error) {

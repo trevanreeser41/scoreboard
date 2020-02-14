@@ -82,12 +82,12 @@ export class NavBar extends Component {
 
         return (
             <header>
-                <nav class="navbar navbar-expand-md navbar-light bg-light navbar-toggleable-md border-bottom box-shadow mb-3">
+                <nav className="navbar navbar-expand-md navbar-light bg-light navbar-toggleable-md border-bottom box-shadow mb-3">
                     <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
+                        <div className="navbar-nav">
                             <Link className="nav-item nav-link active" to="/">Personal Scoreboard</Link>
                             {teamLinks}
                             <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
