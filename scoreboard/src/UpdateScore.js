@@ -11,7 +11,7 @@ export class UpdateScore extends Component{
             teamIndex: props.teamIndex,
             sport: props.sport,
             league: props.league,
-            score: props.score
+            scores: props.scores
         }
     }
 
@@ -35,11 +35,12 @@ export class UpdateScore extends Component{
                     return games
                 })
                 .then(games => {
-                    for (let z = 0; z < games.length; z++) {
+                    for (let index = 0; index < games.length; index++) {
+                        var joined = this.state.matchups.concat(games[index]);
+                        var scores = this.state.scores.concat(games[index].competitors[this.state.teamIndex].score);
                         this.setState({ 
-                            // period: joined[this.state.index].status.period,
-                            // clock: joined[this.state.index].status.displayClock,
-                            score: games[z].competitors[this.state.teamIndex].score                                  
+                            matchups: joined,
+                            scores: scores
                         })
                     }
                 })
@@ -55,7 +56,7 @@ export class UpdateScore extends Component{
 
     render() {
         return (
-            <td id="scores">{this.state.score}</td>
+            <td id="scores">{this.state.scores[this.state.index]}</td>
         )
     }
 }

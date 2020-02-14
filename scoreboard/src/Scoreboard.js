@@ -14,10 +14,8 @@ export class Scoreboard extends Component {
             loading: true,
             sport: props.sport,
             league: props.league,
-            clock: '',
-            period: '',
-            homeScore: '',
-            awayScore: '',
+            homeScores: [],
+            awayScores: [],
         };
     }
 
@@ -48,8 +46,16 @@ export class Scoreboard extends Component {
             .then(games => {
                 for (let index = 0; index < games.length; index++) {
                     var joined = this.state.matchups.concat(games[index]);
-                    this.setState({ matchups: joined })
+                    var homeScores = this.state.homeScores.concat(games[index].competitors[1].score);
+                    var awayScores = this.state.awayScores.concat(games[index].competitors[0].score);
+                    this.setState({ 
+                        matchups: joined,
+                        homeScores: homeScores,
+                        awayScores: awayScores
+                    })
                 }
+                console.log("home:" + homeScores)
+                console.log("away:" + awayScores)
                 this.setState({ loading: false })
             })
             .catch(function (error) {
@@ -93,13 +99,13 @@ export class Scoreboard extends Component {
                     <tr>
                         <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
                         {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
-                        <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} score={this.state.matchups[x].competitors[1].score}/>
+                        <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
                         {/* <td id="scores">{this.state.matchups[x].competitors[1].score}</td> */}
                     </tr>
                     <tr>
                         <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
                         {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
-                        <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} score={this.state.matchups[x].competitors[0].score}/>
+                        <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
                         {/* <td id="scores">{this.state.matchups[x].competitors[0].score}</td> */}
                     </tr>
                     <tr>
@@ -116,7 +122,7 @@ export class Scoreboard extends Component {
                     </span>
                 )   
             }
-
+            
             return (
                 //image src link found in json under team > links > logo
                 <table>
