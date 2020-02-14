@@ -26,6 +26,7 @@ export class Scoreboard extends Component {
     populateScoreboard = () => { 
         this.setState({ matchups: [] })
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
+        
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -125,8 +126,20 @@ export class Scoreboard extends Component {
             
             return (
                 //image src link found in json under team > links > logo
-                <table>
-                    {tableData}
+                <table> 
+                    <tr>
+                        <td>
+                            <table class="card-table">
+                                {tableData}
+                            </table>
+                        </td>
+                        <td>            </td>
+                        <td>
+                            <table class="card-table">
+                                {tableData}
+                            </table>
+                        </td>
+                    </tr>
                 </table>
             )
         }
