@@ -20,11 +20,12 @@ h1 {
     width: 3em;
     padding: 15px 15px 15px 15px;
     text-align: center;
+    font-weight: bold;
 }
 
 #teams {
     background: white;
-    width: 15em;
+    width: 17em;
 }
 
 #logo {
