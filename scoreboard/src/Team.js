@@ -143,7 +143,7 @@ export class Team extends Component {
                 }
                 if (this.state.data[index].team.nextEvent[0].competitions[0].boxscoreAvailable === true){
                     homeScores = this.state.homeScores.concat(this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].score.displayValue);
-                    awayScores = this.state.homeScores.concat(this.state.data[index].team.nextEvent[0].competitions[0].competitors[1].score.displayValue);
+                    awayScores = this.state.awayScores.concat(this.state.data[index].team.nextEvent[0].competitions[0].competitors[1].score.displayValue);
                 }
                 else{
                     homeScores = 0
@@ -153,8 +153,8 @@ export class Team extends Component {
                     <span>
                     <tbody className="scoreboard">
                     <tr>
-                        <td id="logo"><img id="thumb" alt="" src={this.state.data[index].team.logos[0].href}/></td>
-                        <td>{this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}</td>
+                        <td id="logo"><img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/></td>
+                        <td id="team-sport">{this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}</td>
                     </tr>
                     <tr>
                         <td>Record:</td>

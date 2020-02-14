@@ -47,14 +47,29 @@ h1 {
     color:gray;
 }
 
+#separator {
+    width: 10em;
+}
+
+#teamthumb {
+    width: 6em;
+    height: 6em;
+}
+
 #thumb {
     width:2em; 
     height:2em;
-  }
+}
+
 #thumb img {
   height: auto;
   width: auto;
   margin:0 auto;
+}
+
+#team-sport {
+    text-align: center;
+    font-weight: bold;
 }
 
 #venue {
