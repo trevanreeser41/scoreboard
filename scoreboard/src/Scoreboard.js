@@ -83,13 +83,17 @@ export class Scoreboard extends Component {
             for (let x = 0; x < this.state.matchups.length; x++) {
                 this.state.matchups[x].competitors[1].records !== undefined ? team1Record = this.state.matchups[x].competitors[1].records[0].summary : team1Record = "0-0"
                 this.state.matchups[x].competitors[0].records !== undefined ? team2Record = this.state.matchups[x].competitors[0].records[0].summary : team2Record = "0-0"
-                AwayRanking = this.state.matchups[x].competitors[1].curatedRank.current
-                HomeRanking = this.state.matchups[x].competitors[0].curatedRank.current
-                if (HomeRanking > 25){
-                    HomeRanking=''
-                }
-                if (AwayRanking > 25){
-                    AwayRanking=''
+                if (this.state.league.includes('college')){
+                        
+                    AwayRanking = this.state.matchups[x].competitors[1].curatedRank.current
+                    HomeRanking = this.state.matchups[x].competitors[0].curatedRank.current
+                    if (HomeRanking > 25 || HomeRanking===0){
+                        HomeRanking=''
+                    }
+                    if (AwayRanking > 25 || AwayRanking===0){
+                        AwayRanking=''
+                    }
+
                 }
                 console.log("Away:"+AwayRanking)
                 console.log("Home:"+HomeRanking)
