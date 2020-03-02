@@ -23,10 +23,6 @@ export class Scoreboard extends Component {
         await this.populateScoreboard();
     }
 
-    componentWillUnmount() {
-        
-    }
-
     populateScoreboard = () => { 
         this.setState({ matchups: [] })
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
@@ -138,19 +134,19 @@ export class Scoreboard extends Component {
                 newData.push(
                         <span>
                             <td>
-                                <table class="card-table">
+                                <table className="card-table">
                                     {tableData[index]}
                                 </table>
                             </td>
                             <td id="separator"></td>
                             <td >
-                                <table class="card-table">
+                                <table className="card-table">
                                     {tableData[index+1]}
                                 </table>
                             </td>
                             <td id="separator"></td>
                             <td >
-                                <table class="card-table">
+                                <table className="card-table">
                                     {tableData[index+2]}
                                 </table>
                             </td>

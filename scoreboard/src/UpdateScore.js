@@ -49,7 +49,7 @@ export class UpdateScore extends Component{
                 .catch(function (error) {
                 console.log("Error: ", error.message);
             });
-        }, hours > 16 ? 10000 : 360000);
+        }, hours > 16 ? 10000 : 360000); //only refresh often if in primetime (16:00-23:59)
     }
 
     componentWillUnmount() {
