@@ -16,6 +16,8 @@ export class UpdateScore extends Component{
     }
 
     componentDidMount() {
+        var hours = new Date().getHours();
+        console.log(hours);
         this.interval = setInterval(() => {
             fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
                 .then(function (response) {
@@ -47,7 +49,7 @@ export class UpdateScore extends Component{
                 .catch(function (error) {
                 console.log("Error: ", error.message);
             });
-        }, 10000);
+        }, hours > 16 ? 10000 : 360000);
     }
 
     componentWillUnmount() {
