@@ -24,7 +24,7 @@ function App() {
         <Route path='/MyTeams'>
           <Team sport="basketball" league="mens-college-basketball" team="BYU" title="Welcome to the R365 Version Dashboard!" id="Red" dotcom={true} isCanary={false} />
         </Route>
-        <br/><br/><br/><br/><br/><br/><br/><br/>
+        <br/>
       </Layout >
     );
   }

@@ -11,13 +11,12 @@ export class UpdateScore extends Component{
             teamIndex: props.teamIndex,
             sport: props.sport,
             league: props.league,
-            scores: props.scores
+            scores: props.scores,
+            hour: new Date().getHours(),
         }
     }
 
     componentDidMount() {
-        var hours = new Date().getHours();
-        console.log(hours);
         this.interval = setInterval(() => {
             fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
                 .then(function (response) {
@@ -49,7 +48,7 @@ export class UpdateScore extends Component{
                 .catch(function (error) {
                 console.log("Error: ", error.message);
             });
-        }, hours > 16 ? 10000 : 360000); //only refresh often if in primetime (16:00-23:59)
+        }, this.state.hour >= 16 ? 10000 : 360000); //only refresh often if in primetime (16:00-23:59)
     }
 
     componentWillUnmount() {

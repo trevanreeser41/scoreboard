@@ -100,7 +100,7 @@ export class Scoreboard extends Component {
                 } else {
                     
                 }
-                let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.matchups[x].venue.fullName
+                let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.matchups[x].venue.fullName + " " + this.state.matchups[x].venue.address.city + " " + this.state.matchups[x].venue.address.state;
                 tableData.push(
                     <span>
                     <tbody className="scoreboard">
