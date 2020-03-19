@@ -45,15 +45,15 @@ export class Team extends Component {
                 },
                 {
                     team: 'iowa',
-                    sport: 'football',
-                    league: 'college-football',
-                    id:'s:20~l:23~t:2294'
+                    sport: 'basketball',
+                    league: 'mens-college-basketball',
+                    id:'s:40~l:41~t:2294'
                 },
                 {
-                    team: 'atl',
+                    team: 'sea',
                     sport: 'football',
                     league: 'nfl',
-                    id:'s:20~l:28~t:1'
+                    id:'s:20~l:28~t:26'
                 },
                 {
                     team: 'hou',
@@ -77,7 +77,6 @@ export class Team extends Component {
 
     async componentWillMount() {
         await this.populateScoreboard();
-        //this.interval = setInterval(() => this.populateScoreboard(), 5000);
     }
 
 
@@ -174,7 +173,7 @@ export class Team extends Component {
                         <td id="scores">{confrecord}</td>
                     </tr>
                     <tr>
-                        <td>Next Game:</td>
+                        <td>Matchup:</td>
                         <td id="scores">{this.state.data[index].team.nextEvent[0].shortName}</td>
                         {/* <td id="scores">{this.state.data[index].team.nextEvent[0].competitions[0].status.type.detail}</td> */}
                     </tr>

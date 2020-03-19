@@ -117,7 +117,7 @@ export class Scoreboard extends Component {
                 } else {
                     
                 }
-                let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.matchups[x].venue.fullName
+                let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.matchups[x].venue.fullName + " " + this.state.matchups[x].venue.address.city + " " + this.state.matchups[x].venue.address.state;
                 tableData.push(
                     <span>
                     <tbody className="scoreboard">
@@ -125,13 +125,11 @@ export class Scoreboard extends Component {
                         <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
                         {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
                         <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
-                        {/* <td id="scores">{this.state.matchups[x].competitors[1].score}</td> */}
                     </tr>
                     <tr>
                         <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
                         {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
                         <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
-                        {/* <td id="scores">{this.state.matchups[x].competitors[0].score}</td> */}
                     </tr>
                     <tr>
                         <td colSpan="3">{status}</td>
@@ -153,19 +151,19 @@ export class Scoreboard extends Component {
                 newData.push(
                         <span>
                             <td>
-                                <table class="card-table">
+                                <table className="card-table">
                                     {tableData[index]}
                                 </table>
                             </td>
                             <td id="separator"></td>
                             <td >
-                                <table class="card-table">
+                                <table className="card-table">
                                     {tableData[index+1]}
                                 </table>
                             </td>
                             <td id="separator"></td>
                             <td >
-                                <table class="card-table">
+                                <table className="card-table">
                                     {tableData[index+2]}
                                 </table>
                             </td>
