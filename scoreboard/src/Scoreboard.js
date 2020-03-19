@@ -77,9 +77,26 @@ export class Scoreboard extends Component {
             let status = '';
             let team1Record = '';
             let team2Record = '';
+            var AwayRanking;
+            var HomeRanking;
+
             for (let x = 0; x < this.state.matchups.length; x++) {
                 this.state.matchups[x].competitors[1].records !== undefined ? team1Record = this.state.matchups[x].competitors[1].records[0].summary : team1Record = "0-0"
                 this.state.matchups[x].competitors[0].records !== undefined ? team2Record = this.state.matchups[x].competitors[0].records[0].summary : team2Record = "0-0"
+                if (this.state.league.includes('college')){
+                        
+                    AwayRanking = this.state.matchups[x].competitors[1].curatedRank.current
+                    HomeRanking = this.state.matchups[x].competitors[0].curatedRank.current
+                    if (HomeRanking > 25 || HomeRanking===0){
+                        HomeRanking=''
+                    }
+                    if (AwayRanking > 25 || AwayRanking===0){
+                        AwayRanking=''
+                    }
+
+                }
+                console.log("Away:"+AwayRanking)
+                console.log("Home:"+HomeRanking)
                 if (this.state.matchups[x].status.type.completed === true) {
                     if (this.state.matchups[x].status.period === 5) {
                         status = <tr id="status"><strong>FINAL/OT</strong></tr>
@@ -106,12 +123,12 @@ export class Scoreboard extends Component {
                     <tbody className="scoreboard">
                     <tr>
                         <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                        {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
+                        {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
                         <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
                     </tr>
                     <tr>
                         <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
-                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
+                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
                         <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
                     </tr>
                     <tr>
