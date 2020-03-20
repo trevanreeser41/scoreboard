@@ -26,7 +26,6 @@ export class Scoreboard extends Component {
     populateScoreboard = () => { 
         this.setState({ matchups: [] })
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
-        
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -60,15 +59,6 @@ export class Scoreboard extends Component {
             .catch(function (error) {
             console.log("Error: ", error.message);
         });
-    }
-
-    splitScoreTable (array, chunk_size) {
-        var tempArray = [];     
-        for (var index = 0; index < array.length; index += chunk_size) {
-            var myChunk = array.slice(index, index+chunk_size);
-            tempArray.push(myChunk);
-        }    
-        return tempArray;
     }
 
     render() {
@@ -145,38 +135,21 @@ export class Scoreboard extends Component {
                     </span>
                 )   
             }
-            //var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
             var newData = []
             for (let index = 0; index < tableData.length; index++) {
                 newData.push(
-                        <span>
-                            <td>
-                                <table className="card-table">
-                                    {tableData[index]}
-                                </table>
-                            </td>
-                            <td id="separator"></td>
-                            <td >
-                                <table className="card-table">
-                                    {tableData[index+1]}
-                                </table>
-                            </td>
-                            <td id="separator"></td>
-                            <td >
-                                <table className="card-table">
-                                    {tableData[index+2]}
-                                </table>
-                            </td>
-                        </span>
+                    <div class="grid-item">
+                        <table className="card-table">
+                            {tableData[index]}
+                        </table>
+                    </div>
                 )
-                index+=2
             }
 
             return (
-                //image src link found in json under team > links > logo
-                <table> 
+                <div class="grid-container"> 
                     {newData}
-                </table>
+                </div>
             )
         }
         else{

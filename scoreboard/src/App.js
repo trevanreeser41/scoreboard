@@ -4,6 +4,7 @@ import { Layout } from './layout';
 import './App.css';
 import { Scoreboard } from './Scoreboard';
 import { Team } from './Team';
+import {Rankings} from './Rankings'
 
 function App() {
 
@@ -23,6 +24,9 @@ function App() {
         </Route>
         <Route path='/MyTeams'>
           <Team sport="basketball" league="mens-college-basketball" team="BYU" title="Welcome to the R365 Version Dashboard!" id="Red" dotcom={true} isCanary={false} />
+        </Route>
+        <Route path='/Rankings'>
+          <Rankings  />
         </Route>
         <br/>
       </Layout >
