@@ -122,7 +122,7 @@ export class Team extends Component {
         if (professionalLeagues.includes(league)) {
             return "Playoff Seed:";
         }
-        else return "Ranking:"
+        else return "AP Ranking:"
     }
 
     testForRankingPlayoff = (index) => {
