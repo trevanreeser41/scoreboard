@@ -4,8 +4,6 @@ import './Scoreboard.css';
 /*
 COMMENTS:
 Football has no record element further down in the array currently, for bball this is what has conf record
-
-
 */
 
 export class Team extends Component {
@@ -19,7 +17,6 @@ export class Team extends Component {
             matchups: [],
             loading: true,
             teamData: null,
-            confrecord: "",
             sport: props.sport,
             league: props.league,
             homeScores: [],
@@ -61,27 +58,17 @@ export class Team extends Component {
                     league: 'mlb',
                     id:'s:1~l:10~t:18'
                 },
-                // {
-                //     team: 'bos',
-                //     sport: 'hockey',
-                //     league: 'nhl',
-                //     id:'s:70~l:90~t:1'
-                // },
-
             ],
             data: [],
         };
-    }
-
-    
+    }    
 
     async componentWillMount() {
         await this.populateScoreboard();
     }
 
-
     populateScoreboard = () => { 
-        var dataarray =[]
+        var dataarray =[];        
         for (let index = 0; index < this.state.selectedTeams.length; index++) {
         
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.selectedTeams[index].sport}/${this.state.selectedTeams[index].league}/teams/${this.state.selectedTeams[index].team}`)
@@ -95,14 +82,12 @@ export class Team extends Component {
             .then(data => {
 
                 dataarray.push(data)
-                this.setState({teamData: data, loading: false,data: dataarray})
-                //console.log(this.state.data)
+                this.setState({teamData: data, loading: false, data: dataarray})
             })
             .catch(function (error) {
             console.log("Error: ", error.message);
         });
         }   
-        console.log(this.state.data)
     }
 
     splitScoreTable (array, chunk_size) {
@@ -112,6 +97,50 @@ export class Team extends Component {
             tempArray.push(myChunk);
         }    
         return tempArray;
+    }
+
+    testForMatchupScores = (competitorIndex, index) => {
+        try {
+            return this.state.data[index].team.nextEvent[0].competitions[0].competitors[competitorIndex].team.abbreviation;
+        }
+        catch {
+            return "TBD";
+        }
+    }
+
+    testForNextEvent = (index) => {
+        try {
+            return this.state.data[index].team.nextEvent[0].shortName;
+        }
+        catch {
+            return "TBD";
+        }
+    }
+
+    testForProfessionalTeam = (league) => {
+        var professionalLeagues = ["nfl","nba","mlb","nhl","wnba"];
+        if (professionalLeagues.includes(league)) {
+            return "Playoff Seed:";
+        }
+        else return "Ranking:"
+    }
+
+    testForRankingPlayoff = (index) => {
+        try {
+            return this.state.data[index].team.record.items[0].stats[0].value;
+        }
+        catch {
+            return this.state.data[index].team.rank;
+        }
+    }
+
+    testForRecord = (index) => {
+        try {
+            return this.state.data[index].team.record.items[0].summary;
+        }
+        catch {
+            return this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].record[0].displayValue;
+        }
     }
 
     render() {
@@ -134,26 +163,14 @@ export class Team extends Component {
             for (let index = 0; index < this.state.data.length; index++) { //data[index] sub this for teamData
                 for (let j = 0; j < this.state.selectedTeams.length; j++) {
                     if (this.state.selectedTeams[j].id===this.state.data[index].team.uid){
-                        teamData = this.state.selectedTeams[j]
-                    }
-                    
-                }
-
-                
-                let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.data[index].team.nextEvent[0].competitions[0].venue.fullName
-                var confrecord=""
-                if (teamData.sport==="mens-college-basketball") {
-                    for (let i = 0; i < this.state.data[index].team.nextEvent[0].competitions[0].competitors.length; i++) {
-                        if (this.state.data[index].team.nextEvent[0].competitions[0].competitors[i].id===this.state.data[index].team.id) {
-                            confrecord = this.state.data[index].team.nextEvent[0].competitions[0].competitors[i].record[3].displayValue
-                        }
+                        teamData = this.state.selectedTeams[j]                        
                     }
                 }
-                if (this.state.data[index].team.nextEvent[0].competitions[0].boxscoreAvailable === true){
+                try {
                     homeScores = this.state.homeScores.concat(this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].score.displayValue);
                     awayScores = this.state.awayScores.concat(this.state.data[index].team.nextEvent[0].competitions[0].competitors[1].score.displayValue);
                 }
-                else{
+                catch {
                     homeScores = 0
                     awayScores = 0
                 }
@@ -166,30 +183,24 @@ export class Team extends Component {
                     </tr>
                     <tr>
                         <td>Record:</td>
-                        <td id="scores">{this.state.data[index].team.record.items[0].summary}</td>
+                        <td id="scores">{this.testForRecord(index)}</td>
                     </tr>
                     <tr>
-                        <td>Conf. Record:</td>
-                        <td id="scores">{confrecord}</td>
+                        <td>{this.testForProfessionalTeam(teamData.league)}</td>
+                        <td id="scores">{this.testForRankingPlayoff(index)}</td>
                     </tr>
                     <tr>
                         <td>Matchup:</td>
-                        <td id="scores">{this.state.data[index].team.nextEvent[0].shortName}</td>
-                        {/* <td id="scores">{this.state.data[index].team.nextEvent[0].competitions[0].status.type.detail}</td> */}
+                        <td id="scores">{this.testForNextEvent(index)}</td>
                     </tr>
                     <tr>
-                        <td>Score:</td>
-                        <td id="scores"><td>{this.state.data[index].team.nextEvent[0].competitions[0].competitors[1].team.abbreviation} {awayScores}</td><td>{this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].team.abbreviation} {homeScores}</td></td>
+                        <td>Most Recent Score:</td>
+                        <td id="scores"><td>{this.testForMatchupScores(1, index)} {awayScores}</td><td>{this.testForMatchupScores(0, index)} {homeScores}</td></td>
                     </tr>
                     <tr>
-                        <td colSpan="2">{this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Information Not Available"}</td>
+                        <td colSpan="2"><strong>{this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Information Not Available"}</strong></td>
                     </tr>
                     </tbody>
-                    <tfoot>
-                        <td colSpan="2">
-                        {this.state.data[index].team.nextEvent[0].competitions[0].venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.data[index].team.nextEvent[0].competitions[0].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.data[index].team.nextEvent[0].competitions[0].venue.fullName} ({this.state.data[index].team.nextEvent[0].competitions[0].venue.address.city}, {this.state.data[index].team.nextEvent[0].competitions[0].venue.address.state})</a>}
-                        </td>
-                    </tfoot>
                     <br/>
                     <br/>
                     </span>
