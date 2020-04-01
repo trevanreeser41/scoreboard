@@ -1,0 +1,47 @@
+.rankingsTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #f2f2f2;
+}
+
+.rankingsTable td, .rankingsTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.rankingsTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: royalblue;
+    color: white;
+}
+
+.rankingsTable .rank{
+    text-align: center;
+}
+
+.rankings {
+    height: auto;
+    width: auto;
+    margin: 70px auto;
+  }
+
+.rankings td {
+    background: white;
+    border-style: solid;
+    border-color: gray;
+    padding: 10px 10px 10px 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 10px;
+}
+
+.grid-item {
+    font-size: 30px;
+    text-align: center;
+}
