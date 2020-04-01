@@ -72,3 +72,7 @@ html {
     height: 40px;
     opacity: 0.9;
 }
+
+.title {
+    float: left;
+}

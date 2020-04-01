@@ -9,21 +9,27 @@ function App() {
 
     return (
       < Layout >
-        <Route 
-            exact path='/'
-            />
+        <Route exact path='/'>
+          <Team />
+        </Route>
         <Route path='/NBA'>
             <Scoreboard sport="basketball" league="nba"/>
         </Route>
-        {/* <Route path='/CollegeBasketball'>
-          <Scoreboard sport="basketball" league="mens-college-basketball" team="Mobile" title="Welcome to the R365 Version Dashboard!" id="Red" dotcom={true} isCanary={false} />
-        </Route> */}
-        <Route path='/NCAAF'>
+        <Route path='/CollegeBasketball'>
+          <Scoreboard sport="basketball" league="mens-college-basketball" />
+        </Route>
+        <Route path='/CollegeFootball'>
           <Scoreboard sport="football" league="college-football"/>
         </Route>
-        <Route path='/Favorites'>
-          <Team />
+        <Route path='/NFL'>
+          <Scoreboard sport="football" league="nfl"/>
         </Route>
+        <Route path='/MLB'>
+          <Scoreboard sport="baseball" league="mlb"/>
+        </Route>  
+        <Route path='/NHL'>
+          <Scoreboard sport="hockey" league="nhl"/>
+        </Route>            
         <br/>
       </Layout >
     );

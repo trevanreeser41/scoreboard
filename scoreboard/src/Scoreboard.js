@@ -180,8 +180,43 @@ export class Scoreboard extends Component {
             )
         }
         else{
-        return(
-            <h1>Loading...</h1>
-        )}
+            return(
+                <h1>Loading...</h1>
+            )}
     }
 }
+
+// export class League {
+//     constructor(props) {
+//         super(props)
+//         this.state = {
+//             league: props.league,
+//             hasScores: true,
+//             isProfessional: true
+//         }
+//     }
+// }
+
+// export class Sport extends League {
+//     constructor (props) {
+//         super(props)
+//         this.league = props.league
+//     }
+
+//     getLeague() {
+//         return this.league
+//     }
+
+//     isProfessionalSport() {
+//         return this.league.isProfessional
+//     }
+
+//     showSportsScores() {
+//         if (this.league.hasScores) {
+//             return this.league.getScores
+//         }
+//         else {
+//             return "No Scores Available"
+//         }
+//     }
+// }
