@@ -25,18 +25,15 @@ function App() {
         <Route path='/NFL'>
           <Scoreboard sport="football" league="nfl"/>
         </Route>
-<<<<<<< HEAD
         <Route path='/MLB'>
           <Scoreboard sport="baseball" league="mlb"/>
         </Route>  
         <Route path='/NHL'>
           <Scoreboard sport="hockey" league="nhl"/>
         </Route>            
-=======
         <Route path='/Rankings'>
           <Rankings  />
         </Route>
->>>>>>> 7768e373d76f9f8a4b49c31b4fd312f52fe34cc7
         <br/>
       </Layout >
     );

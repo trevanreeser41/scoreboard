@@ -92,16 +92,13 @@ export class NavBar extends Component {
                             {teamLinks}
                             <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
                             <Link className={this.props.currentPage === "CollegeBasketball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeBasketball">NCAAM</Link>
-<<<<<<< HEAD
                             <Link className={this.props.currentPage === "CollegeFootball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeFootball">NCAAF</Link>
                             <Link className={this.props.currentPage === "NFL" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NFL">NFL</Link>
                             <Link className={this.props.currentPage === "MLB" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLB">MLB</Link>
                             <Link className={this.props.currentPage === "NHL" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NHL">NHL</Link>
-=======
                             <Link className={this.props.currentPage === "NCAAF" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NCAAF">NCAAF</Link>
                             <Link className={this.props.currentPage === "Rankings" ? "nav-item nav-link active" : "nav-item nav-link"} to="/Rankings">Rankings</Link>
                             <Link className={this.props.currentPage === "Favorites" ? "nav-item nav-link active" : "nav-item nav-link"} to="/Favorites">Favorites</Link>
->>>>>>> 7768e373d76f9f8a4b49c31b4fd312f52fe34cc7
                         </div>
                     </div>
                 </nav>

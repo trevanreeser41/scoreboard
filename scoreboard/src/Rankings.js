@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { UpdateScore } from './UpdateScore';
+// import { UpdateScore } from './UpdateScore';
 import './Rankings.css';
 
 export class Rankings extends Component {
