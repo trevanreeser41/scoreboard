@@ -147,7 +147,7 @@ export class Scoreboard extends Component {
             }
 
             return (
-                <div class="grid-container"> 
+                <div class="flex-container"> 
                     {newData}
                 </div>
             )
