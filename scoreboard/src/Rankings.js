@@ -59,14 +59,14 @@ export class Rankings extends Component {
                 
                     tableData.push(
                         <tr>
-                            <td class="rank">{this.state.data[index].rankings[0].ranks[index1].current}</td><td> {this.state.data[index].rankings[0].ranks[index1].team.location} {this.state.data[index].rankings[0].ranks[index1].team.name}</td>
+                            <td id="logo"><img id="thumb" alt="logo" src={this.state.data[index].rankings[0].ranks[index1].team.logo}/></td><td class="rank">{this.state.data[index].rankings[0].ranks[index1].current}</td><td> {this.state.data[index].rankings[0].ranks[index1].team.location} {this.state.data[index].rankings[0].ranks[index1].team.name}</td>
                         </tr>
                     )   
                 }
                 newData.push(
                     <div class="grid-item rankings">
                         <table class="rankingsTable">
-                            <thead><tr><th colSpan="2">{this.state.data[index].leagues[0].name} {this.state.data[index].rankings[0].name}</th></tr></thead>
+                            <thead><tr><th colSpan="3">{this.state.data[index].leagues[0].name} {this.state.data[index].rankings[0].name}</th></tr></thead>
                             <tbody>{tableData}</tbody>
                         </table>
                     </div>
