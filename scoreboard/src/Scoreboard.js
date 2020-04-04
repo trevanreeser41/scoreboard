@@ -22,6 +22,7 @@ export class Scoreboard extends Component {
         await this.populateScoreboard();
     }
 
+    //MARK: Fetch statement, this calls the API and stores the information in this.State
     populateScoreboard = () => { 
         this.setState({ matchups: [] })
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
@@ -60,6 +61,105 @@ export class Scoreboard extends Component {
         });
     }
 
+
+    //MARK: Helper Functions to build each matchups card
+    includeRankings(league, x){
+        if (league.includes('college')){
+                        
+            var AwayRanking = this.state.matchups[x].competitors[1].curatedRank.current
+            var  HomeRanking = this.state.matchups[x].competitors[0].curatedRank.current
+            if (HomeRanking > 25 || HomeRanking===0){
+                HomeRanking=''
+            }
+            if (AwayRanking > 25 || AwayRanking===0){
+                AwayRanking=''
+            }
+
+        }
+        return [HomeRanking, AwayRanking]
+    }
+
+    intoOT(completed, period, league, x){
+        var OT;
+        if (league === "college-football"){
+            OT=5
+        }
+        else if (league=== "nba"){
+            OT=5
+        }
+        else if (league=== "mens-college-basketball"){
+            OT=3
+        }
+        else if (league=== "nfl"){
+            OT=5
+        }
+        else if (league=== "mlb"){
+            OT=10
+        }
+        else if (league=== "nhl"){
+            OT=4
+        }
+        if (completed === true) {
+            if (period === OT) {
+                return <tr id="status"><strong>FINAL/OT</strong></tr>
+            }
+            else if (this.state.matchups[x].status.period > OT){
+                if (league === 'mlb'){
+                    return <tr id="status"><strong>FINAL/{period} innings</strong></tr>
+                }
+                else{
+                    let overtime_period = period - (OT-1)
+                    return <tr id="status"><strong>FINAL/{overtime_period}OT</strong></tr>
+                }
+            }
+            else {
+                return <tr id="status"><strong>FINAL</strong></tr>
+            }
+        }
+        else if (period < OT && period > 0) {
+            return <tr id="status"><strong>Q{period} - {this.state.matchups[x].status.displayClock}</strong></tr>
+        } 
+        else if (period === 0) {
+            return <tr id="status">{this.state.matchups[x].status.type.detail}</tr>
+        } else {
+            
+        }
+    }
+
+    homeTeamBox(x, AwayRanking, team1Record, matchup){
+        return <tr>
+                <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
+                {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams"><Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[1].team.abbreviation}/schedule`}>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} </Link> <span id="record">({team1Record})</span></td>}
+                <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
+            </tr>
+    }
+
+    awayTeamBox(x, HomeRanking, team2Record, matchup){
+        return <tr>
+            <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
+            {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
+            <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
+        </tr>
+    }
+
+    getMatchup(x){
+        return this.state.matchups[x]
+    }
+
+    getHomeTeam(matchup){
+        return matchup.competitors[1]
+    }
+
+    getAwayTeam(matchup){
+        return matchup.competitors[0]
+    }
+
+    openToVenue(matchup){
+        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+    }
+
+
+    //MARK: Render logic using the helper functions and outputing the correct html
     render() {
         if (this.state.loading===false){
             let tableData = [];
@@ -70,63 +170,31 @@ export class Scoreboard extends Component {
             var HomeRanking;
 
             for (let x = 0; x < this.state.matchups.length; x++) {
-                this.state.matchups[x].competitors[1].records !== undefined ? team1Record = this.state.matchups[x].competitors[1].records[0].summary : team1Record = "0-0"
-                this.state.matchups[x].competitors[0].records !== undefined ? team2Record = this.state.matchups[x].competitors[0].records[0].summary : team2Record = "0-0"
-                if (this.state.league.includes('college')){
-                        
-                    AwayRanking = this.state.matchups[x].competitors[1].curatedRank.current
-                    HomeRanking = this.state.matchups[x].competitors[0].curatedRank.current
-                    if (HomeRanking > 25 || HomeRanking===0){
-                        HomeRanking=''
-                    }
-                    if (AwayRanking > 25 || AwayRanking===0){
-                        AwayRanking=''
-                    }
+                var matchup = this.getMatchup(x)
+                var homeTeam =this.getHomeTeam(matchup)
+                var awayTeam =this.getAwayTeam(matchup)
+                homeTeam.records !== undefined ? team1Record = homeTeam.records[0].summary : team1Record = "0-0"
+                awayTeam.records !== undefined ? team2Record = awayTeam.records[0].summary : team2Record = "0-0"
+                
 
-                }
-                // console.log("Away:"+AwayRanking)
-                // console.log("Home:"+HomeRanking)
-                if (this.state.matchups[x].status.type.completed === true) {
-                    if (this.state.matchups[x].status.period === 5) {
-                        status = <tr id="status"><strong>FINAL/OT</strong></tr>
-                    }
-                    else if (this.state.matchups[x].status.period > 5){
-                        let overtime_period = Number(this.state.matchups[x].status.period) - 4
-                        status = <tr id="status"><strong>FINAL/{overtime_period}OT</strong></tr>
-                    }
-                    else {
-                        status = <tr id="status"><strong>FINAL</strong></tr>
-                    }
-                }
-                else if (this.state.matchups[x].status.period < 5 && this.state.matchups[x].status.period > 0) {
-                    status = <tr id="status"><strong>Q{this.state.matchups[x].status.period} - {this.state.matchups[x].status.displayClock}</strong></tr>
-                } 
-                else if (this.state.matchups[x].status.period === 0) {
-                    status = <tr id="status">{this.state.matchups[x].status.type.detail}</tr>
-                } else {
-                    
-                }
-                let location = "https://www.google.com/maps/search/?api=1&query=" + this.state.matchups[x].venue.fullName + " " + this.state.matchups[x].venue.address.city + " " + this.state.matchups[x].venue.address.state;
+                AwayRanking = this.includeRankings(this.state.league, x, matchup)[1]
+                AwayRanking = this.includeRankings(this.state.league, x, matchup)[0]
+                status = this.intoOT(matchup.status.type.completed, matchup.status.period, this.state.league, x )
+
+                let location = this.openToVenue(matchup)
+
                 tableData.push(
                     <span>
                     <tbody className="scoreboard">
-                    <tr>
-                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                        {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams"><Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[1].team.abbreviation}/schedule`}>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} </Link> <span id="record">({team1Record})</span></td>}
-                        <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
-                    </tr>
-                    <tr>
-                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
-                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
-                        <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
-                    </tr>
+                    {this.homeTeamBox(x, AwayRanking, team1Record)}
+                    {this.awayTeamBox(x, HomeRanking, team2Record )}
                     <tr>
                         <td colSpan="3">{status}</td>
                     </tr>
                     </tbody>
                     <tfoot>
                         <td colSpan="3">
-                            {this.state.matchups[x].venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName} ({this.state.matchups[x].venue.address.city}, {this.state.matchups[x].venue.address.state})</a>}
+                            {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
                         </td>
                     </tfoot>
                     <br/>
@@ -134,35 +202,6 @@ export class Scoreboard extends Component {
                     </span>
                 )   
             }
-
-            // var newData = []
-            // for (let index = 0; index < tableData.length; index+3) {
-            //     newData.push(
-            //         <span>
-            //             <div class="grid-item">
-            //                 <table className="card-table">
-            //                     {tableData[index]}
-            //                 </table>
-            //             </div>
-            //             <div class="grid-item">
-            //                 <table className="card-table">
-            //                     {tableData[index+1]}
-            //                 </table>
-            //             </div>
-            //             <div class="grid-item">
-            //                 <table className="card-table">
-            //                     {tableData[index+2]}
-            //                 </table>
-            //             </div>
-            //         </span>
-            //     )
-            // }
-
-            // return (
-            //     <div class="row"> 
-            //         {newData}
-            //     </div>
-            // )
 
             var newData = []
             for (let index = 0; index < tableData.length; index=index+3) {
@@ -193,38 +232,3 @@ export class Scoreboard extends Component {
             )}
     }
 }
-
-// export class League {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             league: props.league,
-//             hasScores: true,
-//             isProfessional: true
-//         }
-//     }
-// }
-
-// export class Sport extends League {
-//     constructor (props) {
-//         super(props)
-//         this.league = props.league
-//     }
-
-//     getLeague() {
-//         return this.league
-//     }
-
-//     isProfessionalSport() {
-//         return this.league.isProfessional
-//     }
-
-//     showSportsScores() {
-//         if (this.league.hasScores) {
-//             return this.league.getScores
-//         }
-//         else {
-//             return "No Scores Available"
-//         }
-//     }
-// }

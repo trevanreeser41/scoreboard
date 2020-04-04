@@ -94,14 +94,24 @@ h1 {
 .flexcontainer {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
  }
 
 .card-table{
     margin-right: 20px;
     margin-left: 20px;
+    width: 30vw;
 }
 
 .card-table-schedule{
     margin: 20px;
 }
+
+.card-table-team{
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 30vw;
+    height: 20vh;
+}
+
 

@@ -5,7 +5,8 @@ import './App.css';
 import { Scoreboard } from './Scoreboard';
 import { Team } from './Team';
 import {Rankings} from './Rankings'
-import { Schedule } from './Schedule';
+import { ScheduleTable } from './ScheduleTable';
+
 
 function App() {
 
@@ -36,7 +37,7 @@ function App() {
           <Rankings  />
         </Route>
         <Route path='/sports/'>
-          <Schedule />
+          <ScheduleTable />
         </Route>
         <br/>
       </Layout >

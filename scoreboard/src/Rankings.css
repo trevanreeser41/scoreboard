@@ -46,10 +46,10 @@
     padding: 10px 10px 10px 10px;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    padding: 10px;
+.flexcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .grid-item {
