@@ -50,10 +50,7 @@ export class Rankings extends Component {
     render() {
         if (this.state.loading===false){
             var newData = []
-            // console.log("THIS IS DATA:")
-            // console.log(this.state.data)
             for (let index = 0; index < this.state.data.length; index++) {
-                //console.log(index)
                 var tableData = []
                 for (let index1 = 0; index1 < this.state.data[index].rankings[0].ranks.length; index1++) {
                 
@@ -75,13 +72,10 @@ export class Rankings extends Component {
             }
 
             return(
-                <span className="grid-container">
+                <span class="flexcontainer">
                     {newData}
                 </span>
             )
-
-
-
         }
         else{
             return(
