@@ -7,9 +7,7 @@ export class Scoreboard extends Component {
     constructor(props) {
         super(props)
 		this.state = {
-			team: props.team,
-			title: props.title,
-            id: props.id,
+
             matchups: [],
             loading: true,
             sport: props.sport,
@@ -135,19 +133,55 @@ export class Scoreboard extends Component {
                     </span>
                 )   
             }
+
+            // var newData = []
+            // for (let index = 0; index < tableData.length; index+3) {
+            //     newData.push(
+            //         <span>
+            //             <div class="grid-item">
+            //                 <table className="card-table">
+            //                     {tableData[index]}
+            //                 </table>
+            //             </div>
+            //             <div class="grid-item">
+            //                 <table className="card-table">
+            //                     {tableData[index+1]}
+            //                 </table>
+            //             </div>
+            //             <div class="grid-item">
+            //                 <table className="card-table">
+            //                     {tableData[index+2]}
+            //                 </table>
+            //             </div>
+            //         </span>
+            //     )
+            // }
+
+            // return (
+            //     <div class="row"> 
+            //         {newData}
+            //     </div>
+            // )
+
             var newData = []
-            for (let index = 0; index < tableData.length; index++) {
+            for (let index = 0; index < tableData.length; index=index+3) {
                 newData.push(
-                    <div class="grid-item">
+                    <div class="flexcontainer">
                         <table className="card-table">
                             {tableData[index]}
+                        </table>
+                        <table className="card-table">
+                            {tableData[index+1]}
+                        </table>
+                        <table className="card-table">
+                            {tableData[index+2]}
                         </table>
                     </div>
                 )
             }
 
             return (
-                <div class="flex-container"> 
+                <div class=""> 
                     {newData}
                 </div>
             )
