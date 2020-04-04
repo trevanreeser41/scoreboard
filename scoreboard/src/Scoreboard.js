@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { UpdateScore } from './UpdateScore';
 import './Scoreboard.css';
 
@@ -83,8 +84,8 @@ export class Scoreboard extends Component {
                     }
 
                 }
-                console.log("Away:"+AwayRanking)
-                console.log("Home:"+HomeRanking)
+                // console.log("Away:"+AwayRanking)
+                // console.log("Home:"+HomeRanking)
                 if (this.state.matchups[x].status.type.completed === true) {
                     if (this.state.matchups[x].status.period === 5) {
                         status = <tr id="status"><strong>FINAL/OT</strong></tr>
@@ -111,7 +112,7 @@ export class Scoreboard extends Component {
                     <tbody className="scoreboard">
                     <tr>
                         <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                        {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
+                        {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams"><Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[1].team.abbreviation}/schedule`}>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} </Link> <span id="record">({team1Record})</span></td>}
                         <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
                     </tr>
                     <tr>

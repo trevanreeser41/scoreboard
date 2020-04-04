@@ -1,3 +1,14 @@
+#logo {
+    background: white;
+    width: 3em;
+}
+
+#thumb img {
+    height: auto;
+    width: auto;
+    margin:0 auto;
+  }
+
 .rankingsTable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
