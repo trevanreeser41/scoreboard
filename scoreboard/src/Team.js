@@ -58,6 +58,18 @@ export class Team extends Component {
                     league: 'mlb',
                     id:'s:1~l:10~t:18'
                 },
+                {
+                    team: 'hou',
+                    sport: 'baseball',
+                    league: 'mlb',
+                    id:'s:1~l:10~t:18'
+                },
+                {
+                    team: 'sea',
+                    sport: 'football',
+                    league: 'nfl',
+                    id:'s:20~l:28~t:26'
+                },
             ],
             data: [],
         };
@@ -208,35 +220,26 @@ export class Team extends Component {
                 }
                 //var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
                 var newData = []
-                for (let index = 0; index < tableData.length; index++) {
-                    newData.push(
-                            <span>
-                                <td>
-                                    <table class="card-table">
-                                        {tableData[index]}
-                                    </table>
-                                </td>
-                                <td id="separator"></td>
-                                <td >
-                                    <table class="card-table">
-                                        {tableData[index+1]}
-                                    </table>
-                                </td>
-                                <td id="separator"></td>
-                                <td >
-                                    <table class="card-table">
-                                        {tableData[index+2]}
-                                    </table>
-                                </td>
-                            </span>
+                for (let index = 0; index < tableData.length; index=index+3) {
+                    newData.push(                                
+                        <div class="flexcontainer">
+                            <table className="card-table-team">
+                                {tableData[index]}
+                            </table>
+                            <table className="card-table-team">
+                                {tableData[index+1]}
+                            </table>
+                            <table className="card-table-team">
+                                {tableData[index+2]}
+                            </table>
+                        </div>
                     )
-                    index+=index+2
                 }
 
                 return (
-                    <table> 
+                    <div className=''> 
                         {newData}
-                    </table>
+                    </div>
                 )
            
         }
