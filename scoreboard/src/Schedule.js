@@ -93,18 +93,24 @@ export class Schedule extends Component {
                 )   
             }
             var newData = []
-            for (let index = 0; index < tableData.length; index++) {
+            for (let index = 0; index < tableData.length; index=index+3) {
                 newData.push(
-                    <div class="grid-item">
-                        <table className="card-table">
+                    <div class="flexcontainer">
+                        <table className="card-table-schedule">
                             {tableData[index]}
+                        </table>
+                        <table className="card-table-schedule">
+                            {tableData[index+1]}
+                        </table>
+                        <table className="card-table-schedule">
+                            {tableData[index+2]}
                         </table>
                     </div>
                 )
             }
 
             return (
-                <div class="flex-container"> 
+                <div class=""> 
                     {newData}
                 </div>
             )
