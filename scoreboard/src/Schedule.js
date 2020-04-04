@@ -46,12 +46,12 @@ export class Schedule extends Component {
             .then(games => {
                 for (let index = 0; index < games.length; index++) {
                     var joined = this.state.matchups.concat(games[index]);
-                    var homeScores = this.state.homeScores.concat(games[index].competitors[1].score.displayValue);
-                    var awayScores = this.state.awayScores.concat(games[index].competitors[0].score.displayValue);
+                    // var homeScores = this.state.homeScores.concat(games[index].competitors[1].score.displayValue);
+                    // var awayScores = this.state.awayScores.concat(games[index].competitors[0].score.displayValue);
                     this.setState({ 
                         matchups: joined,
-                        homeScores: homeScores,
-                        awayScores: awayScores,
+                        // homeScores: homeScores,
+                        // awayScores: awayScores,
                     })
                 }
                 this.setState({ loading: false })
@@ -64,7 +64,6 @@ export class Schedule extends Component {
     render() {
         if (this.state.loading===false){
             let tableData = [];
-            let status = '';
             let team1Record = '';
             let team2Record = '';
             var AwayRanking;

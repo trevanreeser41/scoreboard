@@ -130,7 +130,7 @@ export class Team extends Component {
             return this.state.data[index].team.record.items[0].stats[0].value;
         }
         catch {
-            return this.state.data[index].team.rank;
+            return this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].curatedRank.current;
         }
     }
 
