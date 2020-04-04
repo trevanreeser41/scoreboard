@@ -110,16 +110,20 @@ export class Scoreboard extends Component {
                 tableData.push(
                     <span>
                     <tbody className="scoreboard">
-                    <tr>
-                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                        {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams"><Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[1].team.abbreviation}/schedule`}>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} </Link> <span id="record">({team1Record})</span></td>}
-                        <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
-                    </tr>
-                    <tr>
-                        <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
-                        {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
-                        <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
-                    </tr>
+                    <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[1].team.abbreviation}/schedule`}>
+                        <tr>
+                            <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
+                            {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
+                            <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
+                        </tr>
+                    </Link>
+                    <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[0].team.abbreviation}/schedule`}>
+                        <tr>
+                            <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
+                            {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
+                            <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
+                        </tr>
+                    </Link>
                     <tr>
                         <td colSpan="3">{status}</td>
                     </tr>
@@ -193,38 +197,3 @@ export class Scoreboard extends Component {
             )}
     }
 }
-
-// export class League {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             league: props.league,
-//             hasScores: true,
-//             isProfessional: true
-//         }
-//     }
-// }
-
-// export class Sport extends League {
-//     constructor (props) {
-//         super(props)
-//         this.league = props.league
-//     }
-
-//     getLeague() {
-//         return this.league
-//     }
-
-//     isProfessionalSport() {
-//         return this.league.isProfessional
-//     }
-
-//     showSportsScores() {
-//         if (this.league.hasScores) {
-//             return this.league.getScores
-//         }
-//         else {
-//             return "No Scores Available"
-//         }
-//     }
-// }
