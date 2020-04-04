@@ -66,11 +66,11 @@ export class ScheduleTable extends Component {
     }
 
     getHomeTeam(index){
-        return this.state.matchups[index].competitors[1]
+        return this.state.matchups[index].competitors[0]
     }
 
     getAwayTeam(index){
-        return this.state.matchups[index].competitors[0]
+        return this.state.matchups[index].competitors[1]
     }
 
     openToVenue(matchup){
@@ -114,6 +114,7 @@ export class ScheduleTable extends Component {
                 var matchup = this.getMatchup[index]
                 var homeTeam = this.getHomeTeam(index)
                 var awayTeam = this.getAwayTeam(index)
+                //let location = this.openToVenue(matchup)
                 if (this.state.season !== "Off Season") {
                     this.state.matchups[index].competitors[1].record !== undefined ? team1Record = this.state.matchups[index].competitors[1].record[0].displayValue : team1Record = "0-0"
                     this.state.matchups[index].competitors[0].record !== undefined ? team2Record = this.state.matchups[index].competitors[0].record[0].displayValue : team2Record = "0-0"
@@ -121,28 +122,30 @@ export class ScheduleTable extends Component {
                 tableData1.push(
                     <tr>
                         <td>{this.state.matchups[index].date}</td>
-                        {/* <td id="logo"><img id="thumb" alt="logo" src={awayTeam.team.logos[0].href}/></td> */}
-                        <td class="rank">{awayTeam.team.displayName}</td>
-                        <td>{team2Record}</td>
-                        <td>at</td>
-                        {/* <td id="logo"><img id="thumb" alt="logo" src={homeTeam.team.logos[0].href}/></td> */}
-                        <td class="rank">{homeTeam.team.displayName}</td>
-                        <td>{team1Record}</td>
+                        <td id="logo"><img id="thumb" alt="logo" src={awayTeam.team.logos[0].href}/></td>
+                        <td class="rank">{awayTeam.team.displayName} ({team2Record})</td>
+                        <td>@</td>
+                        <td id="logo"><img id="thumb" alt="logo" src={homeTeam.team.logos[0].href}/></td>
+                        <td class="rank">{homeTeam.team.displayName} ({team1Record})</td>
+                        {/* <td>{awayTeam.score.value} - {homeTeam.score.value}</td> */}
+                        {/* <td>
+                        {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
+                        </td> */}
                     </tr>
                 )   
             }
-            var newData = []
-            for (let index = 0; index < tableData1.length; index++) {
-                newData.push(
-                    <table class="rankingsTable">
-                        {tableData1}
-                    </table>
-                )
-            }
+            // var newData = []
+            // for (let index = 0; index < tableData1.length; index++) {
+            //     newData.push(
+            //         <table class="rankingsTable">
+            //             {tableData1}
+            //         </table>
+            //     )
+            // }
 
             return (
-                <div class=""> 
-                    {newData}
+                <div class="rankingsTable"> 
+                    {tableData1}
                 </div>
             )
         }

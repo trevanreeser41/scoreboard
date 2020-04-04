@@ -37,48 +37,10 @@ export class NavBar extends Component {
         this.setState({ month: month, day: day });
     }
 
-    // populateList = () => {
-    //     fetch('api/Dashboard/GetTeamsDict')
-	// 		.then(response => response.json())
-	// 		.then(teamList =>
-	// 			this.setState({ teams: teamList })
-    //         );
-    // }
-
-    // Dynamically generates routes based on teams in database
-    static renderTeamLinks(teamList, currentPage, month, day) {
-        // Creates array to store the nav links
-        let teamLinks = [];
-
-        // Loops through data and pushes it to table        
-        for (var key in teamList) {
-            let teamName = teamList[key];
-            teamLinks.push(
-                <Link 
-                    className={currentPage === teamName ? "nav-item nav-link active" : "nav-item nav-link"} 
-                    to={"/" + teamName}>{teamName}&emsp;
-                </Link>
-            );
-        }
-
-        return (
-            <span>
-                {teamLinks}
-            </span> 
-        );
-    }
-
     render() {
         const collapsed = this.state.collapsed;
         const classOne = collapsed ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
         const classTwo = collapsed ? 'navbar-toggler collapsed mr-auto' : 'navbar-toggler mr-auto';
-        let teamLinks = (this.state.teamsLoading)
-			&& NavBar.renderTeamLinks(
-                this.state.teams,
-                this.props.currentPage,
-                this.state.month,
-                this.state.day,
-            );
 
         return (
             <header>
@@ -88,8 +50,7 @@ export class NavBar extends Component {
                     </button>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav">
-                            <Link className="title nav-item nav-link active" to="/">Personal Scoreboard</Link>
-                            {teamLinks}
+                            <Link className={this.props.currentPage === "" ? "nav-item nav-link active" : "nav-item nav-link"} to="/">Personal Scoreboard</Link>
                             <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
                             <Link className={this.props.currentPage === "CollegeBasketball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeBasketball">NCAAM</Link>
                             <Link className={this.props.currentPage === "CollegeFootball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeFootball">NCAAF</Link>

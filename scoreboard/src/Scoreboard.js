@@ -129,7 +129,25 @@ export class Scoreboard extends Component {
     homeTeamBox(x, AwayRanking, team1Record, matchup){
         return <tr>
                 <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams"><Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[1].team.abbreviation}/schedule`}>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} </Link> <span id="record">({team1Record})</span></td>}
+                {this.state.matchups[x].competitors[1].winner === true ? 
+                <td id="teams">
+                    <strong>
+                        <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[1].team)}/schedule`}>
+                            {AwayRanking} {this.state.matchups[x].competitors[1].team.displayName + " "} 
+                        </Link>    
+                        <span id="record">
+                            ({team1Record})
+                        </span>
+                    </strong>
+                </td>: 
+                <td id="teams">
+                    <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[1].team)}/schedule`}>
+                        {AwayRanking} {this.state.matchups[x].competitors[1].team.displayName + " "} 
+                    </Link> 
+                    <span id="record">
+                        ({team1Record})
+                    </span>
+                </td>}
                 <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
             </tr>
     }
@@ -137,7 +155,25 @@ export class Scoreboard extends Component {
     awayTeamBox(x, HomeRanking, team2Record, matchup){
         return <tr>
             <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
-            {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
+            {this.state.matchups[x].competitors[0].winner === true ? 
+            <td id="teams">
+                <strong>
+                    <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[0].team)}/schedule`}>
+                        {HomeRanking} {this.state.matchups[x].competitors[0].team.displayName + " "} 
+                    </Link>    
+                    <span id="record">
+                        ({team2Record})
+                    </span>
+                </strong>
+            </td>: 
+            <td id="teams">
+                <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[0].team)}/schedule`}>
+                    {HomeRanking} {this.state.matchups[x].competitors[0].team.displayName + " "} 
+                </Link>
+                <span id="record">
+                    ({team2Record})
+                </span>
+            </td>}
             <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
         </tr>
     }
@@ -152,6 +188,15 @@ export class Scoreboard extends Component {
 
     getAwayTeam(matchup){
         return matchup.competitors[0]
+    }
+
+    getTeamIdentifier(league, team) {
+        if (league === 'college-football' && team.location.indexOf(' ') <= 0) {
+            return team.location;
+        }
+        else {
+            return team.abbreviation;
+        }
     }
 
     openToVenue(matchup){
@@ -186,20 +231,6 @@ export class Scoreboard extends Component {
                 tableData.push(
                     <span>
                     <tbody className="scoreboard">
-                    {/* <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[1].team.abbreviation}/schedule`}>
-                        <tr>
-                            <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
-                            {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
-                            <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
-                        </tr>
-                    </Link>
-                    <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.state.matchups[x].competitors[0].team.abbreviation}/schedule`}>
-                        <tr>
-                            <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
-                            {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
-                            <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
-                        </tr>
-                    </Link> */}
                     {this.homeTeamBox(x, AwayRanking, team1Record)}
                     {this.awayTeamBox(x, HomeRanking, team2Record )}
                     <tr>
