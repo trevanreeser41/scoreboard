@@ -207,7 +207,7 @@ export class Team extends Component {
                     </tr>
                     <tr>
                         <td>Most Recent Score:</td>
-                        <td id="scores"><td>{this.testForMatchupScores(1, index)} {awayScores}</td><td>{this.testForMatchupScores(0, index)} {homeScores}</td></td>
+                        <td id="scores"><td>&nbsp;{this.testForMatchupScores(1, index)} &nbsp;{awayScores}</td><td>&nbsp;{this.testForMatchupScores(0, index)}&nbsp; {homeScores}</td></td>
                     </tr>
                     <tr>
                         <td colSpan="2"><strong>{this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Off Season"}</strong></td>
