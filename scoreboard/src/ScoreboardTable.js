@@ -8,8 +8,7 @@ import {Link} from 'react-router-dom';
 
 export default function Scoreboardtable(props){
 
-
-    //CONSTRUCTOR
+    //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
     //const [homeScores, setHomeScores] =useState([])
     //const [awayScores, setAwayScores] =useState([])
