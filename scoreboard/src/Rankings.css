@@ -57,3 +57,45 @@
     font-size: 30px;
     text-align: center;
 }
+
+.scheduleTable {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-weight: bold;
+    border-collapse: collapse;
+    width: 50%;
+    background-color: #f2f2f2;
+}
+
+.scheduleTable td, .rankingsTable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.scheduleTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: royalblue;
+    color: white;
+}
+
+.scheduleTable .rank{
+    text-align: center;
+}
+
+.schedule {
+    height: auto;
+    width: auto;
+    margin: 10px auto;
+  }
+
+.schedule td {
+    background: white;
+    border-style: solid;
+    border: 1.5px solid black;
+    padding: 10px 10px 10px 10px;
+}
+
+#logo-schedule {
+    width: 3em;
+}

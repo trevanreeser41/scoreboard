@@ -165,6 +165,7 @@ function homeTeamBox(matchup, AwayRanking, team1Record, props){
             ({team1Record})
         </span>
     </td>}
+    {/*/////THIS NEED TO BE FIXED***********************************************************/}
     {/* <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/> */}
 </tr>
 
@@ -192,6 +193,7 @@ function awayTeamBox(matchup, HomeRanking, team2Record, props){
                 ({team2Record})
             </span>
         </td>}
+        {/*/////THIS NEED TO BE FIXED************************************************************/}
         {/* <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/> */}
     </tr>
 }

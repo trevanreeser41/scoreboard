@@ -121,31 +121,22 @@ export class ScheduleTable extends Component {
                 }
                 tableData1.push(
                     <tr>
-                        <td>{this.state.matchups[index].date}</td>
-                        <td id="logo"><img id="thumb" alt="logo" src={awayTeam.team.logos[0].href}/></td>
-                        <td class="rank">{awayTeam.team.displayName} ({team2Record})</td>
+                        <td>{this.state.matchups[index].date.substr(0,10)}</td>
+                        <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos[0].href}/></td>
+                        <td class="schedule">{awayTeam.team.location} ({team2Record})</td>
                         <td>@</td>
-                        <td id="logo"><img id="thumb" alt="logo" src={homeTeam.team.logos[0].href}/></td>
-                        <td class="rank">{homeTeam.team.displayName} ({team1Record})</td>
-                        {/* <td>{awayTeam.score.value} - {homeTeam.score.value}</td> */}
-                        {/* <td>
-                        {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
-                        </td> */}
+                        <td id="logo-schedule"><img id="thumb" alt="logo" src={homeTeam.team.logos[0].href}/></td>
+                        <td class="schedule">{homeTeam.team.location} ({team1Record})</td>
                     </tr>
                 )   
             }
-            // var newData = []
-            // for (let index = 0; index < tableData1.length; index++) {
-            //     newData.push(
-            //         <table class="rankingsTable">
-            //             {tableData1}
-            //         </table>
-            //     )
-            // }
 
             return (
-                <div class="rankingsTable"> 
-                    {tableData1}
+                <div className="flexcontainer">
+                    <table class="scheduleTable"> 
+                        <th colSpan="6">{this.state.team} Schedule</th>
+                        {tableData1}
+                    </table>
                 </div>
             )
         }

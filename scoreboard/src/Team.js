@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Scoreboard.css';
+import './Team.css';
 
 /*
 COMMENTS:
@@ -39,36 +39,6 @@ export class Team extends Component {
                     sport: 'basketball',
                     league: 'nba',
                     id: 's:40~l:46~t:26'
-                },
-                {
-                    team: 'iowa',
-                    sport: 'basketball',
-                    league: 'mens-college-basketball',
-                    id:'s:40~l:41~t:2294'
-                },
-                {
-                    team: 'sea',
-                    sport: 'football',
-                    league: 'nfl',
-                    id:'s:20~l:28~t:26'
-                },
-                {
-                    team: 'hou',
-                    sport: 'baseball',
-                    league: 'mlb',
-                    id:'s:1~l:10~t:18'
-                },
-                {
-                    team: 'hou',
-                    sport: 'baseball',
-                    league: 'mlb',
-                    id:'s:1~l:10~t:18'
-                },
-                {
-                    team: 'sea',
-                    sport: 'football',
-                    league: 'nfl',
-                    id:'s:20~l:28~t:26'
                 },
             ],
             data: [],
@@ -223,7 +193,7 @@ export class Team extends Component {
                 for (let index = 0; index < tableData.length; index=index+3) {
                     newData.push(                                
                         <div class="flexcontainer">
-                            <table className="card-table-team">
+                            <table class="card-table-team">
                                 {tableData[index]}
                             </table>
                             <table className="card-table-team">

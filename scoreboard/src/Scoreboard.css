@@ -17,7 +17,7 @@ h1 {
 
 #scores {
     background: lightgray;
-    width: 3em;
+    width: 1em;
     padding: 15px 15px 15px 15px;
     text-align: center;
     font-weight: bold;
@@ -34,8 +34,8 @@ h1 {
 
 #teams {
     background: white;
-    width: 30vw;
-    font-size: medium;
+    width: 17em;
+    font-size: small;
     padding: 5px 5px 5px 5px ;
 }
 
@@ -95,7 +95,6 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align-content: stretch;
  }
 
 .card-table{
