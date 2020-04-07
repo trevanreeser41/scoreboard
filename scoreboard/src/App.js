@@ -3,11 +3,10 @@ import { Route } from 'react-router';
 import { Layout } from './layout';
 import './App.css';
 import { Scoreboard } from './Scoreboard';
-import Scoreboardtable from './Scoreboardtable';
+import Scoreboardtable from './Scoreboardtable.js';
 import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
-
 
 function App() {
 

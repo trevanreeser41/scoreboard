@@ -13,10 +13,6 @@ export default function Scoreboardtable(props){
     //const [homeScores, setHomeScores] =useState([])
     //const [awayScores, setAwayScores] =useState([])
     
-    console.log(matchups)
-    console.log({matchups})
-
-
     let tableData = []
     let status = '';
     let team1Record = '';
@@ -26,7 +22,6 @@ export default function Scoreboardtable(props){
 
 
     matchups.map(matchup =>{
-        console.log(matchups)
         var matchup = matchup
         var homeTeam = getHomeTeam(matchup)
         var awayTeam = getAwayTeam(matchup)

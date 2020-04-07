@@ -15,7 +15,6 @@ export default function useFetchAppDataScoreboard(league, sport) {
                 let response = await fetch(URL_API+`${sport}/${league}/scoreboard`)
                 let json = await response.json();
                 let events = json.events;
-                console.log(events)
                 var games = [];
                 for (var i = 0; i < events.length; i++) {
                     for (var j = 0; j < events[i].competitions.length; j++) {
@@ -23,11 +22,9 @@ export default function useFetchAppDataScoreboard(league, sport) {
                     }
                 }
                 setMatchups(matchups => matchups.concat(games))
-                console.log(matchups)
             }
             fetchData()
             setIsLoading(false)
-            console.log(isLoading, matchups)
         }
     }, [isLoading, setMatchups])
 
