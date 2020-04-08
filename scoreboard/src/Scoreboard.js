@@ -243,9 +243,10 @@ export class Scoreboard extends Component {
                     </tr>
                     </tbody>
                     </table>
-                    <p colSpan="3">
+                    <h5 colSpan="3">
                         {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
-                    </p>
+                    </h5>
+                    <br/>
                     </span>                   
                 )   
             }
