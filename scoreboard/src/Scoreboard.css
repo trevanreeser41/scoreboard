@@ -17,7 +17,7 @@ h1 {
 
 #scores {
     background: lightgray;
-    width: 3em;
+    width: 1em;
     padding: 15px 15px 15px 15px;
     text-align: center;
     font-weight: bold;
@@ -98,8 +98,8 @@ h1 {
  }
 
 .card-table{
-    margin-right: 20px;
-    margin-left: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
     width: 30vw;
 }
 
