@@ -8,7 +8,6 @@ export class Scoreboard extends Component {
     constructor(props) {
         super(props)
 		this.state = {
-
             matchups: [],
             loading: true,
             sport: props.sport,

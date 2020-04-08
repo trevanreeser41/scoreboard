@@ -116,8 +116,8 @@ export class ScheduleTable extends Component {
                 var awayTeam = this.getAwayTeam(index)
                 //let location = this.openToVenue(matchup)
                 if (this.state.season !== "Off Season") {
-                    this.state.matchups[index].competitors[1].record !== undefined ? team1Record = this.state.matchups[index].competitors[1].record[0].displayValue : team1Record = "0-0"
-                    this.state.matchups[index].competitors[0].record !== undefined ? team2Record = this.state.matchups[index].competitors[0].record[0].displayValue : team2Record = "0-0"
+                    this.state.matchups[index].competitors[0].record !== undefined ? team1Record = this.state.matchups[index].competitors[1].record[0].displayValue : team1Record = "0-0"
+                    this.state.matchups[index].competitors[1].record !== undefined ? team2Record = this.state.matchups[index].competitors[0].record[0].displayValue : team2Record = "0-0"
                 }
                 tableData1.push(
                     <tr>
