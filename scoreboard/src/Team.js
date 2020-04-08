@@ -100,7 +100,7 @@ export class Team extends Component {
     }
 
     testForProfessionalTeam = (league) => {
-        var professionalLeagues = ["nfl","nba","mlb","nhl","wnba"];
+        var professionalLeagues = ["nfl","nba","mlb","nhl","wnba", "usa.1", "uefa.champions"];
         if (professionalLeagues.includes(league)) {
             return "Playoff Seed:";
         }
@@ -112,7 +112,7 @@ export class Team extends Component {
             return this.state.data[index].team.record.items[0].stats[0].value;
         }
         catch {
-            return this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].curatedRank.current;
+            return this.state.data[index].team.rank;
         }
     }
 
@@ -159,27 +159,56 @@ export class Team extends Component {
                 tableData.push(
                     <tbody className="scoreboard">
                         <tr>
-                            <td id="logo"><img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/></td>
-                            <td id="team-sport">{this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}</td>
+                            <td id="logo">
+                                <img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/>
+                            </td>
+                            <td id="team-sport">
+                                {this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}
+                            </td>
                         </tr>
                         <tr>
                             <td>Record:</td>
-                            <td id="scores">{this.testForRecord(index)}</td>
+                            <td id="scores">
+                                {this.testForRecord(index)}
+                            </td>
                         </tr>
                         <tr>
-                            <td>{this.testForProfessionalTeam(teamData.league)}</td>
-                            <td id="scores">{this.testForRankingPlayoff(index)}</td>
+                            <td>
+                                {this.testForProfessionalTeam(teamData.league)}
+                            </td>
+                            <td id="scores">
+                                {this.testForRankingPlayoff(index)}
+                            </td>
                         </tr>
                         <tr>
                             <td>Matchup:</td>
-                            <td id="scores">{this.testForNextEvent(index)}</td>
+                            <td id="scores">
+                                {this.testForNextEvent(index)}
+                            </td>
                         </tr>
                         <tr>
                             <td>Most Recent Score:</td>
-                            <td id="scores"><td>&nbsp;{this.testForMatchupScores(1, index)} &nbsp;{awayScores}</td><td>&nbsp;{this.testForMatchupScores(0, index)}&nbsp; {homeScores}</td></td>
+                            <td id="scores">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                &nbsp;{this.testForMatchupScores(1, index)} &nbsp;{awayScores}
+                                            </td>
+                                            <td>
+                                                &nbsp;{this.testForMatchupScores(0, index)}&nbsp; {homeScores}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
                         </tr>
                         <tr>
-                            <td colSpan="2"><strong>{this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Off Season"}</strong></td>
+                            <td colSpan="2">
+                                <strong>
+                                    {this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Off Season"}
+                                </strong>
+                            </td>
                         </tr>
                     </tbody>
                 )   

@@ -100,49 +100,49 @@ export class Scoreboard extends Component {
         }
         if (completed === true) {
             if (period === OT) {
-                return <tr id="status"><strong>FINAL/OT</strong></tr>
+                return <b>FINAL/OT</b>
             }
             else if (this.state.matchups[x].status.period > OT){
                 if (league === 'mlb'){
-                    return <tr id="status"><strong>FINAL/{period} innings</strong></tr>
+                    return <b>FINAL/{period} innings</b>
                 }
                 else{
                     let overtime_period = period - (OT-1)
-                    return <tr id="status"><strong>FINAL/{overtime_period}OT</strong></tr>
+                    return <b>FINAL/{overtime_period}OT</b>
                 }
             }
             else {
-                return <tr id="status"><strong>FINAL</strong></tr>
+                return <b>FINAL</b>
             }
         }
         else if (period < OT && period > 0) {
             if(league !== 'mlb'){
-                return <tr id="status"><strong>Q{period} - {this.state.matchups[x].status.displayClock}</strong></tr>
+                return <b>Q{period} - {this.state.matchups[x].status.displayClock}</b>
             }
             else {
-                return <tr id="status"><strong>{this.state.matchups[x].status.type.detail}</strong></tr> //once games are live, figure out where innings are displayed in the response
+                return <b>{this.state.matchups[x].status.type.detail}</b> //once games are live, figure out where innings are displayed in the response
             }
         } 
         else if (period === 0) {
-            return <tr id="status">{this.state.matchups[x].status.type.detail}</tr>
+            return this.state.matchups[x].status.type.detail
         } else {
             
         }
     }
 
-    homeTeamBox(x, AwayRanking, team1Record, matchup){
+    homeTeamBox(x, AwayRanking, team1Record/*, matchup*/){
         return <tr>
                 <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logo}/></td>
                 {this.state.matchups[x].competitors[1].winner === true ? 
                 <td id="teams">
-                    <strong>
+                    <b>
                         <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[1].team)}/schedule`}>
                             {AwayRanking} {this.state.matchups[x].competitors[1].team.displayName + " "} 
                         </Link>    
                         <span id="record">
                             ({team1Record})
                         </span>
-                    </strong>
+                    </b>
                 </td>: 
                 <td id="teams">
                     <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[1].team)}/schedule`}>
@@ -156,19 +156,19 @@ export class Scoreboard extends Component {
             </tr>
     }
 
-    awayTeamBox(x, HomeRanking, team2Record, matchup){
+    awayTeamBox(x, HomeRanking, team2Record/*, matchup*/){
         return <tr>
             <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logo}/></td>
             {this.state.matchups[x].competitors[0].winner === true ? 
             <td id="teams">
-                <strong>
+                <b>
                     <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[0].team)}/schedule`}>
                         {HomeRanking} {this.state.matchups[x].competitors[0].team.displayName + " "} 
                     </Link>    
                     <span id="record">
                         ({team2Record})
                     </span>
-                </strong>
+                </b>
             </td>: 
             <td id="teams">
                 <Link to={`sports/${this.state.sport}/${this.state.league}/teams/${this.getTeamIdentifier(this.state.league, this.state.matchups[x].competitors[0].team)}/schedule`}>
@@ -234,43 +234,35 @@ export class Scoreboard extends Component {
 
                 tableData.push(
                     <span>
+                    <table className="card-table">
                     <tbody className="scoreboard">
                     {this.homeTeamBox(x, AwayRanking, team1Record)}
                     {this.awayTeamBox(x, HomeRanking, team2Record )}
-                    <tr>
+                    <tr id="status">
                         <td colSpan="3">{status}</td>
                     </tr>
                     </tbody>
-                    <tfoot>
-                        <td colSpan="3">
-                            {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
-                        </td>
-                    </tfoot>
-                    <br/>
-                    <br/>
-                    </span>
+                    </table>
+                    <p colSpan="3">
+                        {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
+                    </p>
+                    </span>                   
                 )   
             }
 
             var newData = []
             for (let index = 0; index < tableData.length; index=index+3) {
                 newData.push(
-                    <div class="flexcontainer">
-                        <table className="card-table">
-                            {tableData[index]}
-                        </table>
-                        <table className="card-table">
-                            {tableData[index+1]}
-                        </table>
-                        <table className="card-table">
-                            {tableData[index+2]}
-                        </table>
+                    <div key={this.state.league + index.toString()} className="flexcontainer">                        
+                        {tableData[index]}
+                        {tableData[index+1]}
+                        {tableData[index+2]}
                     </div>
                 )
             }
 
             return (
-                <div class=""> 
+                <div className=""> 
                     {newData}
                 </div>
             )

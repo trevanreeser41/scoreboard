@@ -32,7 +32,13 @@ function App() {
         </Route>  
         <Route path='/NHL'>
           <Scoreboard sport="hockey" league="nhl"/>
-        </Route>            
+        </Route>   
+        <Route path='/MLS'>
+          <Scoreboard sport="soccer" league="usa.1"/>
+        </Route>
+        <Route path='/ChampionsLeague'>
+          <Scoreboard sport="soccer" league="uefa.champions"/>
+        </Route>              
         <Route path='/Rankings'>
           <Rankings  />
         </Route>

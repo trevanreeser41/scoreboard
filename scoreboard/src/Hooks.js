@@ -5,14 +5,14 @@ import { useEffect, useState } from 'react';
 
 
 export default function useFetchAppDataScoreboard(league, sport) {
-    const URL_API = "http://site.api.espn.com/apis/site/v2/sports/";
+    const URL_API = `http://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/scoreboard`;
     const[matchups, setMatchups] = useState([]);
     const[isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (isLoading===true){
             async function fetchData() {
-                let response = await fetch(URL_API+`${sport}/${league}/scoreboard`)
+                let response = await fetch(URL_API)
                 let json = await response.json();
                 let events = json.events;
                 var games = [];
