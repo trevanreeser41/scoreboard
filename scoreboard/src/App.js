@@ -3,7 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './layout';
 import './App.css';
 import { Scoreboard } from './Scoreboard';
-import ScoreboardTable from './ScoreboardTable.js';
+import ScoreboardTable from './Scoreboardtable.js';
 import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
@@ -16,7 +16,7 @@ function App() {
           <Team />
         </Route>
         <Route path='/NBA'>
-            <Scoreboard sport="basketball" league="nba"/>
+            <ScoreboardTable sport="basketball" league="nba"/>
         </Route>
         <Route path='/CollegeBasketball'>
           <ScoreboardTable sport="basketball" league="mens-college-basketball" />
@@ -25,19 +25,19 @@ function App() {
           <ScoreboardTable sport="football" league="college-football"/>
         </Route>
         <Route path='/NFL'>
-          <Scoreboard sport="football" league="nfl"/>
+          <ScoreboardTable sport="football" league="nfl"/>
         </Route>
         <Route path='/MLB'>
-          <Scoreboard sport="baseball" league="mlb"/>
+          <ScoreboardTable sport="baseball" league="mlb"/>
         </Route>  
         <Route path='/NHL'>
-          <Scoreboard sport="hockey" league="nhl"/>
+          <ScoreboardTable sport="hockey" league="nhl"/>
         </Route>   
         <Route path='/MLS'>
-          <Scoreboard sport="soccer" league="usa.1"/>
+          <ScoreboardTable sport="soccer" league="usa.1"/>
         </Route>
         <Route path='/ChampionsLeague'>
-          <Scoreboard sport="soccer" league="uefa.champions"/>
+          <ScoreboardTable sport="soccer" league="uefa.champions"/>
         </Route>              
         <Route path='/Rankings'>
           <Rankings  />
