@@ -5,8 +5,7 @@ import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
 
 
-
-export default function Scoreboardtable(props){
+export default function ScoreboardTable(props){
 
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
@@ -34,24 +33,22 @@ export default function Scoreboardtable(props){
         status = intoOT(matchup.status.type.completed, matchup.status.period, props.league, matchup)
 
         let location = openToVenue(matchup)
-
         array.push(
-            <span>
-            <tbody className="scoreboard">
-            {homeTeamBox(matchup, AwayRanking, team1Record, props)}
-            {awayTeamBox(matchup, HomeRanking, team2Record, props )}
-            <tr>
-                <td colSpan="3">{status}</td>
-            </tr>
-            </tbody>
-            <tfoot>
-                <td colSpan="3">
+            <span key={matchup.id}>
+                <table className="card-table">
+                <tbody className="scoreboard">
+                {awayTeamBox(matchup, AwayRanking, team1Record, props)}
+                {homeTeamBox(matchup, HomeRanking, team2Record, props)}
+                <tr id="status">
+                    <td colSpan="3">{status}</td>
+                </tr>
+                </tbody>
+                </table>
+                <h5 colSpan="3">
                     {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
-                </td>
-            </tfoot>
-            <br/>
-            <br/>
-            </span>
+                </h5>
+                <br/>
+            </span>  
         )   
         return array
     })
@@ -59,22 +56,16 @@ export default function Scoreboardtable(props){
     var newData = []
     for (let index = 0; index < tableData.length; index=index+3) {
         newData.push(
-            <div class="flexcontainer">
-                <table className="card-table">
-                    {tableData[index]}
-                </table>
-                <table className="card-table">
-                    {tableData[index+1]}
-                </table>
-                <table className="card-table">
-                    {tableData[index+2]}
-                </table>
+            <div key={props.league + index.toString()} className="flexcontainer">                        
+                {tableData[index]}
+                {tableData[index+1]}
+                {tableData[index+2]}
             </div>
         )
     }
 
     return (
-        <div class=""> 
+        <div> 
             {newData}
         </div>
     )
@@ -92,7 +83,6 @@ function includeRankings(league, matchup){
         if (AwayRanking > 25 || AwayRanking===0){
             AwayRanking=''
         }
-
     }
     return [HomeRanking, AwayRanking]
 }
@@ -119,44 +109,49 @@ function intoOT(completed, period, league, matchup){
     }
     if (completed === true) {
         if (period === OT) {
-            return <tr id="status"><strong>FINAL/OT</strong></tr>
+            return <b>FINAL/OT</b>
         }
         else if (matchup.status.period > OT){
             if (league === 'mlb'){
-                return <tr id="status"><strong>FINAL/{period} innings</strong></tr>
+                return <b>FINAL/{period} innings</b>
             }
             else{
                 let overtime_period = period - (OT-1)
-                return <tr id="status"><strong>FINAL/{overtime_period}OT</strong></tr>
+                return <b>FINAL/{overtime_period}OT</b>
             }
         }
         else {
-            return <tr id="status"><strong>FINAL</strong></tr>
+            return <b>FINAL</b>
         }
     }
     else if (period < OT && period > 0) {
-        return <tr id="status"><strong>Q{period} - {matchup.status.displayClock}</strong></tr>
+        if(league !== 'mlb'){
+            return <span>Q{period} - {matchup.status.displayClock}</span>
+        }
+        else {
+            return matchup.status.type.detail //once games are live, figure out where innings are displayed in the response
+        }
     } 
     else if (period === 0) {
-        return <tr id="status">{matchup.status.type.detail}</tr>
+        return matchup.status.type.detail
     } else {
         
     }
 }
 
-function homeTeamBox(matchup, AwayRanking, team1Record, props){
+function awayTeamBox(matchup, AwayRanking, team1Record, props){
     return <tr>
     <td id="logo"><img id="thumb" alt="" src={matchup.competitors[1].team.logo}/></td>
     {matchup.competitors[1].winner === true ? 
     <td id="teams">
-        <strong>
+        <b>
             <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league, matchup.competitors[1].team)}/schedule`}>
                 {AwayRanking} {matchup.competitors[1].team.displayName + " "} 
             </Link>    
             <span id="record">
                 ({team1Record})
             </span>
-        </strong>
+        </b>
     </td>: 
     <td id="teams">
         <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league,matchup.competitors[1].team)}/schedule`}>
@@ -167,24 +162,24 @@ function homeTeamBox(matchup, AwayRanking, team1Record, props){
         </span>
     </td>}
     {/*/////THIS NEED TO BE FIXED***********************************************************/}
-    {/* <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/> */}
+    <td id="scores">{matchup.competitors[1].score}</td>
 </tr>
 
 }
 
-function awayTeamBox(matchup, HomeRanking, team2Record, props){
+function homeTeamBox(matchup, HomeRanking, team2Record, props){
     return <tr>
         <td id="logo"><img id="thumb" alt="" src={matchup.competitors[0].team.logo}/></td>
         {matchup.competitors[0].winner === true ? 
         <td id="teams">
-            <strong>
+            <b>
                 <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league, matchup.competitors[0].team)}/schedule`}>
                     {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
                 </Link>    
                 <span id="record">
                     ({team2Record})
                 </span>
-            </strong>
+            </b>
         </td>: 
         <td id="teams">
             <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league,matchup.competitors[0].team)}/schedule`}>
@@ -195,7 +190,7 @@ function awayTeamBox(matchup, HomeRanking, team2Record, props){
             </span>
         </td>}
         {/*/////THIS NEED TO BE FIXED************************************************************/}
-        {/* <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/> */}
+        <td id="scores">{matchup.competitors[0].score}</td>
     </tr>
 }
 

@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 // import {Link} from 'react-router-dom';
 // import { UpdateScore } from './UpdateScore';
 //import React from 'react';
-
 
 export default function useFetchAppDataScoreboard(league, sport) {
     const [matchups, setMatchups] = useState([]);
@@ -13,7 +12,7 @@ export default function useFetchAppDataScoreboard(league, sport) {
             async function fetchData() {
                 const URL_API = `http://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/scoreboard`;
                 let response = await fetch(URL_API)
-                console.log(response)
+                //console.log(response)
                 let json = await response.json();
                 let events = json.events;
                 var games = [];
@@ -31,4 +30,24 @@ export default function useFetchAppDataScoreboard(league, sport) {
 
     return matchups;
 }
+
+export function useInterval(callback, delay) {
+    const savedCallback = useRef();
+  
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+  
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
 
