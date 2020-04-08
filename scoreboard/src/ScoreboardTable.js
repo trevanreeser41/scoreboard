@@ -13,7 +13,7 @@ export default function Scoreboardtable(props){
     //const [homeScores, setHomeScores] =useState([])
     //const [awayScores, setAwayScores] =useState([])
     
-    let tableData = []
+    //let tableData = []
     let status = '';
     let team1Record = '';
     let team2Record = '';
@@ -21,8 +21,8 @@ export default function Scoreboardtable(props){
     var HomeRanking;
 
 
-    matchups.map(matchup => {
-        var matchup = matchup
+    var tableData = matchups.map(matchup => {
+        var array = []
         var homeTeam = getHomeTeam(matchup)
         var awayTeam = getAwayTeam(matchup)
         homeTeam.records !== undefined ? team1Record = homeTeam.records[0].summary : team1Record = "0-0"
@@ -35,7 +35,7 @@ export default function Scoreboardtable(props){
 
         let location = openToVenue(matchup)
 
-        tableData.push(
+        array.push(
             <span>
             <tbody className="scoreboard">
             {homeTeamBox(matchup, AwayRanking, team1Record, props)}
@@ -53,6 +53,7 @@ export default function Scoreboardtable(props){
             <br/>
             </span>
         )   
+        return array
     })
 
     var newData = []
