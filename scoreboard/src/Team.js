@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Team.css';
+//import './Team.css';
 
 /*
 COMMENTS:
@@ -45,7 +45,7 @@ export class Team extends Component {
         };
     }    
 
-    async componentWillMount() {
+    async componentDidMount() {
         await this.populateScoreboard();
     }
 
@@ -157,43 +157,39 @@ export class Team extends Component {
                     awayScores = 0
                 }
                 tableData.push(
-                    <span>
                     <tbody className="scoreboard">
-                    <tr>
-                        <td id="logo"><img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/></td>
-                        <td id="team-sport">{this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}</td>
-                    </tr>
-                    <tr>
-                        <td>Record:</td>
-                        <td id="scores">{this.testForRecord(index)}</td>
-                    </tr>
-                    <tr>
-                        <td>{this.testForProfessionalTeam(teamData.league)}</td>
-                        <td id="scores">{this.testForRankingPlayoff(index)}</td>
-                    </tr>
-                    <tr>
-                        <td>Matchup:</td>
-                        <td id="scores">{this.testForNextEvent(index)}</td>
-                    </tr>
-                    <tr>
-                        <td>Most Recent Score:</td>
-                        <td id="scores"><td>&nbsp;{this.testForMatchupScores(1, index)} &nbsp;{awayScores}</td><td>&nbsp;{this.testForMatchupScores(0, index)}&nbsp; {homeScores}</td></td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2"><strong>{this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Off Season"}</strong></td>
-                    </tr>
+                        <tr>
+                            <td id="logo"><img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/></td>
+                            <td id="team-sport">{this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}</td>
+                        </tr>
+                        <tr>
+                            <td>Record:</td>
+                            <td id="scores">{this.testForRecord(index)}</td>
+                        </tr>
+                        <tr>
+                            <td>{this.testForProfessionalTeam(teamData.league)}</td>
+                            <td id="scores">{this.testForRankingPlayoff(index)}</td>
+                        </tr>
+                        <tr>
+                            <td>Matchup:</td>
+                            <td id="scores">{this.testForNextEvent(index)}</td>
+                        </tr>
+                        <tr>
+                            <td>Most Recent Score:</td>
+                            <td id="scores"><td>&nbsp;{this.testForMatchupScores(1, index)} &nbsp;{awayScores}</td><td>&nbsp;{this.testForMatchupScores(0, index)}&nbsp; {homeScores}</td></td>
+                        </tr>
+                        <tr>
+                            <td colSpan="2"><strong>{this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Off Season"}</strong></td>
+                        </tr>
                     </tbody>
-                    <br/>
-                    <br/>
-                    </span>
                 )   
                 }
                 //var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
                 var newData = []
                 for (let index = 0; index < tableData.length; index=index+3) {
                     newData.push(                                
-                        <div class="flexcontainer">
-                            <table class="card-table-team">
+                        <div className="flexcontainer">
+                            <table className="card-table-team">
                                 {tableData[index]}
                             </table>
                             <table className="card-table-team">

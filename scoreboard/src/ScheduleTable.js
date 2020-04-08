@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { UpdateScore } from './UpdateScore';
+//import { UpdateScore } from './UpdateScore';
 import './Rankings.css';
 
 export class ScheduleTable extends Component {
@@ -79,11 +79,11 @@ export class ScheduleTable extends Component {
 
     render() {
         if (this.state.loading===false){
-            let tableData = [];
+            //let tableData = [];
             let team1Record = '';
             let team2Record = '';
-            var AwayRanking;
-            var HomeRanking;
+            //var AwayRanking;
+            //var HomeRanking;
 
             // for (let x = 0; x < this.state.matchups.length; x++) {
             //     if (this.state.season !== "Off Season") {
@@ -111,7 +111,7 @@ export class ScheduleTable extends Component {
 
             var tableData1 = []
             for (let index = 0; index < this.state.matchups.length; index++) {
-                var matchup = this.getMatchup[index]
+                //var matchup = this.getMatchup[index]
                 var homeTeam = this.getHomeTeam(index)
                 var awayTeam = this.getAwayTeam(index)
                 //let location = this.openToVenue(matchup)

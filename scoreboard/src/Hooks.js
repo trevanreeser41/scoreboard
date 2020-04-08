@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 // import { UpdateScore } from './UpdateScore';
-import React from 'react';
+//import React from 'react';
 
 
 export default function useFetchAppDataScoreboard(league, sport) {

@@ -116,7 +116,12 @@ export class Scoreboard extends Component {
             }
         }
         else if (period < OT && period > 0) {
-            return <tr id="status"><strong>Q{period} - {this.state.matchups[x].status.displayClock}</strong></tr>
+            if(league !== 'mlb'){
+                return <tr id="status"><strong>Q{period} - {this.state.matchups[x].status.displayClock}</strong></tr>
+            }
+            else {
+                return <tr id="status"><strong>{this.state.matchups[x].status.type.detail}</strong></tr> //once games are live, figure out where innings are displayed in the response
+            }
         } 
         else if (period === 0) {
             return <tr id="status">{this.state.matchups[x].status.type.detail}</tr>

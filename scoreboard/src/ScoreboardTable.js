@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React /*,{ useState }*/ from 'react';
 import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
-import ScoreboardHTML from './Hooks';
+//import ScoreboardHTML from './Hooks';
 import {Link} from 'react-router-dom';
 
 
@@ -21,7 +21,7 @@ export default function Scoreboardtable(props){
     var HomeRanking;
 
 
-    matchups.map(matchup =>{
+    matchups.map(matchup => {
         var matchup = matchup
         var homeTeam = getHomeTeam(matchup)
         var awayTeam = getAwayTeam(matchup)
@@ -198,9 +198,9 @@ function awayTeamBox(matchup, HomeRanking, team2Record, props){
     </tr>
 }
 
-function getMatchup(x, matchups){
-    return matchups[x]
-}
+// function getMatchup(x, matchups){
+//     return matchups[x]
+// }
 
 function getHomeTeam(matchup){
     return matchup.competitors[1]
