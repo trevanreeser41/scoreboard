@@ -34,7 +34,7 @@ h1 {
 
 #teams {
     background: white;
-    width: 17em;
+    width: 20vw;
     font-size: small;
     padding: 5px 5px 5px 5px ;
 }
@@ -101,6 +101,7 @@ h1 {
 .card-table{
     margin-right: 10px;
     margin-left: 10px;
+    width: 25vw;
 }
 
 .card-table-schedule{
