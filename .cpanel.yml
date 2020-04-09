@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/jasonjst/public_html/games.jasonjstewart.com/scoreboard/build
-    - /bin/cp/ -r * $DEPLOYPATH
+    - export DEPLOYPATH=/home/jasonjst/public_html
+    - /bin/cp/ -r /games.jasonjstewart.com/scoreboard/build/* $DEPLOYPATH
