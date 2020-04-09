@@ -2,4 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/scoreboard/build
-    - /bin/cp/ * $DEPLOYPATH
+    - /bin/cp/ -r * $DEPLOYPATH
