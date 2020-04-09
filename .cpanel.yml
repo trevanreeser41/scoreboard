@@ -2,4 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/jasonjst/public_html
-    - /bin/cp/ -R /games.jasonjstewart.com/scoreboard/build/ $DEPLOYPATH
+    - /bin/cp/ -r ./games.jasonjstewart.com/scoreboard/build $DEPLOYPATH
+    - /bin/cp/ /games.jasonjstewart.com/scoreboard/build/.htaccess $DEPLOYPATH
