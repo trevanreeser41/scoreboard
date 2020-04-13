@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import './Team.css';
+import './Team.css';
 
 /*
 COMMENTS:

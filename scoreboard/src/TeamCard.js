@@ -9,13 +9,15 @@ import CardHeader from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
-import { TableRow, TableCell, TableHead, TableContainer, withStyles } from '@material-ui/core';
+import { TableRow, TableCell, TableHead, TableContainer, withStyles, TableFooter } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 
 
 const useStyles = makeStyles({
   root: {
     width: '24vw',
+    background: "black",
+    color: 'white'
   },
   media: {
     height: 50,
@@ -133,16 +135,14 @@ export default function TeamCard(props) {
                   {props.matchup.competitors[1].score}
                 </Typography>
               </ThirdCell>
+              
             </TableRow>
           </Table>
+          <TableFooter >
+              &nbsp; &nbsp;{props.matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{props.matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{props.matchup.venue.fullName} ({props.matchup.venue.address.city}, {props.matchup.venue.address.state})</a>}
+            </TableFooter>
           </TableContainer>
-        </CardContent>
-        <CardActions>
-          <Typography color='textSecondary'>
-            {props.matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{props.matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{props.matchup.venue.fullName} ({props.matchup.venue.address.city}, {props.matchup.venue.address.state})</a>}
-          </Typography>
-        </CardActions>
-        
+        </CardContent>        
     </Card>
   );
 }

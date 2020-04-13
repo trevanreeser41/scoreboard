@@ -50,16 +50,6 @@ const useStyles = makeStyles((theme) => ({
         width: 100,
         margin: 'auto',
     },
-    control: {
-        padding: theme.spacing(2),
-    },
-    table: {
-        minWidth: 400,
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-    },
 }));
 
 
@@ -70,10 +60,7 @@ export default function ScoreboardTable(props){
     const [spacing, setSpacing] = React.useState(2);
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
-    //const [homeScores, setHomeScores] =useState([])
-    //const [awayScores, setAwayScores] =useState([])
     
-    //let tableData = []
     let status = '';
     let team1Record = '';
     let team2Record = '';
@@ -94,20 +81,9 @@ export default function ScoreboardTable(props){
         return array
     })
 
-    var newData = []
-    for (let index = 0; index < tableData.length; index=index+3) {
-        newData.push(
-            <Grid container item xs={12}>                        
-                {tableData[index]}
-                {tableData[index+1]}
-                {tableData[index+2]}
-            </Grid>
-        )
-    }
-
     return (
-        <Grid className={classes.root} container spacing={1}>
-            {newData}
+        <Grid className={classes.root} container spacing={6}>
+            {tableData}
         </Grid>
     )
 }
