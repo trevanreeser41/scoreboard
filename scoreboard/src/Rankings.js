@@ -1,6 +1,41 @@
 import React, { Component } from 'react';
 // import { UpdateScore } from './UpdateScore';
 import './Rankings.css';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+      fontSize: 24,
+    },
+    body: {
+      fontSize: 18,
+      size: 'medium',
+    },
+  }))(TableCell);
+  
+const StyledTableRow = withStyles((theme) => ({
+    root: {
+        '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.background.default,
+
+        },
+    },
+}))(TableRow);
+
+const useStyles = makeStyles({
+    table: {
+        minWidth: 700,
+    },
+});
 
 export class Rankings extends Component {
 
@@ -55,17 +90,31 @@ export class Rankings extends Component {
                 for (let index1 = 0; index1 < this.state.data[index].rankings[0].ranks.length; index1++) {
                 
                     tableData.push(
-                        <tr key={"Rankings " + this.state.sports[index][0] + " " + this.state.data[index].rankings[0].ranks[index1].current}>{/*example key="Rankings basketball 14"*/}
-                            <td id="logo"><img id="thumb" alt="logo" src={this.state.data[index].rankings[0].ranks[index1].team.logo}/></td><td className="rank">{this.state.data[index].rankings[0].ranks[index1].current}</td><td> {this.state.data[index].rankings[0].ranks[index1].team.location} {this.state.data[index].rankings[0].ranks[index1].team.name}</td>
-                        </tr>
+                        <TableRow  key={"Rankings " + this.state.sports[index][0] + " " + this.state.data[index].rankings[0].ranks[index1].current}>{/*example key="Rankings basketball 14"*/}
+                            <StyledTableCell id="logo"><img id="thumb" alt="logo" src={this.state.data[index].rankings[0].ranks[index1].team.logo}/></StyledTableCell>
+                            <StyledTableCell className="rank">{this.state.data[index].rankings[0].ranks[index1].current}</StyledTableCell>
+                            <StyledTableCell> {this.state.data[index].rankings[0].ranks[index1].team.location} {this.state.data[index].rankings[0].ranks[index1].team.name}</StyledTableCell>
+                        </TableRow>
                     )   
                 }
                 newData.push(
                     <div key={"Rankings " + this.state.sports[index][1]} className="grid-item rankings">{/*example key="Rankings mens-college-basketball"*/}
-                        <table className="rankingsTable">
-                            <thead><tr><th colSpan="3">{this.state.data[index].leagues[0].name} {this.state.data[index].rankings[0].name}</th></tr></thead>
-                            <tbody>{tableData}</tbody>
-                        </table>
+                        <TableContainer component={Paper} className="rankingsTable">
+                            <Table aria-label="customized table">
+                            <TableHead>
+                                
+                                    <StyledTableRow>
+                                        <StyledTableCell colSpan="3">
+                                            {this.state.data[index].leagues[0].name} {this.state.data[index].rankings[0].name}
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                
+                            </TableHead>
+                            <TableBody>
+                                {tableData}
+                            </TableBody>
+                            </Table>
+                        </TableContainer>
                     </div>
                 )
 

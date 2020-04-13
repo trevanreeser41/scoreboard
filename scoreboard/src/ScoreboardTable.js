@@ -1,12 +1,73 @@
 import React /*,{ useState }*/ from 'react';
-import './Scoreboard.css';
+// import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
 //import ScoreboardHTML from './Hooks';
 import {Link} from 'react-router-dom';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import { Card, CardMedia } from '@material-ui/core';
+import CardHeader from '@material-ui/core/CardHeader';
+import TeamCard from './TeamCard'
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+      '&:nth-of-type(3)': {
+        backgroundColor: theme.palette.error //theme.palette.background.paper,
+      },
+    },
+  }))(TableCell);
+  
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
+  }))(TableRow);
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        alignContent: 'space-between',
+        alignItems: 'center',
+        direction: 'row',
+        justify: 'space-evenly',
+    },
+    paper: {
+        height: 50,
+        width: 100,
+        margin: 'auto',
+    },
+    control: {
+        padding: theme.spacing(2),
+    },
+    table: {
+        minWidth: 400,
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+}));
+
+
 
 
 export default function ScoreboardTable(props){
-
+    const classes = useStyles();
+    const [spacing, setSpacing] = React.useState(2);
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
     //const [homeScores, setHomeScores] =useState([])
@@ -19,36 +80,16 @@ export default function ScoreboardTable(props){
     var AwayRanking;
     var HomeRanking;
 
+    const handleChange = (event) => {
+        setSpacing(Number(event.target.value));
+      };
 
     var tableData = matchups.map(matchup => {
         var array = []
-        var homeTeam = getHomeTeam(matchup)
-        var awayTeam = getAwayTeam(matchup)
-        homeTeam.records !== undefined ? team1Record = homeTeam.records[0].summary : team1Record = "0-0"
-        awayTeam.records !== undefined ? team2Record = awayTeam.records[0].summary : team2Record = "0-0"
-        
-
-        AwayRanking = includeRankings(props.league, matchup)[1]
-        AwayRanking = includeRankings(props.league, matchup)[0]
-        status = intoOT(matchup.status.type.completed, matchup.status.period, props.league, matchup)
-
-        let location = openToVenue(matchup)
         array.push(
-            <span key={matchup.id}>
-                <table className="card-table">
-                <tbody className="scoreboard">
-                {awayTeamBox(matchup, AwayRanking, team1Record, props)}
-                {homeTeamBox(matchup, HomeRanking, team2Record, props)}
-                <tr id="status">
-                    <td colSpan="3">{status}</td>
-                </tr>
-                </tbody>
-                </table>
-                <h5 colSpan="3">
-                    {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
-                </h5>
-                <br/>
-            </span>  
+                <Grid item xs={4}>
+                    <TeamCard matchup={matchup} league={props.league} sport={props.sport}/>
+                </Grid>
         )   
         return array
     })
@@ -56,166 +97,19 @@ export default function ScoreboardTable(props){
     var newData = []
     for (let index = 0; index < tableData.length; index=index+3) {
         newData.push(
-            <div key={props.league + index.toString()} className="flexcontainer">                        
+            <Grid container item xs={12} spacing={3}>                        
                 {tableData[index]}
                 {tableData[index+1]}
                 {tableData[index+2]}
-            </div>
+            </Grid>
         )
     }
 
     return (
-        <div> 
+        <Grid className={classes.root} container spacing={1}>
             {newData}
-        </div>
+        </Grid>
     )
 }
 
 //HELPER FUNCTIONS TO BUILD HTML
-function includeRankings(league, matchup){
-    if (league.includes('college')){
-                    
-        var AwayRanking = matchup.competitors[1].curatedRank.current
-        var  HomeRanking = matchup.competitors[0].curatedRank.current
-        if (HomeRanking > 25 || HomeRanking===0){
-            HomeRanking=''
-        }
-        if (AwayRanking > 25 || AwayRanking===0){
-            AwayRanking=''
-        }
-    }
-    return [HomeRanking, AwayRanking]
-}
-
-function intoOT(completed, period, league, matchup){
-    var OT;
-    if (league === "college-football"){
-        OT=5
-    }
-    else if (league=== "nba"){
-        OT=5
-    }
-    else if (league=== "mens-college-basketball"){
-        OT=3
-    }
-    else if (league=== "nfl"){
-        OT=5
-    }
-    else if (league=== "mlb"){
-        OT=10
-    }
-    else if (league=== "nhl"){
-        OT=4
-    }
-    if (completed === true) {
-        if (period === OT) {
-            return <b>FINAL/OT</b>
-        }
-        else if (matchup.status.period > OT){
-            if (league === 'mlb'){
-                return <b>FINAL/{period} innings</b>
-            }
-            else{
-                let overtime_period = period - (OT-1)
-                return <b>FINAL/{overtime_period}OT</b>
-            }
-        }
-        else {
-            return <b>FINAL</b>
-        }
-    }
-    else if (period < OT && period > 0) {
-        if(league !== 'mlb'){
-            return <span>Q{period} - {matchup.status.displayClock}</span>
-        }
-        else {
-            return matchup.status.type.detail //once games are live, figure out where innings are displayed in the response
-        }
-    } 
-    else if (period === 0) {
-        return matchup.status.type.detail
-    } else {
-        
-    }
-}
-
-function awayTeamBox(matchup, AwayRanking, team1Record, props){
-    return <tr>
-    <td id="logo"><img id="thumb" alt="" src={matchup.competitors[1].team.logo}/></td>
-    {matchup.competitors[1].winner === true ? 
-    <td id="teams">
-        <b>
-            <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league, matchup.competitors[1].team)}/schedule`}>
-                {AwayRanking} {matchup.competitors[1].team.displayName + " "} 
-            </Link>    
-            <span id="record">
-                ({team1Record})
-            </span>
-        </b>
-    </td>: 
-    <td id="teams">
-        <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league,matchup.competitors[1].team)}/schedule`}>
-            {awayTeamBox} {matchup.competitors[1].team.displayName + " "} 
-        </Link>
-        <span id="record">
-            ({team1Record})
-        </span>
-    </td>}
-    {/*/////THIS NEED TO BE FIXED***********************************************************/}
-    <td id="scores">{matchup.competitors[1].score}</td>
-</tr>
-
-}
-
-function homeTeamBox(matchup, HomeRanking, team2Record, props){
-    return <tr>
-        <td id="logo"><img id="thumb" alt="" src={matchup.competitors[0].team.logo}/></td>
-        {matchup.competitors[0].winner === true ? 
-        <td id="teams">
-            <b>
-                <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league, matchup.competitors[0].team)}/schedule`}>
-                    {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
-                </Link>    
-                <span id="record">
-                    ({team2Record})
-                </span>
-            </b>
-        </td>: 
-        <td id="teams">
-            <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league,matchup.competitors[0].team)}/schedule`}>
-                {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
-            </Link>
-            <span id="record">
-                ({team2Record})
-            </span>
-        </td>}
-        {/*/////THIS NEED TO BE FIXED************************************************************/}
-        <td id="scores">{matchup.competitors[0].score}</td>
-    </tr>
-}
-
-// function getMatchup(x, matchups){
-//     return matchups[x]
-// }
-
-function getHomeTeam(matchup){
-    return matchup.competitors[1]
-}
-
-function getAwayTeam(matchup){
-    return matchup.competitors[0]
-}
-
-function getTeamIdentifier(league, team) {
-    if (league === 'college-football' && team.location.indexOf(' ') <= 0) {
-        return team.location;
-    }
-    else {
-        return team.abbreviation;
-    }
-}
-
-function openToVenue(matchup){
-    return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
-}
-
