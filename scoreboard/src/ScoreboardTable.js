@@ -97,7 +97,7 @@ export default function ScoreboardTable(props){
     var newData = []
     for (let index = 0; index < tableData.length; index=index+3) {
         newData.push(
-            <Grid container item xs={12} spacing={3}>                        
+            <Grid container item xs={12}>                        
                 {tableData[index]}
                 {tableData[index+1]}
                 {tableData[index+2]}
