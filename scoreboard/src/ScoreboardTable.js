@@ -216,7 +216,12 @@ function getTeamIdentifier(league, team) {
 }
 
 function openToVenue(matchup){
-    return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+    if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+    }
+    else {
+        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+    }
 }
 
 function returnVenueLocation(matchup){
