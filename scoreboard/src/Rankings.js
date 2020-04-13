@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { UpdateScore } from './UpdateScore';
 import './Rankings.css';
 
 export class Rankings extends Component {
@@ -68,14 +67,17 @@ export class Rankings extends Component {
                         </table>
                     </div>
                 )
-
             }
-
-            return(
-                <span className="flexcontainer">
-                    {newData}
-                </span>
-            )
+            if (newData.length === 2) {
+                return(
+                    <div className="flexcontainer">
+                        {newData}
+                    </div>
+            )}
+            else{
+                return(
+                    <h1>Loading...</h1>
+                )}
         }
         else{
             return(

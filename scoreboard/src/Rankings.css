@@ -13,8 +13,12 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: bold;
     border-collapse: collapse;
-    width: 100%;
+    width: 35vw;
     background-color: #f2f2f2;
+    -webkit-animation: rankingsFade 0.5s; /* Safari 4+ */
+    -moz-animation:    rankingsFade 0.5s; /* Fx 5+ */
+    -o-animation:      rankingsFade 0.5s; /* Opera 12+ */
+    animation:         rankingsFade 0.5s; /* IE 10+, Fx 29+ */
 }
 
 .rankingsTable td, .rankingsTable th {
@@ -45,6 +49,7 @@
     border-style: solid;
     border: 1.5px solid black;
     padding: 10px 10px 10px 10px;
+    white-space: nowrap;
 }
 
 .flexcontainer {
@@ -62,8 +67,12 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: bold;
     border-collapse: collapse;
-    width: 50%;
+    width: 60vw;
     background-color: #f2f2f2;
+    -webkit-animation: scheduleFade 0.5s ease-in-out; /* Safari 4+ */
+    -moz-animation:    scheduleFade 0.5s ease-in-out; /* Fx 5+ */
+    -o-animation:      scheduleFade 0.5s ease-in-out; /* Opera 12+ */
+    animation:         scheduleFade 0.5s ease-in-out; /* IE 10+, Fx 29+ */
 }
 
 .scheduleTable td, .rankingsTable th {
@@ -99,3 +108,85 @@
 #logo-schedule {
     width: 3em;
 }
+
+@-webkit-keyframes scheduleFade {
+    0% { 
+        opacity: 0;
+        width: 50vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 60vw;
+    }
+  }
+@-moz-keyframes scheduleFade {
+    0% { 
+        opacity: 0;
+        width: 50vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 60vw;
+    }
+  }
+@-o-keyframes scheduleFade {
+    0% { 
+        opacity: 0;
+        width: 50vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 60vw;
+    }
+  }
+@keyframes scheduleFade {
+    0% { 
+        opacity: 0;
+        width: 50vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 60vw;
+    }
+  }
+
+  @-webkit-keyframes rankingsFade {
+    0% { 
+        opacity: 0;
+        width: 20vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 35vw;
+    }
+  }
+@-moz-keyframes rankingsFade {
+    0% { 
+        opacity: 0;
+        width: 20vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 35vw;
+    }
+  }
+@-o-keyframes rankingsFade {
+    0% { 
+        opacity: 0;
+        width: 20vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 35vw;
+    }
+  }
+@keyframes rankingsFade {
+    0% { 
+        opacity: 0;
+        width: 20vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 35vw;
+    }
+  }

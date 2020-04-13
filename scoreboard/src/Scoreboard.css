@@ -13,6 +13,7 @@ h1 {
     border-style: solid;
     border-color: gray;
     padding: 10px 10px 10px 10px;
+    white-space: nowrap;
 }
 
 #scores {
@@ -96,6 +97,10 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    -webkit-animation: scoreboardFade 0.5s; /* Safari 4+ */
+    -moz-animation:    scoreboardFade 0.5s; /* Fx 5+ */
+    -o-animation:      scoreboardFade 0.5s; /* Opera 12+ */
+    animation:         scoreboardFade 0.5s; /* IE 10+, Fx 29+ */
  }
 
 .card-table{
@@ -115,4 +120,37 @@ h1 {
     height: 20vh;
 }
 
-
+@-webkit-keyframes scoreboardFade {
+    0% { 
+        opacity: 0;
+        width: 20vw;
+    }
+    100% { 
+        opacity: 1;
+        width: 35vw;
+    }
+  }
+@-moz-keyframes scoreboardFade {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+  }
+@-o-keyframes scoreboardFade {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+  }
+@keyframes scoreboardFade {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+  }

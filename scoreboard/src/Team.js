@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import './Team.css';
+import './Team.css';
 
 /*
 COMMENTS:
@@ -157,7 +157,7 @@ export class Team extends Component {
                     awayScores = 0
                 }
                 tableData.push(
-                    <tbody className="scoreboard">
+                    <tbody className="teamboard">
                         <tr>
                             <td id="logo">
                                 <img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/>
@@ -193,10 +193,10 @@ export class Team extends Component {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                &nbsp;{this.testForMatchupScores(1, index)} &nbsp;{awayScores}
+                                                {this.testForMatchupScores(1, index)}<br/>{awayScores}
                                             </td>
                                             <td>
-                                                &nbsp;{this.testForMatchupScores(0, index)}&nbsp; {homeScores}
+                                                {this.testForMatchupScores(0, index)}<br/>{homeScores}
                                             </td>
                                         </tr>
                                     </tbody>

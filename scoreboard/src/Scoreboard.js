@@ -207,6 +207,14 @@ export class Scoreboard extends Component {
         return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
     }
 
+    returnVenueLocation(matchup){
+        if (matchup.venue.address.city != undefined && matchup.venue.address.state != undefined) {
+            return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+        }
+        else {
+            return "";
+        }
+    }
 
     //MARK: Render logic using the helper functions and outputing the correct html
     render() {
@@ -244,7 +252,7 @@ export class Scoreboard extends Component {
                     </tbody>
                     </table>
                     <h5 colSpan="3">
-                        {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
+                        {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{this.state.matchups[x].venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} {returnVenueLocation(matchup)}</a>}
                     </h5>
                     <br/>
                     </span>                   

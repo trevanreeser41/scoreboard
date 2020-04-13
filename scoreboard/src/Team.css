@@ -2,13 +2,13 @@ h1 {
     color: white;
 }
 
-.scoreboard {
+.teamboard {
     height: auto;
     width: auto;
     margin: 70px auto;
   }
 
-.scoreboard td {
+.teamboard td {
     background: white;
     border-style: solid;
     border-color: gray;

@@ -45,7 +45,7 @@ export default function ScoreboardTable(props){
                 </tbody>
                 </table>
                 <h5 colSpan="3">
-                    {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} ({matchup.venue.address.city}, {matchup.venue.address.state})</a>}
+                    {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} {returnVenueLocation(matchup)}</a>}
                 </h5>
                 <br/>
             </span>  
@@ -219,3 +219,11 @@ function openToVenue(matchup){
     return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
 }
 
+function returnVenueLocation(matchup){
+        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+            return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+        }
+        else {
+            return "";
+        }
+    }
