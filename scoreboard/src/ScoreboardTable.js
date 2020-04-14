@@ -15,6 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import { Card, CardMedia } from '@material-ui/core';
 import CardHeader from '@material-ui/core/CardHeader';
 import TeamCard from './TeamCard'
+import './ScoreboardStyles.css';
 
 const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -82,8 +83,13 @@ export default function ScoreboardTable(props){
     })
 
     return (
+      <span>
+        <div id="ScoreboardNameTitle">
+          {props.league.replace("-"," ").toUpperCase()}
+        </div>
         <Grid className={classes.root} container spacing={0}>
             {tableData}
         </Grid>
+      </span>
     )
 }

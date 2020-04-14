@@ -4,6 +4,7 @@ import { Layout } from './layout';
 import './App.css';
 //import { Scoreboard } from './Scoreboard';
 import ScoreboardTable from './ScoreboardTable.js';
+import RankingsTable from './Rankings.js';
 import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
@@ -42,7 +43,7 @@ function App() {
           <ScoreboardTable sport="soccer" league="uefa.champions"/>
         </Route>              
         <Route path='/Rankings'>
-          <Rankings  />
+          <RankingsTable  />
         </Route>
         <Route path='/sports/'>
           <ScheduleTable />

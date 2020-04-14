@@ -31,6 +31,28 @@ export default function useFetchAppDataScoreboard(league, sport) {
     return matchups;
 }
 
+export function useFetchAppDataRankings(sports) {
+  const [rankings, setRankings] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+      if (isLoading===true){
+          async function fetchData() {
+              for (let index = 0; index < sports.length; index++) {
+                let response = await fetch(`http://site.api.espn.com/apis/site/v2/sports/${sports[index][0]}/${sports[index][1]}/rankings`)
+                console.log(response)
+                let json = await response.json();
+                setRankings(rankings => rankings.concat(json))
+              }
+          }
+          fetchData()
+          setIsLoading(false)
+      }
+  }, [isLoading, setRankings, sports])
+
+  return rankings;
+}
+
 export function useInterval(callback, delay) {
     const savedCallback = useRef();
   

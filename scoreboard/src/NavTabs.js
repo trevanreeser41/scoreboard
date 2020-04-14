@@ -6,8 +6,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import { Team } from './Team';
-import ScoreboardTable from './ScoreboardTable.js';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,9 +56,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NavTabs() {
+export default function NavTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  console.log("RANKINGS")
+  console.log(props.rankings)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -75,31 +75,15 @@ export default function NavTabs() {
           onChange={handleChange}
           aria-label="nav tabs example"
         >
-          <LinkTab label="Personal Scoreboard" to="/" {...a11yProps(0)} />
-          <LinkTab label="College Football" to="/CollegeFootball" {...a11yProps(1)} />
-          <LinkTab label="College Basketball" to="/CollegeBasketball" {...a11yProps(2)} />
-          <LinkTab label="NBA" to="/NBA" {...a11yProps(3)} />
-          <LinkTab label="MLB" to="/MLB" {...a11yProps(4)} />
-          <LinkTab label="NFL" to="/NFL" {...a11yProps(5)} />
+          <LinkTab label="College Basketball" href="/drafts" {...a11yProps(0)} />
+          <LinkTab label="College Football" href="/trash" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-         <Team />
+        {props.rankings[0]}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ScoreboardTable sport="basketball" league="nba"/>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <ScoreboardTable sport="basketball" league="mens-college-basketball" />
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        <ScoreboardTable sport="basketball" league="nba"/>
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        <ScoreboardTable sport="baseball" league="mlb"/>
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-       <ScoreboardTable sport="football" league="nfl"/>
+        {props.rankings[1]}
       </TabPanel>
     </div>
   );

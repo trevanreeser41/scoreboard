@@ -48,18 +48,54 @@ export class NavBar extends Component {
                     <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+                    <div id="navbarTitle">
+                        <h1>
+                            Scoreboard
+                        </h1>
+                    </div>
+                    
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav">
-                            <Link className={this.props.currentPage === "" ? "nav-item nav-link active" : "nav-item nav-link"} to="/">Personal Scoreboard</Link>
-                            <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
-                            <Link className={this.props.currentPage === "CollegeFootball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeFootball">NCAAF</Link>
-                            <Link className={this.props.currentPage === "CollegeBasketball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeBasketball">NCAAM</Link>
-                            <Link className={this.props.currentPage === "NFL" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NFL">NFL</Link>
-                            <Link className={this.props.currentPage === "NHL" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NHL">NHL</Link>                            
-                            <Link className={this.props.currentPage === "MLB" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLB">MLB</Link>
-                            <Link className={this.props.currentPage === "MLS" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLS">MLS</Link>
-                            <Link className={this.props.currentPage === "ChampionsLeague" ? "nav-item nav-link active" : "nav-item nav-link"} to="/ChampionsLeague">UEFA</Link>
-                            <Link className={this.props.currentPage === "Rankings" ? "nav-item nav-link active" : "nav-item nav-link"} to="/Rankings">Rankings</Link>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <Link className={this.props.currentPage === "" ? "nav-item nav-link active" : "nav-item nav-link"} to="/">Personal Scoreboard</Link>
+                                    </td>
+                                    <td>
+                                        <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>                                
+                                    </td>
+                                    <td>
+                                        <Link className={this.props.currentPage === "CollegeFootball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeFootball">NCAAF</Link>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <Link className={this.props.currentPage === "CollegeBasketball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeBasketball">NCAAM</Link>
+                                    </td>
+                                    <td>
+                                        <Link className={this.props.currentPage === "NFL" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NFL">NFL</Link>                               
+                                    </td>
+                                    <td>
+                                        <Link className={this.props.currentPage === "MLB" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLB">MLB</Link>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <Link className={this.props.currentPage === "MLS" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLS">MLS</Link>
+                                    </td>
+                                    <td>
+                                        <Link className={this.props.currentPage === "ChampionsLeague" ? "nav-item nav-link active" : "nav-item nav-link"} to="/ChampionsLeague">UEFA</Link>                               
+                                    </td>
+                                    <td>
+                                        <Link className={this.props.currentPage === "MLB" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLB">MLB</Link>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td id="ranking" colSpan="3">
+                                        <Link className={this.props.currentPage === "Rankings" ? "nav-item nav-link active" : "nav-item nav-link"} to="/Rankings">Rankings</Link>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </nav>

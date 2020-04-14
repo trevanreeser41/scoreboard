@@ -28,16 +28,13 @@ const useStyles = makeStyles({
   table:{
     margin:0,
     textAlign: "left"
-  },
-  title:{
-    fontSize: 12
   }
 });
 
 const FirstCell = withStyles({
   root:{
-    margin: 0,
-    padding: 2,
+    alignContent: 'center',
+    padding: 4,
   },
   media:{
     height: 2,
@@ -54,13 +51,14 @@ const SecondCell = withStyles({
     verticalAlign: 'center',
     padding: 0,
     background: 'white',
-    width: 300,
+    width: 600,
     padding: 5,
   },
 })(TableCell);
 
 const ThirdCell = withStyles({
   root:{
+    background: 'lightgray',
     width: '4vw',
     textAlign: 'center',
     fontWeight: 'bold',
@@ -90,7 +88,7 @@ export default function TeamCard(props) {
       title={status}/>
       <CardContent>
         <TableContainer>
-          <Table className={classes.title}>
+          <Table>
               {status}
           </Table>
         </TableContainer>
