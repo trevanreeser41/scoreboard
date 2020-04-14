@@ -66,6 +66,10 @@ export class ScheduleTable extends Component {
         });
     }
 
+    changeTeam(teamName) {
+        console.log(teamName);
+    }
+
     getMatchup(x){
         return this.state.matchups[x]
     }
@@ -95,25 +99,27 @@ export class ScheduleTable extends Component {
                     this.state.matchups[index].competitors[1].record !== undefined ? team2Record = this.state.matchups[index].competitors[1].record[0].displayValue : team2Record = "0-0"
                 }
                 tableData1.push(
-                    <tr>
+                    <tr key={this.state.matchups[index].id}>
                         <td>{this.state.matchups[index].date.substr(0,10)}</td>
                         <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos[0].href}/></td>
-                        <td class="schedule">{awayTeam.team.location} ({team2Record})</td>
-                        <td>@</td>
+                        <td className="schedule">{awayTeam.team.location} ({team2Record})</td>
+                        <td id="thumb">@</td>
                         <td id="logo-schedule"><img id="thumb" alt="logo" src={homeTeam.team.logos[0].href}/></td>
-                        <td class="schedule">{homeTeam.team.location} ({team1Record})</td>
+                        <td className="schedule">{homeTeam.team.location} ({team1Record})</td>
                     </tr>
                 )   
             }
 
             return (
                 <div className="flexcontainer">
-                    <table class="scheduleTable"> 
+                    <table className="scheduleTable">                         
                         <th style={{ 
                             backgroundColor: `#${this.state.color}`,
                             border: `1px solid #${this.state.color}`, 
-                        }} colSpan="6">{this.state.team} Schedule</th>
-                        {tableData1}
+                        }} colSpan="6">
+                            {this.state.team} Schedule
+                        </th>                        
+                        {tableData1}                        
                     </table>
                 </div>
             )

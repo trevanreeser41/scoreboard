@@ -217,7 +217,7 @@ export class Team extends Component {
                 var newData = []
                 for (let index = 0; index < tableData.length; index=index+3) {
                     newData.push(                                
-                        <div key={this.state.data[index].team.displayName} className="flexcontainer">
+                        <div key={this.state.data[index].team.id} className="flexcontainer">
                             <table className="card-table-team">
                                 {tableData[index]}
                             </table>
@@ -230,13 +230,11 @@ export class Team extends Component {
                         </div>
                     )
                 }
-
                 return (
                     <div className=''> 
                         {newData}
                     </div>
-                )
-           
+                )           
         }
         else{
         return(
