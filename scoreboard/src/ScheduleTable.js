@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { UpdateScore } from './UpdateScore';
 import './Rankings.css';
 
 export class ScheduleTable extends Component {
@@ -7,7 +6,8 @@ export class ScheduleTable extends Component {
     constructor(props) {
         super(props)
 		this.state = {
-			team: props.team,
+            team: props.team,
+            color: props.color,
 			title: props.title,
             id: props.id,
             matchups: [],
@@ -24,7 +24,8 @@ export class ScheduleTable extends Component {
     }
 
     populateSchedule = () => { 
-        this.setState({ matchups: [] })
+        let color;
+        let team;
         fetch(`http://site.api.espn.com/apis/site/v2${window.location.pathname}`)
             .then(function (response) {
                 if (response.ok) {
@@ -35,6 +36,8 @@ export class ScheduleTable extends Component {
             })
             .then(function (data) {
                 let events = data.events;
+                color = data.team.color;
+                team = data.team.displayName;
                 var games = [];
                 for (var i = 0; i < events.length; i++) {
                     for (var j = 0; j < events[i].competitions.length; j++) {
@@ -50,6 +53,8 @@ export class ScheduleTable extends Component {
                     // var awayScores = this.state.awayScores.concat(games[index].competitors[0].score.displayValue);
                     this.setState({ 
                         matchups: joined,
+                        team: team,
+                        color: color,
                         // homeScores: homeScores,
                         // awayScores: awayScores,
                     })
@@ -79,45 +84,15 @@ export class ScheduleTable extends Component {
 
     render() {
         if (this.state.loading===false){
-            //let tableData = [];
             let team1Record = '';
             let team2Record = '';
-            //var AwayRanking;
-            //var HomeRanking;
-
-            // for (let x = 0; x < this.state.matchups.length; x++) {
-            //     if (this.state.season !== "Off Season") {
-            //         this.state.matchups[x].competitors[1].record !== undefined ? team1Record = this.state.matchups[x].competitors[1].record[0].displayValue : team1Record = "0-0"
-            //         this.state.matchups[x].competitors[0].record !== undefined ? team2Record = this.state.matchups[x].competitors[0].record[0].displayValue : team2Record = "0-0"
-            //     }
-            //     tableData.push(
-            //         <tbody className="scoreboard">
-            //         <tr>
-            //             <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[1].team.logos[0].href}/></td>
-            //             {this.state.matchups[x].competitors[1].winner === true ? <td id="teams"><strong>{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></strong></td>: <td id="teams">{AwayRanking} {this.state.matchups[x].competitors[1].team.displayName} <span id="record">({team1Record})</span></td>}
-            //             <UpdateScore index={x} teamIndex={1} sport={this.state.sport} league={this.state.league} scores={this.state.homeScores}/>
-            //         </tr>
-            //         <tr>
-            //             <td id="logo"><img id="thumb" alt="" src={this.state.matchups[x].competitors[0].team.logos[0].href}/></td>
-            //             {this.state.matchups[x].competitors[0].winner === true ? <td id="teams"><strong>{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></strong></td>: <td id="teams">{HomeRanking} {this.state.matchups[x].competitors[0].team.displayName} <span id="record">({team2Record})</span></td>}
-            //             <UpdateScore index={x} teamIndex={0} sport={this.state.sport} league={this.state.league} scores={this.state.awayScores}/>
-            //         </tr>
-            //         <tr>
-            //             <td colSpan="3">{this.state.matchups[x].date}</td>
-            //         </tr>            
-            //         </tbody>
-            //     )   
-            // }
-
             var tableData1 = []
             for (let index = 0; index < this.state.matchups.length; index++) {
-                //var matchup = this.getMatchup[index]
                 var homeTeam = this.getHomeTeam(index)
                 var awayTeam = this.getAwayTeam(index)
-                //let location = this.openToVenue(matchup)
                 if (this.state.season !== "Off Season") {
-                    this.state.matchups[index].competitors[0].record !== undefined ? team1Record = this.state.matchups[index].competitors[1].record[0].displayValue : team1Record = "0-0"
-                    this.state.matchups[index].competitors[1].record !== undefined ? team2Record = this.state.matchups[index].competitors[0].record[0].displayValue : team2Record = "0-0"
+                    this.state.matchups[index].competitors[0].record !== undefined ? team1Record = this.state.matchups[index].competitors[0].record[0].displayValue : team1Record = "0-0"
+                    this.state.matchups[index].competitors[1].record !== undefined ? team2Record = this.state.matchups[index].competitors[1].record[0].displayValue : team2Record = "0-0"
                 }
                 tableData1.push(
                     <tr>
@@ -134,7 +109,10 @@ export class ScheduleTable extends Component {
             return (
                 <div className="flexcontainer">
                     <table class="scheduleTable"> 
-                        <th colSpan="6">{this.state.team} Schedule</th>
+                        <th style={{ 
+                            backgroundColor: `#${this.state.color}`,
+                            border: `1px solid #${this.state.color}`, 
+                        }} colSpan="6">{this.state.team} Schedule</th>
                         {tableData1}
                     </table>
                 </div>

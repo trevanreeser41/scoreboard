@@ -66,6 +66,7 @@
 .scheduleTable {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: bold;
+    border: solid 1.5px white;
     border-collapse: collapse;
     width: 60vw;
     background-color: #f2f2f2;
@@ -76,15 +77,14 @@
 }
 
 .scheduleTable td, .rankingsTable th {
-    border: 1px solid #ddd;
     padding: 8px;
+    border: 1px solid #ddd;
 }
 
 .scheduleTable th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: center;
-    background-color: royalblue;
+    text-align: center;    
     color: white;
 }
 

@@ -208,7 +208,8 @@ function getAwayTeam(matchup){
 
 function getTeamIdentifier(league, team) {
     if (league === 'college-football' && team.location.indexOf(' ') <= 0) {
-        return team.location;
+        let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "");
+        return teamName;
     }
     else {
         return team.abbreviation;
