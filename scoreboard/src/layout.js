@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { NavBar } from './navbar.js';
+import NavTabs from './NavTabs.js';
 import { Container } from 'reactstrap';
+import { NavBar } from './navbar.js';
+
 
 export class Layout extends Component {
 	displayName = Layout.name

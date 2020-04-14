@@ -60,7 +60,7 @@ export default function ScoreboardTable(props){
     const [spacing, setSpacing] = React.useState(2);
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
-    
+
     let status = '';
     let team1Record = '';
     let team2Record = '';
@@ -74,7 +74,7 @@ export default function ScoreboardTable(props){
     var tableData = matchups.map(matchup => {
         var array = []
         array.push(
-                <Grid item xs={4}>
+                <Grid item xs={12}>
                     <TeamCard matchup={matchup} league={props.league} sport={props.sport}/>
                 </Grid>
         )   
@@ -82,10 +82,8 @@ export default function ScoreboardTable(props){
     })
 
     return (
-        <Grid className={classes.root} container spacing={6}>
+        <Grid className={classes.root} container spacing={0}>
             {tableData}
         </Grid>
     )
 }
-
-//HELPER FUNCTIONS TO BUILD HTML

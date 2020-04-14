@@ -15,28 +15,33 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   root: {
-    width: '24vw',
-    background: "black",
-    color: 'white'
+    width: 300,
+    background: "transparent",
+    color: 'white',
+    padding: 0
   },
   media: {
-    height: 50,
-    width: 50,
+    height: 30,
+    width: 30,
     margin: 0,
   },
   table:{
     margin:0,
     textAlign: "left"
+  },
+  title:{
+    fontSize: 12
   }
 });
 
 const FirstCell = withStyles({
   root:{
     margin: 0,
+    padding: 2,
   },
   media:{
-    height: 20,
-    width: 20,
+    height: 2,
+    width: 2,
     margin: 0,
   }
 })(TableCell);
@@ -44,24 +49,22 @@ const FirstCell = withStyles({
 const SecondCell = withStyles({
   root:{
     margin: 0,
-    fontSize: 16,
+    fontSize: 10,
     alignContent: 'left',
     verticalAlign: 'center',
-    padding: '0 300px',
+    padding: 0,
     background: 'white',
-    width: '20vw',
-    fontSize: 'small',
-    padding: '5px 5px 5px 5px',
+    width: 300,
+    padding: 5,
   },
 })(TableCell);
 
 const ThirdCell = withStyles({
   root:{
-    background: 'lightgray',
     width: '4vw',
-    padding: '15px 15px 15px 15px',
     textAlign: 'center',
     fontWeight: 'bold',
+    fontSize: 12,
   },
 })(TableCell);
 
@@ -87,7 +90,7 @@ export default function TeamCard(props) {
       title={status}/>
       <CardContent>
         <TableContainer>
-          <Table>
+          <Table className={classes.title}>
               {status}
           </Table>
         </TableContainer>
@@ -102,14 +105,10 @@ export default function TeamCard(props) {
                 title="Logo"/>
               </FirstCell>
               <SecondCell align="left">
-              <Typography variant='subtitle1' gutterbottom>
                   {awayTeam.displayName} ({awayTeamRecord})
-                </Typography>
               </SecondCell>
               <ThirdCell>
-                <Typography variant='h5'>
                   {props.matchup.competitors[0].score}
-                </Typography>
               </ThirdCell>
             </TableRow>
           </Table>
@@ -126,14 +125,10 @@ export default function TeamCard(props) {
                 title="Logo"/>
               </FirstCell>
               <SecondCell align="left">
-                <Typography variant='subtitle1' gutterbottom>
                   {homeTeam.displayName} ({homeTeamRecord})
-                </Typography>
               </SecondCell>
               <ThirdCell>
-                <Typography variant='h5'>
                   {props.matchup.competitors[1].score}
-                </Typography>
               </ThirdCell>
               
             </TableRow>
