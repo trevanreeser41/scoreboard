@@ -21,29 +21,22 @@ export class Rankings extends Component {
 
     populateRankings = () => { 
         var dataarray =[]
-        //console.log(this.state.sports.length)
         for (let index = 0; index < this.state.sports.length; index++) {
-            //console.log(this.state.sports[index])
             fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sports[index][0]}/${this.state.sports[index][1]}/rankings`)
                 .then(function (response) {
                     if (response.ok) {
                         return response.json();
                     }
-    
                     throw new Error("Unable to retrieve required data from server.");
                 })
                 .then(data => {
-                    //console.log(data)
                     dataarray.push(data)
                     this.setState({loading: false,data: dataarray})
-                    //console.log(this.state.data)
-                    //console.log(this.state.data)
                 })
                 .catch(function (error) {
                 console.log("Error: ", error.message);
             });
             }   
-            // console.log(this.state.data)
     }
 
     render() {

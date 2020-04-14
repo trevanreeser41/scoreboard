@@ -1,18 +1,13 @@
-import React /*,{ useState }*/ from 'react';
+import React from 'react';
 import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
-//import ScoreboardHTML from './Hooks';
 import {Link} from 'react-router-dom';
-
 
 export default function ScoreboardTable(props){
 
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
-    //const [homeScores, setHomeScores] =useState([])
-    //const [awayScores, setAwayScores] =useState([])
-    
-    //let tableData = []
+
     let status = '';
     let team1Record = '';
     let team2Record = '';
@@ -63,11 +58,11 @@ export default function ScoreboardTable(props){
             </div>
         )
     }
-
+    
     return (
-        <div> 
+        <span> 
             {newData}
-        </div>
+        </span>
     )
 }
 
@@ -161,7 +156,6 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
             ({team1Record})
         </span>
     </td>}
-    {/*/////THIS NEED TO BE FIXED***********************************************************/}
     <td id="scores">{matchup.competitors[1].score}</td>
 </tr>
 
@@ -189,14 +183,10 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
                 ({team2Record})
             </span>
         </td>}
-        {/*/////THIS NEED TO BE FIXED************************************************************/}
         <td id="scores">{matchup.competitors[0].score}</td>
     </tr>
 }
 
-// function getMatchup(x, matchups){
-//     return matchups[x]
-// }
 
 function getHomeTeam(matchup){
     return matchup.competitors[1]
