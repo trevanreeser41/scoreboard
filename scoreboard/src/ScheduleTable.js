@@ -49,14 +49,10 @@ export class ScheduleTable extends Component {
             .then(games => {
                 for (let index = 0; index < games.length; index++) {
                     var joined = this.state.matchups.concat(games[index]);
-                    // var homeScores = this.state.homeScores.concat(games[index].competitors[1].score.displayValue);
-                    // var awayScores = this.state.awayScores.concat(games[index].competitors[0].score.displayValue);
                     this.setState({ 
                         matchups: joined,
                         team: team,
                         color: color,
-                        // homeScores: homeScores,
-                        // awayScores: awayScores,
                     })
                 }
                 this.setState({ loading: false })

@@ -50,16 +50,16 @@ export class NavBar extends Component {
                     </button>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav">
-                            <Link className={this.props.currentPage === "" ? "nav-item nav-link active" : "nav-item nav-link"} to="/">Personal Scoreboard</Link>
-                            <Link className={this.props.currentPage === "NBA" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NBA">NBA</Link>
-                            <Link className={this.props.currentPage === "CollegeFootball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeFootball">NCAAF</Link>
-                            <Link className={this.props.currentPage === "CollegeBasketball" ? "nav-item nav-link active" : "nav-item nav-link"} to="/CollegeBasketball">NCAAM</Link>
-                            <Link className={this.props.currentPage === "NFL" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NFL">NFL</Link>
-                            <Link className={this.props.currentPage === "NHL" ? "nav-item nav-link active" : "nav-item nav-link"} to="/NHL">NHL</Link>                            
-                            <Link className={this.props.currentPage === "MLB" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLB">MLB</Link>
-                            <Link className={this.props.currentPage === "MLS" ? "nav-item nav-link active" : "nav-item nav-link"} to="/MLS">MLS</Link>
-                            <Link className={this.props.currentPage === "ChampionsLeague" ? "nav-item nav-link active" : "nav-item nav-link"} to="/ChampionsLeague">UEFA</Link>
-                            <Link className={this.props.currentPage === "Rankings" ? "nav-item nav-link active" : "nav-item nav-link"} to="/Rankings">Rankings</Link>
+                            <Link className="nav-item nav-link" to="/">Personal Scoreboard</Link>                 
+                            <Link className="nav-item nav-link" to="/NBA">NBA</Link>
+                            <Link className="nav-item nav-link" to="/CollegeFootball">NCAAF</Link>
+                            <Link className="nav-item nav-link" to="/CollegeBasketball">NCAAM</Link>
+                            <Link className="nav-item nav-link" to="/NFL">NFL</Link>
+                            <Link className="nav-item nav-link" to="/NHL">NHL</Link>                            
+                            <Link className="nav-item nav-link" to="/MLB">MLB</Link>
+                            <Link className="nav-item nav-link" to="/MLS">MLS</Link>
+                            <Link className="nav-item nav-link" to="/ChampionsLeague">UEFA</Link>
+                            <Link className="nav-item nav-link" to="/Rankings">Rankings</Link>
                         </div>
                     </div>
                 </nav>
