@@ -101,10 +101,10 @@ export class ScheduleTable extends Component {
                 tableData1.push(
                     <tr key={this.state.matchups[index].id}>
                         <td>{this.state.matchups[index].date.substr(0,10)}</td>
-                        <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos[0].href}/></td>
+                        <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "%PUBLIC_URL%/no-logo-available.png"}/></td>
                         <td className="schedule">{awayTeam.team.location} ({team2Record})</td>
                         <td id="thumb">@</td>
-                        <td id="logo-schedule"><img id="thumb" alt="logo" src={homeTeam.team.logos[0].href}/></td>
+                        <td id="logo-schedule"><img id="thumb" alt="logo" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "%PUBLIC_URL%/no-logo-available.png"}/></td>
                         <td className="schedule">{homeTeam.team.location} ({team1Record})</td>
                     </tr>
                 )   
