@@ -6,6 +6,7 @@ import ScoreboardTable from './ScoreboardTable.js';
 import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
+import { NFLDraft } from './NFLDraft';
 
 function App() {
 
@@ -43,6 +44,9 @@ function App() {
         </Route>
         <Route path='/sports/'>
           <ScheduleTable />
+        </Route>
+        <Route path='/NFLDraft'>
+          <NFLDraft />
         </Route>
         <br/>
       </Layout >
