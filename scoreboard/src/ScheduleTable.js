@@ -8,6 +8,7 @@ export class ScheduleTable extends Component {
 		this.state = {
             team: props.team,
             color: props.color,
+            record: "",
 			title: props.title,
             id: props.id,
             matchups: [],
@@ -26,6 +27,7 @@ export class ScheduleTable extends Component {
     populateSchedule = () => { 
         let color;
         let team;
+        let record;
         fetch(`http://site.api.espn.com/apis/site/v2${window.location.pathname}`)
             .then(function (response) {
                 if (response.ok) {
@@ -38,6 +40,12 @@ export class ScheduleTable extends Component {
                 let events = data.events;
                 color = data.team.color;
                 team = data.team.displayName;
+                if (data.team.recordSummary !== undefined){
+                    record = "(" + data.team.recordSummary + ")"; 
+                }
+                else {
+                    record = "";
+                }            
                 var games = [];
                 for (var i = 0; i < events.length; i++) {
                     for (var j = 0; j < events[i].competitions.length; j++) {
@@ -53,6 +61,7 @@ export class ScheduleTable extends Component {
                         matchups: joined,
                         team: team,
                         color: color,
+                        record: record,
                     })
                 }
                 this.setState({ loading: false })
@@ -78,6 +87,35 @@ export class ScheduleTable extends Component {
         return this.state.matchups[index].competitors[1]
     }
 
+    getScores(team) {
+        try {
+            return team.score.displayValue;
+        }
+        catch {
+            return "-";
+        }
+    }
+
+    checkForWinner(team1, team2) {
+        try {
+            if (team1.team.displayName === this.state.team && team1.winner === true){
+                return <td id="win" style={{color: "#5cb85c"}}>W</td>
+            }
+            else if (team2.team.displayName === this.state.team && team2.winner === true) {
+                return <td id="win" style={{color: "#5cb85c"}}>W</td>
+            }
+            else if (team1.winner === false || team2.winner === false){
+                return <td id="win" style={{color: "#d9534f"}}>L</td>
+            }
+            else {
+                return <td id="win">-</td>
+            }
+        }
+        catch {
+            return "";
+        }
+    }
+
     openToVenue(matchup){
         return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
     }
@@ -91,17 +129,21 @@ export class ScheduleTable extends Component {
                 var homeTeam = this.getHomeTeam(index)
                 var awayTeam = this.getAwayTeam(index)
                 if (this.state.season !== "Off Season") {
-                    this.state.matchups[index].competitors[0].record !== undefined ? team1Record = this.state.matchups[index].competitors[0].record[0].displayValue : team1Record = "0-0"
-                    this.state.matchups[index].competitors[1].record !== undefined ? team2Record = this.state.matchups[index].competitors[1].record[0].displayValue : team2Record = "0-0"
+                    this.state.matchups[index].competitors[0].record !== undefined && this.state.matchups[index].competitors[0].record[0] !== undefined ? team1Record = this.state.matchups[index].competitors[0].record[0].displayValue : team1Record = "0-0"
+                    this.state.matchups[index].competitors[1].record !== undefined && this.state.matchups[index].competitors[1].record[0] !== undefined ? team2Record = this.state.matchups[index].competitors[1].record[0].displayValue : team2Record = "0-0"
                 }
                 tableData1.push(
                     <tr key={this.state.matchups[index].id}>
                         <td>{this.state.matchups[index].date.substr(0,10)}</td>
-                        <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "%PUBLIC_URL%/no-logo-available.png"}/></td>
+                        <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                         <td className="schedule">{awayTeam.team.location} ({team2Record})</td>
-                        <td id="thumb">@</td>
-                        <td id="logo-schedule"><img id="thumb" alt="logo" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "%PUBLIC_URL%/no-logo-available.png"}/></td>
+                        <td id="scores">{this.getScores(awayTeam)}</td>
+                        {/* <td id="thumb">@</td> */}
+                        <td id="logo-schedule"><img id="thumb" alt="logo.png" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                         <td className="schedule">{homeTeam.team.location} ({team1Record})</td>
+                        <td id="scores">{this.getScores(homeTeam)}</td>
+                        {this.checkForWinner(homeTeam, awayTeam)}
+                        <td>{this.state.matchups[index].status.type.detail}</td>
                     </tr>
                 )   
             }
@@ -112,8 +154,8 @@ export class ScheduleTable extends Component {
                         <th style={{ 
                             backgroundColor: `#${this.state.color}`,
                             border: `1px solid #${this.state.color}`, 
-                        }} colSpan="6">
-                            {this.state.team} Schedule
+                        }} colSpan="10">
+                            {this.state.team} Schedule {this.state.record}
                         </th>                        
                         {tableData1}                        
                     </table>

@@ -3,6 +3,11 @@
     width: 3em;
 }
 
+#win {
+    width: 3em;
+    text-align: center;
+}
+
 #thumb img {
     height: auto;
     width: auto;
@@ -68,8 +73,9 @@
     font-weight: bold;
     border: solid 1.5px white;
     border-collapse: collapse;
-    width: 60vw;
+    width: 75vw;
     background-color: #f2f2f2;
+    white-space: nowrap;
     -webkit-animation: scheduleFade 0.5s ease-in-out; /* Safari 4+ */
     -moz-animation:    scheduleFade 0.5s ease-in-out; /* Fx 5+ */
     -o-animation:      scheduleFade 0.5s ease-in-out; /* Opera 12+ */
@@ -112,41 +118,41 @@
 @-webkit-keyframes scheduleFade {
     0% { 
         opacity: 0;
-        width: 50vw;
+        width: 60vw;
     }
     100% { 
         opacity: 1;
-        width: 60vw;
+        width: 75vw;
     }
   }
 @-moz-keyframes scheduleFade {
     0% { 
         opacity: 0;
-        width: 50vw;
+        width: 60vw;
     }
     100% { 
         opacity: 1;
-        width: 60vw;
+        width: 75vw;
     }
   }
 @-o-keyframes scheduleFade {
     0% { 
         opacity: 0;
-        width: 50vw;
+        width: 60vw;
     }
     100% { 
         opacity: 1;
-        width: 60vw;
+        width: 75vw;
     }
   }
 @keyframes scheduleFade {
     0% { 
         opacity: 0;
-        width: 50vw;
+        width: 60vw;
     }
     100% { 
         opacity: 1;
-        width: 60vw;
+        width: 75vw;
     }
   }
 
