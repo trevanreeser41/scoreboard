@@ -14,7 +14,6 @@ const ScoreboardTable = (props) => {
     var AwayRanking;
     var HomeRanking;
 
-
     var tableData = matchups.map(matchup => {
         var array = []
         var homeTeam = getHomeTeam(matchup)
@@ -58,12 +57,11 @@ const ScoreboardTable = (props) => {
             </div>
         )
     }
-    
     return (
         <span> 
             {newData}
         </span>
-    );
+    )
 };
 
 //HELPER FUNCTIONS TO BUILD HTML

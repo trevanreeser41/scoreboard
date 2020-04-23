@@ -22,15 +22,14 @@ export class ScheduleTable extends Component {
 
     async componentDidMount() {        
         let urlParams = window.location.pathname.split("/");
-        await this.populateSchedule(urlParams);
+        this.populateSchedule(urlParams);
     }
 
     async componentDidUpdate(prevProps) {
         // Typical usage (don't forget to compare props):
         if (this.props.team !== prevProps.team) {
             let urlParams = window.location.pathname.split("/");
-            await this.populateSchedule(urlParams);
-            //this.fade();
+            this.populateSchedule(urlParams);
             this.setState({ loading: true })
         }
     }
@@ -115,7 +114,7 @@ export class ScheduleTable extends Component {
             let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(" ","");
             return teamName;
         }
-        else if (league === "mens-college-basketball" && team.location.indexOf(" ") >= 0) {
+        else if (league === "mens-college-basketball") {
             let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(" ","");
             return teamName;
         }
