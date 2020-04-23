@@ -46,9 +46,6 @@ function App() {
         <Route path='/NFLDraft'>
           <NFLDraft />
         </Route>
-        <Route path='/NFLDraft'>
-          <NFLDraft />
-        </Route>
         <br/>
       </Layout >
     );
