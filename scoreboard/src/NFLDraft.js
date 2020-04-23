@@ -15,8 +15,15 @@ export class NFLDraft extends Component {
         };
     }
 
-    async componentDidMount() {
-        await this.populateRankings();
+    componentDidMount() {
+        this.populateRankings();
+        this.interval = setInterval(() => {
+            this.populateRankings();
+        }, 300000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     populateRankings = () => { 
@@ -35,7 +42,7 @@ export class NFLDraft extends Component {
                 console.log("Error: ", error.message);
             });
             }   
-    }
+    }    
 
     render() {
         if (this.state.loading===false){
@@ -80,7 +87,7 @@ export class NFLDraft extends Component {
                     <div className="card">
                         {currentTeam.displayName}
                         <br/>
-                        <img src={currentTeam.logo}/>
+                        <img alt="logo" src={currentTeam.logo}/>
                         <br/>
                         {currentTeam.record.summary}
                         <br/>
@@ -94,7 +101,7 @@ export class NFLDraft extends Component {
                             <h2>
                                 Best Fit
                             </h2>
-                            <img src={current.bestFit.headshot.href} ></img>
+                            <img alt="headshot" src={current.bestFit.headshot.href} ></img>
                                 <div class="container">
                                     <h4><b>{current.bestFit.displayName}</b></h4>
                                     <p>
@@ -112,7 +119,7 @@ export class NFLDraft extends Component {
                             <h2>
                                 Best Available
                             </h2>
-                            <img src={current.bestAvailable.headshot.href}></img>
+                            <img alt="headshot" src={current.bestAvailable.headshot.href}></img>
                             <div class="container">
                                 <h4><b>{current.bestAvailable.displayName}</b></h4>
                                 <p>
