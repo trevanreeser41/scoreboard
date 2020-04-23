@@ -3,7 +3,7 @@ import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
 
-export default function ScoreboardTable(props){
+const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
@@ -63,8 +63,8 @@ export default function ScoreboardTable(props){
         <span> 
             {newData}
         </span>
-    )
-}
+    );
+};
 
 //HELPER FUNCTIONS TO BUILD HTML
 function includeRankings(league, matchup){
@@ -140,7 +140,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
     {matchup.competitors[1].winner === true ? 
     <td id="teams">
         <b>
-            <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league, matchup.competitors[1].team)}/schedule`}>
+            <Link to={`/${props.sport}/${props.league}/${getTeamIdentifier(props.league, matchup.competitors[1].team)}`}>
                 {AwayRanking} {matchup.competitors[1].team.displayName + " "} 
             </Link>    
             <span id="record">
@@ -149,7 +149,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
         </b>
     </td>: 
     <td id="teams">
-        <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league,matchup.competitors[1].team)}/schedule`}>
+        <Link to={`/${props.sport}/${props.league}/${getTeamIdentifier(props.league,matchup.competitors[1].team)}`}>
             {awayTeamBox} {matchup.competitors[1].team.displayName + " "} 
         </Link>
         <span id="record">
@@ -167,7 +167,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
         {matchup.competitors[0].winner === true ? 
         <td id="teams">
             <b>
-                <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league, matchup.competitors[0].team)}/schedule`}>
+                <Link to={`${props.sport}/${props.league}/${getTeamIdentifier(props.league, matchup.competitors[0].team)}`}>
                     {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
                 </Link>    
                 <span id="record">
@@ -176,7 +176,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
             </b>
         </td>: 
         <td id="teams">
-            <Link to={`sports/${props.sport}/${props.league}/teams/${getTeamIdentifier(props.league,matchup.competitors[0].team)}/schedule`}>
+            <Link to={`${props.sport}/${props.league}/${getTeamIdentifier(props.league,matchup.competitors[0].team)}`}>
                 {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
             </Link>
             <span id="record">
@@ -223,3 +223,5 @@ function returnVenueLocation(matchup){
             return "";
         }
     }
+
+export default ScoreboardTable;

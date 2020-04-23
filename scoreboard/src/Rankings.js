@@ -69,12 +69,28 @@ export class Rankings extends Component {
             )}
             else{
                 return(
-                    <h1>Loading...</h1>
+                    <div id="loading">
+                <h1>Loading</h1>
+                <br/>
+                <div className="spinner">
+                    <div className="bounce1"></div>
+                    <div className="bounce2"></div>
+                    <div className="bounce3"></div>
+                </div>
+                </div> 
                 )}
         }
         else{
             return(
-                <h1>Loading...</h1>
+                <div id="loading">
+                <h1>Loading</h1>
+                <br/>
+                <div className="spinner">
+                    <div className="bounce1"></div>
+                    <div className="bounce2"></div>
+                    <div className="bounce3"></div>
+                </div>
+                </div> 
             )}
     }
 }

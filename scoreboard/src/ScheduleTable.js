@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import './Rankings.css';
+import $ from "jquery";
 
 export class ScheduleTable extends Component {
 
     constructor(props) {
         super(props)
 		this.state = {
-            team: props.team,
-            color: props.color,
+            currentUrl: window.location.pathname,
             record: "",
 			title: props.title,
-            id: props.id,
             matchups: [],
             loading: true,
             sport: props.sport,
@@ -20,15 +20,26 @@ export class ScheduleTable extends Component {
         };
     }
 
-    async componentDidMount() {
-        await this.populateSchedule();
+    async componentDidMount() {        
+        let urlParams = window.location.pathname.split("/");
+        await this.populateSchedule(urlParams);
     }
 
-    populateSchedule = () => { 
+    async componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        if (this.props.team !== prevProps.team) {
+            let urlParams = window.location.pathname.split("/");
+            await this.populateSchedule(urlParams);
+            //this.fade();
+            this.setState({ loading: true })
+        }
+    }
+
+    populateSchedule = (urlParams) => { 
+        let record;
         let color;
         let team;
-        let record;
-        fetch(`http://site.api.espn.com/apis/site/v2${window.location.pathname}`)
+        fetch(`http://site.api.espn.com/apis/site/v2/sports/${urlParams[1]}/${urlParams[2]}/teams/${urlParams[3]}/schedule`)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();
@@ -55,13 +66,14 @@ export class ScheduleTable extends Component {
                 return games
             })
             .then(games => {
+                this.setState({ matchups: [] });
                 for (let index = 0; index < games.length; index++) {
                     var joined = this.state.matchups.concat(games[index]);
                     this.setState({ 
                         matchups: joined,
+                        record: record,
                         team: team,
                         color: color,
-                        record: record,
                     })
                 }
                 this.setState({ loading: false })
@@ -71,8 +83,10 @@ export class ScheduleTable extends Component {
         });
     }
 
-    changeTeam(teamName) {
-        console.log(teamName);
+    changeTeam(team) {
+        this.setState({
+            urlParams: [this.state.sport, this.state.league, team.abbreviation]
+        })
     }
 
     getMatchup(x){
@@ -96,13 +110,30 @@ export class ScheduleTable extends Component {
         }
     }
 
-    checkForWinner(team1, team2) {
+    getTeamIdentifier(league, team) {
+        if (league === "college-football" && team.location.indexOf(" ") <= 0) {
+            let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(" ","");
+            return teamName;
+        }
+        else if (league === "mens-college-basketball" && team.location.indexOf(" ") >= 0) {
+            let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(" ","");
+            return teamName;
+        }
+        else {
+            return team.abbreviation;
+        }
+    }
+
+    checkForWinner(team1, team2, index) {
         try {
             if (team1.team.displayName === this.state.team && team1.winner === true){
                 return <td id="win" style={{color: "#5cb85c"}}>W</td>
             }
             else if (team2.team.displayName === this.state.team && team2.winner === true) {
                 return <td id="win" style={{color: "#5cb85c"}}>W</td>
+            }
+            else if (this.getScores(team1) === this.getScores(team2) && this.state.matchups[index].status.type.completed === true) {
+                return <td id="win" style={{color: "#505050"}}>D</td>
             }
             else if (team1.winner === false || team2.winner === false){
                 return <td id="win" style={{color: "#d9534f"}}>L</td>
@@ -114,6 +145,21 @@ export class ScheduleTable extends Component {
         catch {
             return "";
         }
+    }
+
+    fade() {
+        var onDiv = document.getElementById("scheduleTable1");
+        var offDiv = document.getElementById("scheduleTable2");
+        $(offDiv).animate({ opacity: 1}, 500);
+        $(onDiv).animate({ opacity: 0}, 500);
+    
+        const temp = onDiv;
+    
+        onDiv = offDiv;
+        offDiv = temp;
+    
+        $(onDiv).css("z-index",1);
+        $(offDiv).css("z-index",0);
     }
 
     openToVenue(matchup){
@@ -133,16 +179,23 @@ export class ScheduleTable extends Component {
                     this.state.matchups[index].competitors[1].record !== undefined && this.state.matchups[index].competitors[1].record[0] !== undefined ? team2Record = this.state.matchups[index].competitors[1].record[0].displayValue : team2Record = "0-0"
                 }
                 tableData1.push(
-                    <tr key={this.state.matchups[index].id}>
+                    <tr key={this.state.matchups[index].id + Date.now().toString()}>
                         <td>{this.state.matchups[index].date.substr(0,10)}</td>
                         <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
-                        <td className="schedule">{awayTeam.team.location} ({team2Record})</td>
+                        <td className="schedule">
+                            <Link to={this.getTeamIdentifier(this.props.league, awayTeam.team)}>
+                                {awayTeam.team.location} ({team2Record})
+                            </Link>
+                        </td>
                         <td id="scores">{this.getScores(awayTeam)}</td>
-                        {/* <td id="thumb">@</td> */}
                         <td id="logo-schedule"><img id="thumb" alt="logo.png" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
-                        <td className="schedule">{homeTeam.team.location} ({team1Record})</td>
+                        <td className="schedule">
+                            <Link to={this.getTeamIdentifier(this.props.league, homeTeam.team)}>
+                                {homeTeam.team.location} ({team1Record})
+                            </Link>
+                        </td>
                         <td id="scores">{this.getScores(homeTeam)}</td>
-                        {this.checkForWinner(homeTeam, awayTeam)}
+                        {this.checkForWinner(homeTeam, awayTeam, index)}
                         <td>{this.state.matchups[index].status.type.detail}</td>
                     </tr>
                 )   
@@ -150,21 +203,35 @@ export class ScheduleTable extends Component {
 
             return (
                 <div className="flexcontainer">
-                    <table className="scheduleTable">                         
+                    <table className="scheduleTable">   
+                    <thead>  
+                        <tr>                    
                         <th style={{ 
                             backgroundColor: `#${this.state.color}`,
                             border: `1px solid #${this.state.color}`, 
                         }} colSpan="10">
                             {this.state.team} Schedule {this.state.record}
-                        </th>                        
-                        {tableData1}                        
+                        </th> 
+                        </tr>  
+                        </thead>
+                        <tbody style={{fontSize: '12pt'}}>                   
+                        {tableData1} 
+                        </tbody>                        
                     </table>
                 </div>
             )
         }
         else{
             return(
-                <h1>Loading...</h1>
+                <div id="loading">
+                <h1>Loading</h1>
+                <br/>
+                <div className="spinner">
+                    <div className="bounce1"></div>
+                    <div className="bounce2"></div>
+                    <div className="bounce3"></div>
+                </div>
+                </div>          
             )}
     }
 }

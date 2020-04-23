@@ -41,9 +41,7 @@ function App() {
         <Route path='/Rankings'>
           <Rankings  />
         </Route>
-        <Route path='/sports/'>
-          <ScheduleTable />
-        </Route>
+        <Route exact path='/:sport/:league/:team' render={() => (<ScheduleTable league={window.location.pathname.split("/")[2]} team={window.location.pathname.split("/")[3]}/>)}/>
         <br/>
       </Layout >
     );
