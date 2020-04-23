@@ -38,7 +38,7 @@ function App() {
         </Route>
         <Route path='/ChampionsLeague'>
           <ScoreboardTable sport="soccer" league="uefa.champions"/>
-        </Route>              
+        </Route >              
         <Route path='/Rankings'>
           <Rankings  />
         </Route>
