@@ -6,7 +6,7 @@ import ScoreboardTable from './ScoreboardTable.js';
 import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
-import { NFLDraft } from './NFLDraft';
+//import { NFLDraft } from './NFLDraft';
 
 function App() {
 
@@ -43,9 +43,9 @@ function App() {
           <Rankings  />
         </Route>
         <Route exact path='/:sport/:league/:team' render={() => (<ScheduleTable league={window.location.pathname.split("/")[2]} team={window.location.pathname.split("/")[3]}/>)}/>
-        <Route path='/NFLDraft'>
+        {/* <Route path='/NFLDraft'>
           <NFLDraft />
-        </Route>
+        </Route> */}
         <br/>
       </Layout >
     );
