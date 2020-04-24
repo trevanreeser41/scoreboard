@@ -12,7 +12,6 @@ export class UpdateScore extends Component{
             sport: props.sport,
             league: props.league,
             scores: props.scores,
-            hour: new Date().getHours(),
         }
     }
 
@@ -48,7 +47,7 @@ export class UpdateScore extends Component{
                 .catch(function (error) {
                 console.log("Error: ", error.message);
             });
-        }, this.state.hour >= 24 ? 10000 : 360000); //only refresh often if in primetime (16:00-23:59)
+        }, 60000); //only refresh often if in primetime (16:00-23:59)
     }
 
     componentWillUnmount() {
