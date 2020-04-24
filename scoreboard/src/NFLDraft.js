@@ -44,6 +44,33 @@ export class NFLDraft extends Component {
             }   
     }    
 
+    displayAthlete(pick) {
+        try {
+            return pick.athlete.displayName;
+        }
+        catch {
+            return ""
+        }
+    }
+
+    getSchool(pick) {
+        try {
+            return pick.athlete.team.location
+        }
+        catch {
+            return ""
+        }
+    }
+
+    getHeadshot(pick) {
+        try {
+            return pick.athlete.headshot.href
+        }
+        catch {
+            return ""
+        }
+    }
+
     render() {
         if (this.state.loading===false){
             var newData = []
@@ -69,11 +96,20 @@ export class NFLDraft extends Component {
                             {picks[index].round}
                         </td>
                         <td>
-                            {team[0].displayName}
+                            <img id="logo" src={team[0].logo} alt="logo"/>
+                        </td>                        
+                        <td>
+                            {this.displayAthlete(picks[index])}
                         </td>
                         <td>
-                            {picks[index].tradeNote}
+                            <img id="headshot" src={this.getHeadshot(picks[index])} alt="headshot"/>
                         </td>
+                        <td>
+                            {this.getSchool(picks[index])}
+                        </td>  
+                        <td>
+                            {picks[index].tradeNote}
+                        </td>                      
                     </tr>
                 )
                 
@@ -149,6 +185,12 @@ export class NFLDraft extends Component {
                             </th>
                             <th>
                                 Team
+                            </th>                            
+                            <th colSpan="2">
+                                Athlete
+                            </th>
+                            <th>
+                            School
                             </th>
                             <th>
                                 Trade Note

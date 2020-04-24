@@ -3,9 +3,10 @@
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    background-color: #ffffff;
   }
   td{
-      font-size: medium;
+      font-size: x-large;
   }
   
    td,  th {
@@ -13,10 +14,10 @@
     padding: 8px;
   }
   
-   tr:nth-child(even){background-color: #f2f2f2;}
+   /* tr:nth-child(even){background-color: #f2f2f2;}
    tr:nth-child(odd){background-color: white;}
-  
-   tr:hover {background-color: #ddd;}
+  tr:hover {background-color: #ddd;} */
+   
   
    th {
     padding-top: 12px;
@@ -54,6 +55,16 @@
        width: 20vw;
        height: 30vh;
    }
+
+   td #headshot {
+    height: 3em;
+    width: 4em;
+  }
+
+  td #logo {
+    width: 3em;
+    height: 3em;
+  }
 
   .row {
     align-content: center;
