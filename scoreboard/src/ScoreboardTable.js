@@ -26,7 +26,6 @@ const ScoreboardTable = (props) => {
         AwayRanking = includeRankings(props.league, matchup)[0]
         status = intoOT(matchup.status.type.completed, matchup.status.period, props.league, matchup)
 
-        let location = openToVenue(matchup)
         array.push(
             <span key={matchup.id}>
                 <table className="card-table">
@@ -39,7 +38,7 @@ const ScoreboardTable = (props) => {
                 </tbody>
                 </table>
                 <h5 colSpan="3">
-                    {matchup.venue.fullName.includes("(" || ")") ? <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={location} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} {returnVenueLocation(matchup)}</a>}
+                    {matchup.venue.fullName.includes("(" || ")") ? <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} {returnVenueLocation(matchup)}</a>}
                 </h5>
                 <br/>
             </span>  

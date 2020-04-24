@@ -162,7 +162,21 @@ export class ScheduleTable extends Component {
     }
 
     openToVenue(matchup){
-        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+        }
+        else {
+            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+        }
+    }
+
+    returnVenueLocation(matchup){
+        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+            return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+        }
+        else {
+            return "";
+        }
     }
 
     render() {
@@ -179,7 +193,9 @@ export class ScheduleTable extends Component {
                 }
                 tableData1.push(
                     <tr key={this.state.matchups[index].id + Date.now().toString()}>
-                        <td>{this.state.matchups[index].date.substr(0,10)}</td>
+                        <td id="date">{this.state.matchups[index].date.substr(0,10)}
+                        <br/><a href={this.openToVenue(this.state.matchups[index])} target="_blank" rel="noopener noreferrer" id="scheduleVenue">{this.state.matchups[index].venue.fullName}</a>
+                        </td>
                         <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                         <td className="schedule">
                             <Link to={this.getTeamIdentifier(this.props.league, awayTeam.team)}>
@@ -210,7 +226,7 @@ export class ScheduleTable extends Component {
                             border: `1px solid #${this.state.color}`, 
                         }} colSpan="10">
                             {this.state.team} Schedule {this.state.record}
-                        </th> 
+                        </th>
                         </tr>  
                         </thead>
                         <tbody style={{fontSize: '12pt'}}>                   
