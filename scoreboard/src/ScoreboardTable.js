@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLayoutEffect, useState } from "react";
 import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
@@ -7,7 +8,7 @@ const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
-
+    const [width] = useMediaQuery();
     let status = '';
     let team1Record = '';
     let team2Record = '';
@@ -47,14 +48,25 @@ const ScoreboardTable = (props) => {
     })
 
     var newData = []
-    for (let index = 0; index < tableData.length; index=index+3) {
-        newData.push(
-            <div key={props.league + index.toString()} className="flexcontainer">                        
-                {tableData[index]}
-                {tableData[index+1]}
-                {tableData[index+2]}
-            </div>
-        )
+    if (width > 769) {
+        for (let index = 0; index < tableData.length; index=index+3) {
+            newData.push(
+                <div key={props.league + index.toString()} className="flexcontainer">                        
+                    {tableData[index]}
+                    {tableData[index+1]}
+                    {tableData[index+2]}
+                </div>
+            )
+        }
+    }
+    else {
+        for (let index = 0; index < tableData.length; index++) {
+            newData.push(
+                <div key={props.league + index.toString()} className="flexcontainer">
+                    {tableData[index]}
+                </div>
+            )
+        }
     }
     return (
         <span> 
@@ -213,12 +225,28 @@ function openToVenue(matchup){
 }
 
 function returnVenueLocation(matchup){
-        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
-            return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
-        }
-        else {
-            return "";
-        }
+    if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+        return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
     }
+    else 
+    {
+        return "";
+    }
+}
+
+function useMediaQuery() {
+    const [screenSize, setScreenSize] = useState([0, 0]);
+    
+    useLayoutEffect(() => {
+      function updateScreenSize() {
+        setScreenSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener("resize", updateScreenSize);
+      updateScreenSize();
+      return () => window.removeEventListener("resize", updateScreenSize);
+    }, []);
+    
+    return screenSize;
+  }  
 
 export default ScoreboardTable;
