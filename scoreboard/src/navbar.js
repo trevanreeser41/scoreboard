@@ -19,22 +19,10 @@ export class NavBar extends Component {
 
     }
 
-    // componentDidMount() {
-    //     this.populateList();
-    // }
-
     toggleNavbar() {
         this.setState({
             collapsed: !this.state.collapsed
         });
-    }
-
-    // Determines the current date
-    getDate = () => {
-        var d = new Date();
-        var month = d.getMonth() + 1;
-        var day = d.getDate();
-        this.setState({ month: month, day: day });
     }
 
     render() {
@@ -49,7 +37,7 @@ export class NavBar extends Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
-                        <div className="navbar-nav">
+                        <div className="navbar-nav" onClick={this.toggleNavbar}>
                             <Link className="nav-item nav-link" to="/">Personal Scoreboard</Link>                 
                             <Link className="nav-item nav-link" to="/NBA">NBA</Link>
                             <Link className="nav-item nav-link" to="/CollegeFootball">NCAAF</Link>
