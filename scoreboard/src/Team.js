@@ -5,7 +5,6 @@ import './Team.css';
 COMMENTS:
 Football has no record element further down in the array currently, for bball this is what has conf record
 */
-
 export class Team extends Component {
 
     constructor(props) {
@@ -49,7 +48,7 @@ export class Team extends Component {
         await this.populateScoreboard();
     }
 
-    populateScoreboard = () => { 
+    populateScoreboard = () => {
         var dataarray =[];        
         for (let index = 0; index < this.state.selectedTeams.length; index++) {
         
@@ -213,7 +212,6 @@ export class Team extends Component {
                     </tbody>
                 )   
                 }
-                //var splitData = this.splitScoreTable(tableData, tableData.length % 2 === 1 ? tableData.length/2 + 1 : tableData.length/2);
                 var newData = []
                 for (let index = 0; index < tableData.length; index=index+3) {
                     newData.push(                                
@@ -231,7 +229,7 @@ export class Team extends Component {
                     )
                 }
                 return (
-                    <div className=''> 
+                    <div> 
                         {newData}
                     </div>
                 )           
