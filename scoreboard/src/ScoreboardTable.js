@@ -28,7 +28,7 @@ const ScoreboardTable = (props) => {
         status = intoOT(matchup.status.type.completed, matchup.status.period, props.league, matchup)
 
         array.push(
-            <span key={matchup.id}>
+            <span key={matchup.id} id="matchup">
                 <table className="card-table">
                 <tbody className="scoreboard">
                 {awayTeamBox(matchup, AwayRanking, team1Record, props)}
@@ -62,7 +62,7 @@ const ScoreboardTable = (props) => {
     else {
         for (let index = 0; index < tableData.length; index++) {
             newData.push(
-                <div key={props.league + index.toString()} className="flexcontainer">
+                <div key={props.league + index.toString()} className="flexcontainer-mobile">
                     {tableData[index]}
                 </div>
             )

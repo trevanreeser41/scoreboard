@@ -14,6 +14,7 @@ h1 {
     border-color: gray;
     padding: 10px 10px 10px 10px;
     white-space: nowrap;
+    font-size: initial;
 }
 
 #scores {
@@ -92,6 +93,11 @@ h1 {
     padding-right: 0;
 }
 
+.container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .flexcontainer {
     display: flex;
     flex-direction: row;
@@ -105,6 +111,7 @@ h1 {
  .flexcontainer-mobile {
     display: flex;
     flex-direction: row;
+    flex-grow: inherit;
     justify-content: space-evenly;
     -webkit-animation: scoreboardFade 0.5s; /* Safari 4+ */
     -moz-animation:    scoreboardFade 0.5s; /* Fx 5+ */
