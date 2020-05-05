@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/trevanre/public_html
+    - /bin/cp -R scoreboard $DEPLOYPATH
