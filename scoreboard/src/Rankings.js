@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Rankings.css';
+import {Link} from 'react-router-dom';
 
 export class Rankings extends Component {
 
@@ -15,8 +16,8 @@ export class Rankings extends Component {
         };
     }
 
-    async componentDidMount() {
-        await this.populateRankings();
+    componentDidMount() {
+        this.populateRankings();
     }
 
     populateRankings = () => { 
@@ -39,6 +40,11 @@ export class Rankings extends Component {
             }   
     }
 
+    getTeamIdentifier(team) {
+        let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g, "").replace("State","St");
+        return teamName;
+    }
+
     render() {
         if (this.state.loading===false){
             var newData = []
@@ -48,8 +54,13 @@ export class Rankings extends Component {
                 
                     tableData.push(
                         <tr key={"Rankings " + this.state.sports[index][0] + " " + this.state.data[index].rankings[0].ranks[index1].current}>{/*example key="Rankings basketball 14"*/}
-                            <td id="logo"><img id="thumb" alt="logo" src={this.state.data[index].rankings[0].ranks[index1].team.logo}/></td><td className="rank">{this.state.data[index].rankings[0].ranks[index1].current}</td><td> {this.state.data[index].rankings[0].ranks[index1].team.location} {this.state.data[index].rankings[0].ranks[index1].team.name}</td>
-                        </tr>
+                            <td id="logo"><img id="thumb" alt="logo" src={this.state.data[index].rankings[0].ranks[index1].team.logo}/></td><td className="rank">{this.state.data[index].rankings[0].ranks[index1].current}</td>
+                            <td> 
+                            <Link to={`${this.state.sports[index][0]}/${this.state.sports[index][1]}/${this.getTeamIdentifier(this.state.data[index].rankings[0].ranks[index1].team)}`}>
+                                {this.state.data[index].rankings[0].ranks[index1].team.location} {this.state.data[index].rankings[0].ranks[index1].team.name}
+                            </Link>
+                            </td>
+                        </tr>                        
                     )   
                 }
                 newData.push(

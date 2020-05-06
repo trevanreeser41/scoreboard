@@ -115,7 +115,7 @@ export class ScheduleTable extends Component {
             return teamName;
         }
         else if (league === "mens-college-basketball") {
-            let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(" ","");
+            let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g,"").replace("State","St");
             return teamName;
         }
         else {

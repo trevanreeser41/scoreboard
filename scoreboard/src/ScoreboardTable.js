@@ -207,7 +207,11 @@ function getAwayTeam(matchup){
 
 function getTeamIdentifier(league, team) {
     if (league === 'college-football' && team.location.indexOf(' ') <= 0) {
-        let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "");
+        let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g, "");
+        return teamName;
+    }
+    else if (league === 'mens-college-basketball') {
+        let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g, "").replace("State", "St");
         return teamName;
     }
     else {
