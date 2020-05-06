@@ -3,13 +3,13 @@ import { useLayoutEffect, useState } from "react";
 import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
+import GameStatus from './GameStatus';
 
 const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
     const matchups = useFetchAppDataScoreboard(props.league, props.sport)
     const [width] = useMediaQuery();
-    let status = '';
     let team1Record = '';
     let team2Record = '';
     var AwayRanking;
@@ -25,7 +25,6 @@ const ScoreboardTable = (props) => {
 
         AwayRanking = includeRankings(props.league, matchup)[1]
         AwayRanking = includeRankings(props.league, matchup)[0]
-        status = intoOT(matchup.status.type.completed, matchup.status.period, props.league, matchup)
 
         array.push(
             <span key={matchup.id} id="matchup">
@@ -34,7 +33,7 @@ const ScoreboardTable = (props) => {
                 {awayTeamBox(matchup, AwayRanking, team1Record, props)}
                 {homeTeamBox(matchup, HomeRanking, team2Record, props)}
                 <tr id="status">
-                    <td colSpan="3">{status}</td>
+                    <td colSpan="3"><GameStatus league={props.league} period={matchup.status.period} matchup={matchup} completed={matchup.status.type.completed}/></td>
                 </tr>
                 </tbody>
                 </table>
@@ -89,58 +88,6 @@ function includeRankings(league, matchup){
         }
     }
     return [HomeRanking, AwayRanking]
-}
-
-function intoOT(completed, period, league, matchup){
-    var OT;
-    if (league === "college-football"){
-        OT=5
-    }
-    else if (league=== "nba"){
-        OT=5
-    }
-    else if (league=== "mens-college-basketball"){
-        OT=3
-    }
-    else if (league=== "nfl"){
-        OT=5
-    }
-    else if (league=== "mlb"){
-        OT=10
-    }
-    else if (league=== "nhl"){
-        OT=4
-    }
-    if (completed === true) {
-        if (period === OT) {
-            return <b>FINAL/OT</b>
-        }
-        else if (matchup.status.period > OT){
-            if (league === 'mlb'){
-                return <b>FINAL/{period} innings</b>
-            }
-            else{
-                let overtime_period = period - (OT-1)
-                return <b>FINAL/{overtime_period}OT</b>
-            }
-        }
-        else {
-            return <b>FINAL</b>
-        }
-    }
-    else if (period < OT && period > 0) {
-        if(league !== 'mlb'){
-            return <span>Q{period} - {matchup.status.displayClock}</span>
-        }
-        else {
-            return matchup.status.type.detail //once games are live, figure out where innings are displayed in the response
-        }
-    } 
-    else if (period === 0) {
-        return matchup.status.type.detail
-    } else {
-        
-    }
 }
 
 function awayTeamBox(matchup, AwayRanking, team1Record, props){

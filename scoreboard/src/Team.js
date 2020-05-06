@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Team.css';
+import GameStatus from './GameStatus';
 
 /*
 COMMENTS:
@@ -41,6 +42,24 @@ export class Team extends Component {
                     league: 'nba',
                     id: 's:40~l:46~t:26'
                 },
+                {
+                    team: 'seattle',
+                    sport: 'football',
+                    league: 'nfl',
+                    id: "s:20~l:28~t:26",
+                },
+                {
+                    team: 'sf',
+                    sport: 'baseball',
+                    league: 'mlb',
+                    id: "s:1~l:10~t:26",
+                },
+                {
+                    team: 'la',
+                    sport: 'hockey',
+                    league: 'nhl',
+                    id: "s:70~l:90~t:8",
+                }
             ],
             data: [],
         };
@@ -84,6 +103,24 @@ export class Team extends Component {
         }   
     }
 
+    retrieveMatchup (index) {
+        try {
+            return this.state.data[index].team.nextEvent[0].competitions[0];
+        }
+        catch {
+            let noMatchupObject = {
+                "status": {
+                    "period": 0,
+                    "type": {
+                        "completed": false,
+                        "detail": "No Matchup"
+                    }
+                }
+            }
+            return noMatchupObject;
+        }
+    }
+
     splitScoreTable (array, chunk_size) {
         var tempArray = [];     
         for (var index = 0; index < array.length; index += chunk_size) {
@@ -96,15 +133,6 @@ export class Team extends Component {
     testForMatchupScores = (competitorIndex, index) => {
         try {
             return this.state.data[index].team.nextEvent[0].competitions[0].competitors[competitorIndex].team.abbreviation;
-        }
-        catch {
-            return "TBD";
-        }
-    }
-
-    testForNextEvent = (index) => {
-        try {
-            return this.state.data[index].team.nextEvent[0].shortName;
         }
         catch {
             return "TBD";
@@ -191,17 +219,11 @@ export class Team extends Component {
                             <td id="scores">
                                 {this.testForRankingPlayoff(index)}
                             </td>
-                        </tr>
+                        </tr>                        
                         <tr>
                             <td>Matchup:</td>
                             <td id="scores">
-                                {this.testForNextEvent(index)}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Most Recent Score:</td>
-                            <td id="scores">
-                                <table>
+                                <table id="matchup-scores">
                                     <tbody>
                                         <tr>
                                             <td>
@@ -213,6 +235,12 @@ export class Team extends Component {
                                         </tr>
                                     </tbody>
                                 </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status:</td>
+                            <td id="scores">
+                                <GameStatus league={this.props.league} matchup={this.retrieveMatchup(index)} completed={this.retrieveMatchup(index).status.type.completed} period={this.retrieveMatchup(index).status.period}/>
                             </td>
                         </tr>
                         <tr>
@@ -228,7 +256,8 @@ export class Team extends Component {
                 var newData = []
                 if (this.state.width > 769) {
                     for (let index = 0; index < tableData.length; index=index+3) {
-                        newData.push(                                
+                        newData.push( 
+                            <div>                              
                             <div key={this.state.data[index].team.id} className="flexcontainer">
                                 <table className="card-table-team">
                                     {tableData[index]}
@@ -240,6 +269,8 @@ export class Team extends Component {
                                     {tableData[index+2]}
                                 </table>
                             </div>
+                            <br/><br/>
+                            </div> 
                         );
                     }
                 }

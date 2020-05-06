@@ -16,6 +16,14 @@ h1 {
     font-size: large;
 }
 
+#matchup-scores {
+    margin: auto;
+}
+
+#logo {
+    text-align: center;
+}
+
 #scores {
     background: lightgray;
     width: 3em;
@@ -40,11 +48,6 @@ h1 {
     padding: 5px 5px 5px 5px ;
 }
 
-#logo {
-    background: white;
-    width: 3em;
-}
-
 #record {
     font-size: small;
     color:gray;
@@ -57,6 +60,7 @@ h1 {
 #teamthumb {
     width: 6em;
     height: 6em;
+    margin: auto;
 }
 
 #thumb {
