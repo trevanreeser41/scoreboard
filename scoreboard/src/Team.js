@@ -246,8 +246,8 @@ export class Team extends Component {
                 else {
                     for (let index = 0; index < tableData.length; index++) {
                         newData.push(
-                            <div key={this.state.data[index].team.id} className="flexcontainer">
-                                <table className="card-table-team">
+                            <div key={this.state.data[index].team.id}>
+                                <table className="mobile-card-table-team">
                                     {tableData[index]}
                                     <br/><br/>
                                 </table>

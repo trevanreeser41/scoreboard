@@ -13,7 +13,7 @@ h1 {
     border-style: solid;
     border-color: gray;
     padding: 10px 10px 10px 10px;
-    font-size: initial;
+    font-size: large;
 }
 
 #scores {
@@ -92,16 +92,10 @@ h1 {
     padding-right: 0;
 }
 
-.flexcontainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-content: stretch;
- }
-
 .card-table{
-    margin-right: 10px;
-    margin-left: 10px;
+    justify-content: space-evenly;
+    margin-right: 5px;
+    margin-left: 5px;
     width: 30vw;
 }
 
@@ -109,9 +103,7 @@ h1 {
     margin: 20px;
 }
 
-.card-table-team{
-    margin-right: 20px;
-    margin-left: 20px;
-    width: 30vw;
+.mobile-card-table-team{
+    width: 90%;
     height: 20vh;
 }
