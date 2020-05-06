@@ -20,6 +20,8 @@ export class Team extends Component {
             league: props.league,
             homeScores: [],
             awayScores: [],
+            width: 0,
+            height: 0,
             selectedTeams: [
                 {
                     team: 'BYU',
@@ -42,10 +44,21 @@ export class Team extends Component {
             ],
             data: [],
         };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }    
 
-    async componentDidMount() {
-        await this.populateScoreboard();
+    componentDidMount() {
+        this.populateScoreboard();
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     populateScoreboard = () => {
@@ -213,20 +226,34 @@ export class Team extends Component {
                 )   
                 }
                 var newData = []
-                for (let index = 0; index < tableData.length; index=index+3) {
-                    newData.push(                                
-                        <div key={this.state.data[index].team.id} className="flexcontainer">
-                            <table className="card-table-team">
-                                {tableData[index]}
-                            </table>
-                            <table className="card-table-team">
-                                {tableData[index+1]}
-                            </table>
-                            <table className="card-table-team">
-                                {tableData[index+2]}
-                            </table>
-                        </div>
-                    )
+                if (this.state.width > 769) {
+                    for (let index = 0; index < tableData.length; index=index+3) {
+                        newData.push(                                
+                            <div key={this.state.data[index].team.id} className="flexcontainer">
+                                <table className="card-table-team">
+                                    {tableData[index]}
+                                </table>
+                                <table className="card-table-team">
+                                    {tableData[index+1]}
+                                </table>
+                                <table className="card-table-team">
+                                    {tableData[index+2]}
+                                </table>
+                            </div>
+                        );
+                    }
+                }
+                else {
+                    for (let index = 0; index < tableData.length; index++) {
+                        newData.push(
+                            <div key={this.state.data[index].team.id} className="flexcontainer">
+                                <table className="card-table-team">
+                                    {tableData[index]}
+                                    <br/><br/>
+                                </table>
+                            </div>
+                        );
+                    }
                 }
                 return (
                     <div> 
