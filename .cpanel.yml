@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 ---
 deployment:
   tasks:
     - export DEPLOYPATH=/home/trevanre/public_html/scoreboard.trevanreeser.com
     - /bin/cp -r ./scoreboard/build/* $DEPLOYPATH
+=======
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/trevanre/public_html/scoreboard.trevanreeser.com
+    - /bin/cp -r ./scoreboard/build/* $DEPLOYPATH
+>>>>>>> 100f583dde9bf8f2e393006e37c6e3dd9ca6e91e
