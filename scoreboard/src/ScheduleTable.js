@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './Rankings.css';
+import './ScheduleTable.css';
 import $ from "jquery";
 
 export class ScheduleTable extends Component {
@@ -17,12 +17,25 @@ export class ScheduleTable extends Component {
             league: props.league,
             homeScores: [],
             awayScores: [],
+            width: 0,
+            height: 0,
         };
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
     async componentDidMount() {        
         let urlParams = window.location.pathname.split("/");
         this.populateSchedule(urlParams);
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     async componentDidUpdate(prevProps) {
@@ -203,6 +216,7 @@ export class ScheduleTable extends Component {
             let team1Record = '';
             let team2Record = '';
             var tableData1 = []
+            var scheduleHeadingSize = '10pt';
             for (let index = 0; index < this.state.matchups.length; index++) {
                 var homeTeam = this.getHomeTeam(index)
                 var awayTeam = this.getAwayTeam(index)
@@ -210,29 +224,55 @@ export class ScheduleTable extends Component {
                     this.state.matchups[index].competitors[0].record !== undefined && this.state.matchups[index].competitors[0].record[0] !== undefined ? team1Record = this.state.matchups[index].competitors[0].record[0].displayValue : team1Record = "0-0"
                     this.state.matchups[index].competitors[1].record !== undefined && this.state.matchups[index].competitors[1].record[0] !== undefined ? team2Record = this.state.matchups[index].competitors[1].record[0].displayValue : team2Record = "0-0"
                 }
-                tableData1.push(
-                    <tr key={this.state.matchups[index].id + Date.now().toString()}>
-                        <td id="date">{this.state.matchups[index].date.substr(0,10)}
-                <br/><a href={this.openToVenue(this.state.matchups[index])} target="_blank" rel="noopener noreferrer" id="scheduleVenue">{this.retrieveVenue(this.state.matchups[index])}</a>
-                        </td>
-                        <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
-                        <td className="schedule">
-                            <Link to={this.getTeamIdentifier(this.props.league, awayTeam.team)}>
-                                {awayTeam.team.location} ({team2Record})
-                            </Link>
-                        </td>
-                        <td id="scores">{this.getScores(awayTeam)}</td>
-                        <td id="logo-schedule"><img id="thumb" alt="logo.png" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
-                        <td className="schedule">
-                            <Link to={this.getTeamIdentifier(this.props.league, homeTeam.team)}>
-                                {homeTeam.team.location} ({team1Record})
-                            </Link>
-                        </td>
-                        <td id="scores">{this.getScores(homeTeam)}</td>
-                        {this.checkForWinner(homeTeam, awayTeam, index)}
-                        <td>{this.state.matchups[index].status.type.detail}</td>
-                    </tr>
-                )   
+                if (this.state.width > 769) {
+                    scheduleHeadingSize = '14pt';
+                    tableData1.push(
+                        <tr key={this.state.matchups[index].id + Date.now().toString()}>
+                            <td id="date">{this.state.matchups[index].date.substr(0,10)}
+                    <br/><a href={this.openToVenue(this.state.matchups[index])} target="_blank" rel="noopener noreferrer" id="scheduleVenue">{this.retrieveVenue(this.state.matchups[index])}</a>
+                            </td>
+                            <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
+                            <td className="schedule">
+                                <Link to={this.getTeamIdentifier(this.props.league, awayTeam.team)}>
+                                    {awayTeam.team.location} ({team2Record})
+                                </Link>
+                            </td>
+                            <td id="scores">{this.getScores(awayTeam)}</td>
+                            <td id="logo-schedule"><img id="thumb" alt="logo.png" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
+                            <td className="schedule">
+                                <Link to={this.getTeamIdentifier(this.props.league, homeTeam.team)}>
+                                    {homeTeam.team.location} ({team1Record})
+                                </Link>
+                            </td>
+                            <td id="scores">{this.getScores(homeTeam)}</td>
+                            {this.checkForWinner(homeTeam, awayTeam, index)}
+                            <td>{this.state.matchups[index].status.type.detail}</td>
+                        </tr>
+                    );   
+                }
+                else {
+                    let recordSize = this.props.league === 'nhl' ? '4pt' : '6pt';
+                    tableData1.push(
+                        <tr key={this.state.matchups[index].id + Date.now().toString()}>
+                            <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
+                            <td className="schedule-mobile">
+                                <Link to={this.getTeamIdentifier(this.props.league, awayTeam.team)}>
+                                    {awayTeam.team.abbreviation} <span style={{fontSize: `${recordSize}`}}>({team2Record})</span>
+                                </Link>
+                            </td>
+                            <td id="scores-mobile">{this.getScores(awayTeam)}</td>
+                            <td id="logo-schedule"><img id="thumb" alt="logo.png" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
+                            <td className="schedule-mobile">
+                                <Link to={this.getTeamIdentifier(this.props.league, homeTeam.team)}>
+                                    {homeTeam.team.abbreviation} <span style={{fontSize: `${recordSize}`}}>({team1Record})</span>
+                                </Link>
+                            </td>
+                            <td id="scores-mobile">{this.getScores(homeTeam)}</td>
+                            {this.checkForWinner(homeTeam, awayTeam, index)}
+                            <td style={{fontSize: '5pt'}}>{this.state.matchups[index].status.type.shortDetail}</td>
+                        </tr>
+                    )
+                }
             }
 
             return (
@@ -242,13 +282,14 @@ export class ScheduleTable extends Component {
                         <tr>                    
                         <th style={{ 
                             backgroundColor: `#${this.state.color}`,
-                            border: `1px solid #${this.state.color}`, 
+                            border: `1px solid #${this.state.color}`,
+                            fontSize: `${scheduleHeadingSize}`, 
                         }} colSpan="10">
                             {this.state.team} Schedule {this.state.record}
                         </th>
                         </tr>  
                         </thead>
-                        <tbody style={{fontSize: '12pt'}}>                   
+                        <tbody style={this.state.width > 769 ? {fontSize: '12pt'} : {fontSize: '6pt'}}>                   
                         {tableData1} 
                         </tbody>                        
                     </table>
