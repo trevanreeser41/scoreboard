@@ -42,10 +42,13 @@ function App() {
         <Route path='/Rankings'>
           <Rankings  />
         </Route>
+        <Route exact path='/soccer/:league/:team'>
+          <Team/>
+          </Route>
         <Route exact path='/:sport/:league/:team' render={() => (<ScheduleTable league={window.location.pathname.split("/")[2]} team={window.location.pathname.split("/")[3]}/>)}/>
         {/* <Route path='/NFLDraft'>
           <NFLDraft />
-        </Route> */}
+    </Route> */}
         <br/>
       </Layout >
     );
