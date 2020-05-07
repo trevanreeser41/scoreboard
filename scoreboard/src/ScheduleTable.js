@@ -276,7 +276,7 @@ export class ScheduleTable extends Component {
             }
 
             return (
-                <div className="flexcontainer">
+                <div className={this.state.width > 769 ? "flexcontainer" : "flexcontainer-mobile"}>
                     <table className={this.state.width > 769 ? "scheduleTable" : "scheduleTable-mobile"}>   
                     <thead>  
                         <tr>                    
