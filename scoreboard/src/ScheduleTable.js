@@ -289,7 +289,7 @@ export class ScheduleTable extends Component {
                         </th>
                         </tr>  
                         </thead>
-                        <tbody style={this.state.width > 769 ? {fontSize: '12pt'} : {fontSize: '6pt'}}>                   
+                        <tbody style={this.state.width > 769 ? {fontSize: '12pt'} : {fontSize: '8pt'}}>                   
                         {tableData1} 
                         </tbody>                        
                     </table>

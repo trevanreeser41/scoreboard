@@ -133,6 +133,14 @@
     width: 3em;
 }
 
+#scores-mobile {
+    background: lightgray;
+    width: 3em;
+    padding: 5px 5px 5px 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
 @-o-keyframes scheduleFade {
     0% { 
         opacity: 0;
