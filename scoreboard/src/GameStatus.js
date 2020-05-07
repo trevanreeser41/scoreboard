@@ -43,7 +43,7 @@ const GameStatus = (props) => {
             data = <span>Q{props.period} - {props.matchup.status.displayClock}</span>
         }
         else {
-            data = props.matchup.status.displayClock //once games are live, figure out where innings are displayed in the response
+            data = props.matchup.status.type.detail //once games are live, figure out where innings are displayed in the response
         }
     } 
     else if (props.period === 0) {

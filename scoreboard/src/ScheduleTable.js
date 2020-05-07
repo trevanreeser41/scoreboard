@@ -161,18 +161,37 @@ export class ScheduleTable extends Component {
         $(offDiv).css("z-index",0);
     }
 
-    openToVenue(matchup){
-        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
-            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+    retrieveVenue (matchup) {
+        if (matchup.venue !== undefined) {
+            return matchup.venue.fullName
         }
         else {
-            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+            return "Venue Not Listed";
+        }
+    }
+
+    openToVenue(matchup){
+        if (matchup.venue !== undefined) {
+            if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+                return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+            }
+            else {
+                return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+            }
+        }
+        else {
+            return "";
         }
     }
 
     returnVenueLocation(matchup){
-        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
-            return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+        if (matchup.venue !== undefined) {
+            if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+                return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+            }
+            else {
+                return "";
+            }
         }
         else {
             return "";
@@ -194,7 +213,7 @@ export class ScheduleTable extends Component {
                 tableData1.push(
                     <tr key={this.state.matchups[index].id + Date.now().toString()}>
                         <td id="date">{this.state.matchups[index].date.substr(0,10)}
-                        <br/><a href={this.openToVenue(this.state.matchups[index])} target="_blank" rel="noopener noreferrer" id="scheduleVenue">{this.state.matchups[index].venue.fullName}</a>
+                <br/><a href={this.openToVenue(this.state.matchups[index])} target="_blank" rel="noopener noreferrer" id="scheduleVenue">{this.retrieveVenue(this.state.matchups[index])}</a>
                         </td>
                         <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                         <td className="schedule">
