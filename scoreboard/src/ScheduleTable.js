@@ -251,7 +251,7 @@ export class ScheduleTable extends Component {
                     );   
                 }
                 else {
-                    let recordSize = this.props.league === 'nhl' ? '4pt' : '6pt';
+                    let recordSize = this.props.league === 'nhl' ? '4pt' : '5pt';
                     tableData1.push(
                         <tr key={this.state.matchups[index].id + Date.now().toString()}>
                             <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
@@ -289,7 +289,7 @@ export class ScheduleTable extends Component {
                         </th>
                         </tr>  
                         </thead>
-                        <tbody style={this.state.width > 769 ? {fontSize: '12pt'} : {fontSize: '8pt'}}>                   
+                        <tbody style={this.state.width > 769 ? {fontSize: '12pt'} : {fontSize: '6pt'}}>                   
                         {tableData1} 
                         </tbody>                        
                     </table>
