@@ -81,11 +81,11 @@ export class Team extends Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    populateScoreboard = () => {
+    populateScoreboard = async () => {
         var dataarray =[];        
         for (let index = 0; index < this.state.selectedTeams.length; index++) {
         
-        fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.selectedTeams[index].sport}/${this.state.selectedTeams[index].league}/teams/${this.state.selectedTeams[index].team}`)
+        await fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.selectedTeams[index].sport}/${this.state.selectedTeams[index].league}/teams/${this.state.selectedTeams[index].team}`)
             .then(function (response) {
                 if (response.ok) {
                     return response.json();

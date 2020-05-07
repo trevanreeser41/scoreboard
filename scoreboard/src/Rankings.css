@@ -24,6 +24,12 @@
     font-weight: bold;
 }
 
+.flexcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 .rankingsTable {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-weight: bold;
@@ -53,11 +59,25 @@
     text-align: center;
 }
 
-.rankings {
+.rankings-mobile {
     height: auto;
     width: auto;
     margin: 10px auto;
-  }
+}
+
+.rankings {
+    height: auto;
+    width: auto;
+}
+
+.rankings-mobile td {
+    background: white;
+    border-style: solid;
+    border: 1px solid black;
+    padding: 5px 5px 5px 5px;
+    white-space: nowrap;
+    font-size: 2vw;
+}
 
 .rankings td {
     background: white;
