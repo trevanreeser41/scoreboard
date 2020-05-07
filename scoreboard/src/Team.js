@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Team.css';
 import GameStatus from './GameStatus';
+import { Link } from 'react-router-dom';
 
 /*
 COMMENTS:
@@ -43,7 +44,7 @@ export class Team extends Component {
                     id: 's:40~l:46~t:26'
                 },
                 {
-                    team: 'seattle',
+                    team: 'sea',
                     sport: 'football',
                     league: 'nfl',
                     id: "s:20~l:28~t:26",
@@ -203,7 +204,9 @@ export class Team extends Component {
                                 <img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/>
                             </td>
                             <td id="team-sport">
-                                {this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}
+                                <Link to={`${teamData.sport}/${teamData.league}/${teamData.team}`}>
+                                    {this.state.data[index].team.displayName} {toTitleCase(teamData.sport)}
+                                </Link>
                             </td>
                         </tr>
                         <tr>
