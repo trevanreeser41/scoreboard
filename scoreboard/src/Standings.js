@@ -13,8 +13,8 @@ const Standings = (props) => {
         var array = [];
 
         array.push(
-            <span key={division.id} id="division">
-                <table className="card-table">
+            <span id="card-table">
+                <table>
                 <thead>
                     <tr style={{border: "solid 2.5px grey", fontSize: "3vh"}}>
                     <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="3">{division.name}</th>
@@ -28,7 +28,7 @@ const Standings = (props) => {
                 </tbody>
                 </table>
                 <br/>
-            </span>  
+                </span>
         )   
         return array
     })

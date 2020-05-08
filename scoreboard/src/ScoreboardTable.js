@@ -92,7 +92,7 @@ function includeRankings(league, matchup){
 
 function awayTeamBox(matchup, AwayRanking, team1Record, props){
     return <tr>
-    <td id="logo"><img id="thumb" alt="" src={matchup.competitors[1].team.logo}/></td>
+    <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[1].team.logo}/></td>
     {matchup.competitors[1].winner === true ? 
     <td id="teams">
         <b>
@@ -112,13 +112,13 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
             ({team1Record})
         </span>
     </td>}
-    <td id="scores">{matchup.competitors[1].score}</td>
+    <td id="scoreboard-scores">{matchup.competitors[1].score}</td>
 </tr>
 }
 
 function homeTeamBox(matchup, HomeRanking, team2Record, props){
     return <tr>
-        <td id="logo"><img id="thumb" alt="" src={matchup.competitors[0].team.logo}/></td>
+        <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[0].team.logo}/></td>
         {matchup.competitors[0].winner === true ? 
         <td id="teams">
             <b>
@@ -138,7 +138,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
                 ({team2Record})
             </span>
         </td>}
-        <td id="scores">{matchup.competitors[0].score}</td>
+        <td id="scoreboard-scores">{matchup.competitors[0].score}</td>
     </tr>
 }
 

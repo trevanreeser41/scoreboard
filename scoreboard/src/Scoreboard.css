@@ -14,9 +14,10 @@ h1 {
     border-color: gray;
     padding: 10px 10px 10px 10px;
     white-space: nowrap;
+    font-size: initial;
 }
 
-#scores {
+#scoreboard-scores {
     background: lightgray;
     width: 3em;
     padding: 15px 15px 15px 15px;
@@ -39,7 +40,7 @@ h1 {
     padding: 5px 5px 5px 5px ;
 }
 
-#logo {
+#scoreboard-logo {
     background: white;
     width: 3em;
 }

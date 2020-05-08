@@ -2,22 +2,7 @@ h1 {
     color: white;
 }
 
-.scoreboard {
-    height: auto;
-    width: auto;
-    margin: 70px auto;
-  }
-
-.scoreboard td {
-    background: white;
-    border-style: solid;
-    border-color: gray;
-    padding: 10px 10px 10px 10px;
-    white-space: nowrap;
-    font-size: initial;
-}
-
-#scores {
+.scores {
     background: lightgray;
     width: 3em;
     padding: 15px 15px 15px 15px;
@@ -33,38 +18,9 @@ h1 {
     font-weight: bold;
 }
 
-#winner {
-    background: darkgray;
-    color: white;
-    width: 3em;
-    padding: 15px 15px 15px 15px;
-    text-align: center;
-    font-weight: bold;
-}
-
-#teams {
-    background: white;
-    width: 10em;
-    padding: 5px 5px 5px 5px ;
-}
-
 #logo {
     background: white;
     width: 3em;
-}
-
-#record {
-    font-size: small;
-    color:gray;
-}
-
-#separator {
-    width: 3em;
-}
-
-#teamthumb {
-    width: 6em;
-    height: 6em;
 }
 
 #thumb {
@@ -78,74 +34,24 @@ h1 {
   margin:0 auto;
 }
 
-#status{
-    font-size: small;
-}
-
 #team-sport {
     text-align: center;
     font-weight: bold;
 }
 
-#tableContainer{
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.container {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.flexcontainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    -webkit-animation: scoreboardFade 0.5s; /* Safari 4+ */
-    -moz-animation:    scoreboardFade 0.5s; /* Fx 5+ */
-    -o-animation:      scoreboardFade 0.5s; /* Opera 12+ */
-    animation:         scoreboardFade 0.5s; /* IE 10+, Fx 29+ */
- }
-
- .flexcontainer-mobile {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    -webkit-animation: scoreboardFade 0.5s; /* Safari 4+ */
-    -moz-animation:    scoreboardFade 0.5s; /* Fx 5+ */
-    -o-animation:      scoreboardFade 0.5s; /* Opera 12+ */
-    animation:         scoreboardFade 0.5s; /* IE 10+, Fx 29+ */
- }
-
- #division {
-     width: 100% !important;
- }
-
-.card-table{
-    margin-right: 10px;
+#card-table{
+    margin-left: 2%;
+    margin-right: 2%;
     width: 25vw;
     width: 90% !important;
-}
-
-.card-table-schedule{
-    margin: 20px;
-}
-
-.card-table-team{
-    margin-right: 20px;
-    margin-left: 20px;
-    width: 30vw;
-    height: 20vh;
 }
 
 @-webkit-keyframes scoreboardFade {
     0% { 
         opacity: 0;
-        width: 20vw;
     }
     100% { 
         opacity: 1;
-        width: 35vw;
     }
   }
 @-moz-keyframes scoreboardFade {
