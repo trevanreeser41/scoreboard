@@ -154,7 +154,7 @@ export class ScheduleTable extends Component {
             }
             else {
                 let network = this.state.matchups[index].broadcasts[0].media.shortName;
-                let network_logos = ["FOX", "CBS", "NBC", "ESPN", "TNT", "ABC", "NBATV", "NBCSN", "FSN", "BYUTV", "YES"];
+                let network_logos = ["FOX", "CBS", "NBC", "ESPN", "TNT", "ABC", "NBATV", "NBCSN", "FSN", "BYUTV", "YES", "AT&TSN"];
                 if (network_logos.includes(network)){
                     return <td id="win">
                         <img id="thumb" src={`${imgPath}/${network}.png`} alt=""/>
@@ -200,7 +200,7 @@ export class ScheduleTable extends Component {
     }
 
     openToVenue(matchup){
-        if (matchup.venue !== undefined) {
+        if (matchup.venue !== undefined && matchup.venue.address !== undefined) {
             if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
                 return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
             }
