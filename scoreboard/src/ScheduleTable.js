@@ -154,7 +154,7 @@ export class ScheduleTable extends Component {
             }
             else {
                 let network = this.state.matchups[index].broadcasts[0].media.shortName;
-                let network_logos = ["FOX", "CBS", "NBC", "ESPN", "TNT", "ABC", "NBATV", "NBCSN", "FSN", "BYUTV"];
+                let network_logos = ["FOX", "CBS", "NBC", "ESPN", "TNT", "ABC", "NBATV", "NBCSN", "FSN", "BYUTV", "YES"];
                 if (network_logos.includes(network)){
                     return <td id="win">
                         <img id="thumb" src={`${imgPath}/${network}.png`} alt=""/>
