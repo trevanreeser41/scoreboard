@@ -157,7 +157,7 @@ export class ScheduleTable extends Component {
                 let network_logos = ["FOX", "CBS", "NBC", "ESPN", "TNT", "ABC", "NBATV", "NBCSN", "FSN", "BYUTV", "YES", "AT&TSN"];
                 if (network_logos.includes(network)){
                     return <td id="win">
-                        <img id="thumb" src={`${imgPath}/${network}.png`} alt=""/>
+                        <img id="thumb" src={`${imgPath}/${network}.png`} alt="H"/>
                         </td>
                 }
                 else {
@@ -169,12 +169,7 @@ export class ScheduleTable extends Component {
             return <td id="win">-</td>;
         }
     }
-
-    // getImgUrl(network) {
-    //     var images = require.context('/images/', false, /\.png$/)
-    //     return images('./' + network + ".png")
-    // }
-
+    
     fade() {
         var onDiv = document.getElementById("scheduleTable1");
         var offDiv = document.getElementById("scheduleTable2");

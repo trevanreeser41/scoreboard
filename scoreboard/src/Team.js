@@ -311,7 +311,6 @@ export class Team extends Component {
                     <div className="bounce3"></div>
                 </div>
                 </div> 
-        )}
-        
+        )}        
     }
 }

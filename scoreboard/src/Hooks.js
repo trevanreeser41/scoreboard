@@ -1,30 +1,43 @@
 import { useEffect, useState, useRef } from 'react';
 
-export default function useFetchAppDataScoreboard(league, sport) {
+export default function useFetchAppDataScoreboard(league, sport, page, site) {
     const [matchups, setMatchups] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (isLoading===true){
             async function fetchData() {
-                const URL_API = `http://site.api.espn.com/apis/site/v2/sports/${sport}/${league}/scoreboard`;
+                const URL_API = `http://site.api.espn.com/apis${site}/v2/sports/${sport}/${league}/${page}`;
                 let response = await fetch(URL_API)
                 let json = await response.json();
-                let events = json.events;
-                var games = [];
-                for (var i = 0; i < events.length; i++) {
-                    for (var j = 0; j < events[i].competitions.length; j++) {
-                        games.push(events[i].competitions[j]);
-                    }
+                if (page === "scoreboard") {
+                  setMatchups(matchups => matchups.concat(loadScoreboard(json)));
+                }               
+                else {
+                  setMatchups(matchups => matchups.concat(loadStandings(json)));
                 }
-                setMatchups(matchups => matchups.concat(games))
             }
-            fetchData()
-            setIsLoading(false)
+            fetchData();
+            setIsLoading(false);
         }
-    }, [isLoading, setMatchups, sport, league])
+    }, [isLoading, setMatchups, sport, league, page, site])
 
     return matchups;
+}
+
+function loadScoreboard(json) {
+  let events = json.events;
+  var games = [];
+  for (var i = 0; i < events.length; i++) {
+      for (var j = 0; j < events[i].competitions.length; j++) {
+          games.push(events[i].competitions[j]);
+      }
+  }
+  return games;
+}
+
+function loadStandings(json) {
+  return json.children;
 }
 
 export function useInterval(callback, delay) {
@@ -46,5 +59,3 @@ export function useInterval(callback, delay) {
       }
     }, [delay]);
   }
-
-

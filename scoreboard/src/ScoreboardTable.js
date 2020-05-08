@@ -8,7 +8,7 @@ import GameStatus from './GameStatus';
 const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
-    const matchups = useFetchAppDataScoreboard(props.league, props.sport)
+    const matchups = useFetchAppDataScoreboard(props.league, props.sport, "scoreboard", "/site")
     const [width] = useMediaQuery();
     let team1Record = '';
     let team2Record = '';
@@ -114,7 +114,6 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
     </td>}
     <td id="scores">{matchup.competitors[1].score}</td>
 </tr>
-
 }
 
 function homeTeamBox(matchup, HomeRanking, team2Record, props){
@@ -160,6 +159,9 @@ function getTeamIdentifier(league, team) {
     else if (league === 'mens-college-basketball') {
         let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g, "").replace("State", "St");
         return teamName;
+    }
+    else if (league === "usa.1" || league === "uefa.champions") {
+        return new Date().getFullYear() + "/standings";
     }
     else {
         return team.abbreviation;
