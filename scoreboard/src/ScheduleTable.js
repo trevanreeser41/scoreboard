@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import './ScheduleTable.css';
 import $ from "jquery";
 
+const imgPath = process.env.PUBLIC_URL + '/images';
+
 export class ScheduleTable extends Component {
 
     constructor(props) {
@@ -151,13 +153,27 @@ export class ScheduleTable extends Component {
                 return <td id="win" style={{color: "#d9534f"}}>L</td>
             }
             else {
-                return <td id="win">-</td>
+                let network = this.state.matchups[index].broadcasts[0].media.shortName;
+                let network_logos = ["FOX", "CBS", "NBC", "ESPN", "TNT", "ABC", "NBATV", "NBCSN", "FSN"];
+                if (network_logos.includes(network)){
+                    return <td id="win">
+                        <img id="thumb" src={`${imgPath}/${network}.png`} alt=""/>
+                        </td>
+                }
+                else {
+                    return <td id="win" style={{fontSize: '7pt'}}>{network}</td>
+                }
             }
         }
         catch {
-            return "";
+            return <td id="win">-</td>;
         }
     }
+
+    // getImgUrl(network) {
+    //     var images = require.context('/images/', false, /\.png$/)
+    //     return images('./' + network + ".png")
+    // }
 
     fade() {
         var onDiv = document.getElementById("scheduleTable1");
