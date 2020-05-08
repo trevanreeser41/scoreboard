@@ -43,8 +43,6 @@ h1 {
 #card-table{
     margin-left: 2%;
     margin-right: 2%;
-    width: 25vw;
-    width: 90% !important;
 }
 
 @-webkit-keyframes scoreboardFade {
