@@ -162,7 +162,12 @@ export class Team extends Component {
             return this.state.data[index].team.record.items[0].summary;
         }
         catch {
-            return this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].record[0].displayValue;
+            if (this.state.data[index].team.nextEvent[0] !== undefined) {
+                return this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].record[0].displayValue;
+            }
+            else {
+                return "0-0";
+            }
         }
     }
 
