@@ -21,6 +21,7 @@ h1 {
 #logo {
     background: white;
     width: 3em;
+    text-align: left;
 }
 
 #thumb {
