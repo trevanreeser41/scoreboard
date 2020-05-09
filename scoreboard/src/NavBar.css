@@ -38,6 +38,18 @@ html {
     font-size: 15px;
 }
 
+#nav-thumb {
+    width:2em; 
+    height:2em;
+    margin-right: 5px;
+}
+
+#nav-thumb img {
+  height: auto;
+  width: auto;
+  margin:0 auto;
+}
+
 @media (min-width: 768px) {
     a.nav-item {
         white-space: normal;
@@ -69,6 +81,10 @@ html {
     .navbar-nav > span > a {
         display: inline-block;
         float: none;
+    }
+
+    #corner {
+        position: absolute;
     }
 }
 

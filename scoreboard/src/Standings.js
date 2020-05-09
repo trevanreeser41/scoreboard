@@ -13,7 +13,7 @@ const Standings = (props) => {
         var array = [];
 
         array.push(
-            <span id="card-table">
+            <span id="standings-card-table">
                 <table>
                 <thead>
                     <tr style={{border: "solid 2.5px grey", fontSize: "3vh"}}>

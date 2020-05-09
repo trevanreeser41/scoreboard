@@ -12,9 +12,6 @@ export class NavBar extends Component {
         this.state = {
             collapsed: true,
             teams: {},
-            teamsLoading: true,
-            month: 0,
-            day: 0,
         };
 
     }
@@ -36,6 +33,10 @@ export class NavBar extends Component {
                     <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+                    <span id="corner"><img id="nav-thumb" src={process.env.PUBLIC_URL + "images/BYU.png"} alt=""/>
+                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/SEA.png"} alt=""/>
+                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/JAZZ.png"} alt=""/>
+                    </span>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav" onClick={this.toggleNavbar}>
                             <Link className="nav-item nav-link" to="/">Personal Scoreboard</Link>                 
@@ -48,7 +49,6 @@ export class NavBar extends Component {
                             <Link className="nav-item nav-link" to="/MLS">MLS</Link>
                             <Link className="nav-item nav-link" to="/ChampionsLeague">UEFA</Link>
                             <Link className="nav-item nav-link" to="/Rankings">Rankings</Link>
-                            {/* <Link className="nav-item nav-link" to="/NFLDraft">NFL Draft</Link> */}
                         </div>
                     </div>
                 </nav>
