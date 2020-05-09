@@ -124,20 +124,6 @@ export class ScheduleTable extends Component {
         }
     }
 
-    getTeamIdentifier(league, team) {
-        if (league === "college-football" && team.location.indexOf(" ") <= 0) {
-            let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(" ","");
-            return teamName;
-        }
-        else if (league === "mens-college-basketball") {
-            let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g,"").replace("State","St");
-            return teamName;
-        }
-        else {
-            return team.abbreviation;
-        }
-    }
-
     checkForWinner(team1, team2, index) {
         try {
             if (team1.team.displayName === this.state.team && team1.winner === true){
@@ -244,14 +230,14 @@ export class ScheduleTable extends Component {
                             </td>
                             <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                             <td className="schedule">
-                                <Link to={this.getTeamIdentifier(this.props.league, awayTeam.team)}>
+                                <Link to={awayTeam.team.id}>
                                     {awayTeam.team.location} ({team2Record})
                                 </Link>
                             </td>
                             <td id="scores">{this.getScores(awayTeam)}</td>
                             <td id="logo-schedule"><img id="thumb" alt="logo.png" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                             <td className="schedule">
-                                <Link to={this.getTeamIdentifier(this.props.league, homeTeam.team)}>
+                                <Link to={homeTeam.team.id}>
                                     {homeTeam.team.location} ({team1Record})
                                 </Link>
                             </td>

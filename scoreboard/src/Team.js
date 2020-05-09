@@ -26,22 +26,10 @@ export class Team extends Component {
             height: 0,
             selectedTeams: [
                 {
-                    team: 'BYU',
-                    sport: 'basketball',
-                    league: 'mens-college-basketball',
-                    id: 's:40~l:41~t:252'
-                },
-                {
-                    team: 'BYU',
+                    team: 'Oregon',
                     sport: 'football',
                     league: 'college-football',
-                    id: 's:20~l:23~t:252'
-                },
-                {
-                    team: 'utah',
-                    sport: 'basketball',
-                    league: 'nba',
-                    id: 's:40~l:46~t:26'
+                    id: 's:20~l:23~t:2483'
                 },
                 {
                     team: 'sea',
@@ -50,17 +38,29 @@ export class Team extends Component {
                     id: "s:20~l:28~t:26",
                 },
                 {
-                    team: 'sf',
-                    sport: 'baseball',
-                    league: 'mlb',
-                    id: "s:1~l:10~t:26",
+                    team: 'Nebraska',
+                    sport: 'football',
+                    league: 'college-football',
+                    id: 's:20~l:23~t:158',
                 },
                 {
-                    team: 'la',
-                    sport: 'hockey',
-                    league: 'nhl',
-                    id: "s:70~l:90~t:8",
-                }
+                    team: '9723', //Portland Timbers
+                    sport: 'soccer',
+                    league: 'usa.1',
+                    id: 's:600~t:9723',
+                },
+                {
+                    team: '4771', //Real Salt Lake
+                    sport: 'soccer',
+                    league: 'usa.1',
+                    id: 's:600~t:4771',
+                },
+                {
+                    team: 'USU',
+                    sport: 'football',
+                    league: 'college-football',
+                    id: 's:20~l:23~t:328',
+                },
             ],
             data: [],
         };

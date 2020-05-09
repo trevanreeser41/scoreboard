@@ -152,19 +152,11 @@ function getAwayTeam(matchup){
 }
 
 function getTeamIdentifier(league, team) {
-    if (league === 'college-football' && team.location.indexOf(' ') <= 0) {
-        let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g, "");
-        return teamName;
-    }
-    else if (league === 'mens-college-basketball') {
-        let teamName = team.location.replace("'", "").replace("&", "").replace("\"", "").replace(/ /g, "").replace("State", "St");
-        return teamName;
-    }
-    else if (league === "usa.1" || league === "uefa.champions") {
+    if (league === "usa.1" || league === "uefa.champions") {
         return new Date().getFullYear() + "/standings";
     }
     else {
-        return team.abbreviation;
+        return team.id;
     }
 }
 

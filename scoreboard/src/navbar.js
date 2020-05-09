@@ -33,13 +33,13 @@ export class NavBar extends Component {
                     <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <span id="corner"><img id="nav-thumb" src={process.env.PUBLIC_URL + "images/BYU.png"} alt=""/>
+                    <span id="corner"><img id="nav-thumb" src={process.env.PUBLIC_URL + "images/OREGON.png"} alt=""/>
                     <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/SEA.png"} alt=""/>
-                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/JAZZ.png"} alt=""/>
+                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/NEBRASKA.png"} alt=""/>
                     </span>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav" onClick={this.toggleNavbar}>
-                            <Link className="nav-item nav-link" to="/">Personal Scoreboard</Link>                 
+                            <Link className="nav-item nav-link" to="/">&#9733; Favorites &#9733;</Link>                 
                             <Link className="nav-item nav-link" to="/NBA">NBA</Link>
                             <Link className="nav-item nav-link" to="/CollegeFootball">NCAAF</Link>
                             <Link className="nav-item nav-link" to="/CollegeBasketball">NCAAM</Link>
