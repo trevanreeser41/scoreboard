@@ -49,6 +49,10 @@ table {
     }
 }
 
+#card-table {
+    margin: 15px;
+}
+
 @-webkit-keyframes scoreboardFade {
     0% { 
         opacity: 0;
