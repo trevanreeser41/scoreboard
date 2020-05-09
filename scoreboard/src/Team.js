@@ -267,13 +267,13 @@ export class Team extends Component {
                         newData.push( 
                             <div>                              
                             <div key={this.state.data[index].team.id} className="flexcontainer">
-                                <table className="card-table-team">
+                                <table id="card-table-team">
                                     {tableData[index]}
                                 </table>
-                                <table className="card-table-team">
+                                <table id="card-table-team">
                                     {tableData[index+1]}
                                 </table>
-                                <table className="card-table-team">
+                                <table id="card-table-team">
                                     {tableData[index+2]}
                                 </table>
                             </div>

@@ -108,7 +108,56 @@ h1 {
     margin: 20px;
 }
 
+#card-table-team{
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 30vw;
+    height: 20vh;
+    -webkit-animation: cardFade 1s; /* Safari 4+ */
+    -moz-animation:    cardFade 1s; /* Fx 5+ */
+    -o-animation:      cardFade 1s; /* Opera 12+ */
+    animation:         cardFade 1s; /* IE 10+, Fx 29+ */
+}
+
 .mobile-card-table-team{
     margin: 5%;
     width: 90%;
+    -webkit-animation: cardFade 1.5s; /* Safari 4+ */
+    -moz-animation:    cardFade 1.5s; /* Fx 5+ */
+    -o-animation:      cardFade 1.5s; /* Opera 12+ */
+    animation:         cardFade 1.5s; /* IE 10+, Fx 29+ */
 }
+
+
+@-webkit-keyframes cardFade {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+  }
+@-moz-keyframes cardFade {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+  }
+@-o-keyframes cardFade {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+  }
+@keyframes cardFade {
+    0% { 
+        opacity: 0;
+    }
+    100% { 
+        opacity: 1;
+    }
+  }
