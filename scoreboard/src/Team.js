@@ -205,7 +205,7 @@ export class Team extends Component {
                 tableData.push(
                     <tbody className="teamboard">
                         <tr>
-                            <td id="logo">
+                            <td id="teams-logo">
                                 <img id="teamthumb" alt="" src={this.state.data[index].team.logos[0].href}/>
                             </td>
                             <td id="team-sport">

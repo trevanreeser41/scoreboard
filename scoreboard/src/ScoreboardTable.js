@@ -28,7 +28,7 @@ const ScoreboardTable = (props) => {
 
         array.push(
             <span key={matchup.id} id="matchup">
-                <table className="card-table">
+                <table id="card-table">
                 <tbody className="scoreboard">
                 {awayTeamBox(matchup, AwayRanking, team1Record, props)}
                 {homeTeamBox(matchup, HomeRanking, team2Record, props)}
@@ -94,7 +94,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
     return <tr>
     <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[1].team.logo}/></td>
     {matchup.competitors[1].winner === true ? 
-    <td id="teams">
+    <td id="scoreboard-teams">
         <b>
             <Link to={`/${props.sport}/${props.league}/${getTeamIdentifier(props.league, matchup.competitors[1].team)}`}>
                 {AwayRanking} {matchup.competitors[1].team.displayName + " "} 
@@ -104,7 +104,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
             </span>
         </b>
     </td>: 
-    <td id="teams">
+    <td id="scoreboard-teams">
         <Link to={`/${props.sport}/${props.league}/${getTeamIdentifier(props.league,matchup.competitors[1].team)}`}>
             {awayTeamBox} {matchup.competitors[1].team.displayName + " "} 
         </Link>
@@ -120,7 +120,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
     return <tr>
         <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[0].team.logo}/></td>
         {matchup.competitors[0].winner === true ? 
-        <td id="teams">
+        <td id="scoreboard-teams">
             <b>
                 <Link to={`${props.sport}/${props.league}/${getTeamIdentifier(props.league, matchup.competitors[0].team)}`}>
                     {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
@@ -130,7 +130,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
                 </span>
             </b>
         </td>: 
-        <td id="teams">
+        <td id="scoreboard-teams">
             <Link to={`${props.sport}/${props.league}/${getTeamIdentifier(props.league,matchup.competitors[0].team)}`}>
                 {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
             </Link>

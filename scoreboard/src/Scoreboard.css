@@ -34,16 +34,39 @@ h1 {
     font-weight: bold;
 }
 
-#teams {
+#scoreboard-teams {
     background: white;
-    width: 10em;
+    width: 15em;
     padding: 5px 5px 5px 5px ;
 }
 
 #scoreboard-logo {
     background: white;
-    width: 3em;
+    width: 1em;
     text-align: center;
+}
+
+@media (max-width: 768) {
+    #matchup {
+        margin: 5%;
+        width: 90%;
+    }
+
+    #scoreboard-teams {
+        background: white;
+        width: 15em;
+        padding: 5px 5px 5px 5px ;
+    }
+    
+    #scoreboard-logo {
+        background: white;
+        width: 1em;
+        text-align: center;
+    }
+
+    #card-table{
+        width: 90%;
+    }
 }
 
 #record {
@@ -86,7 +109,7 @@ h1 {
     font-size: x-small;
     font-weight: bolder;
     margin:0;
-    padding-left: 1em;
+    padding-left: .2em;
 }
 
 #tableContainer{
@@ -119,11 +142,6 @@ h1 {
     -o-animation:      scoreboardFade 0.5s; /* Opera 12+ */
     animation:         scoreboardFade 0.5s; /* IE 10+, Fx 29+ */
  }
-
-.card-table{
-    margin-right: 10px;
-    width: 25vw;
-}
 
 .card-table-schedule{
     margin: 20px;
