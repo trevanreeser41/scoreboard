@@ -107,10 +107,10 @@
     width: 99%;
     background-color: #f2f2f2;
     white-space: nowrap;
-    -webkit-animation: scheduleFade 0.5s ease-in-out; /* Safari 4+ */
-    -moz-animation:    scheduleFade 0.5s ease-in-out; /* Fx 5+ */
-    -o-animation:      scheduleFade 0.5s ease-in-out; /* Opera 12+ */
-    animation:         scheduleFade 0.5s ease-in-out; /* IE 10+, Fx 29+ */
+    -webkit-animation: scheduleMobile 1s ease-in-out; /* Safari 4+ */
+    -moz-animation:    scheduleMobile 1s ease-in-out; /* Fx 5+ */
+    -o-animation:      scheduleMobile 1s ease-in-out; /* Opera 12+ */
+    animation:         scheduleMobile 1s ease-in-out; /* IE 10+, Fx 29+ */
 }
 
 .scheduleTable-mobile td {
@@ -141,37 +141,45 @@
     font-weight: bold;
 }
 
-@-o-keyframes scheduleFade {
+@-o-keyframes scheduleMobile {
     0% { 
         opacity: 0;
+        width: 25%;
     }
     100% { 
         opacity: 1;
+        width: 100%;
     }
   }
-@keyframes scheduleFade {
+@keyframes scheduleMobile {
     0% { 
         opacity: 0;
+        width: 25%;
     }
     100% { 
         opacity: 1;
+        width: 100%;
     }
   }
 
-@-webkit-keyframes scheduleFade {
+@-webkit-keyframes scheduleMobile {
     0% { 
         opacity: 0;
+        width: 25%;
     }
     100% { 
         opacity: 1;
+        width: 100%;
     }
   }
-@-moz-keyframes scheduleFade {
+@-moz-keyframes scheduleMobile {
     0% { 
         opacity: 0;
+        width: 25%;
     }
     100% { 
         opacity: 1;
+        width: 100%;
     }
   }
 
