@@ -104,7 +104,7 @@
     font-weight: bold;
     border: solid 1.5px white;
     border-collapse: collapse;
-    width: 75vw;
+    width: 99%;
     background-color: #f2f2f2;
     white-space: nowrap;
     -webkit-animation: scheduleFade 0.5s ease-in-out; /* Safari 4+ */

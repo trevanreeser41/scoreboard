@@ -20,7 +20,6 @@ h1 {
 
 #logo {
     background: white;
-    width: 3em;
     text-align: left;
 }
 
@@ -35,14 +34,19 @@ h1 {
   margin:0 auto;
 }
 
+table {
+    width: 100%;
+}
+
 #team-sport {
     text-align: center;
     font-weight: bold;
 }
 
-#card-table{
-    margin-left: 2%;
-    margin-right: 2%;
+@media (max-width: 768px) {
+    #card-table{
+        width: 99%;
+    }
 }
 
 @-webkit-keyframes scoreboardFade {

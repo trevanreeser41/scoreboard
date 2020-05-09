@@ -43,6 +43,7 @@ h1 {
 #scoreboard-logo {
     background: white;
     width: 3em;
+    text-align: center;
 }
 
 #record {

@@ -74,8 +74,8 @@ function teamBox(division, width){
         teams.push(<tr>
         <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries[t].stats[8].displayValue}</b></td>
         <td id="logo"><img id="thumb" alt="" src={entries[t].team.logos[0].href}/></td>
-        <td id="logo">
-            <b>{width > 769 ? entries[t].team.displayName : entries[t].team.abbreviation}</b>
+        <td id="team">
+            <b>{width > 769 ? entries[t].team.displayName : entries[t].team.shortDisplayName}</b>
         </td>
         <td id="scores">{entries[t].stats[0].displayValue}</td>
         <td id="scores">{entries[t].stats[1].displayValue}</td>

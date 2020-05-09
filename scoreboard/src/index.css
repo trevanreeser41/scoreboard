@@ -9,15 +9,22 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+@media (max-width: 768px){
+  .body {
+    width: 100%;
+  }
+
+  .container {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 0;
+  }
+}
+
 .icon {
 opacity: 0.9;
 }
 
-@media (min-width: 1200px){
-.container{
-  max-width: 85%;
-}
-}
 #tableBackground {
 background-color: white;
   opacity: 0.9;
@@ -49,14 +56,6 @@ font-size: 1.5vw;
 
 thead {
 text-align: center;
-}
-
-#bodyContent {
-width: 85%;
-}
-
-.container {
-width: 100%;
 }
 
 #error {
