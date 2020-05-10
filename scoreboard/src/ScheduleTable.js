@@ -253,14 +253,14 @@ export class ScheduleTable extends Component {
                         <tr key={this.state.matchups[index].id + Date.now().toString()}>
                             <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                             <td className="schedule-mobile">
-                                <Link to={this.getTeamIdentifier(this.props.league, awayTeam.team)}>
+                                <Link to={awayTeam.team.id}>
                                     {awayTeam.team.abbreviation} <span style={{fontSize: `${recordSize}`}}>({team2Record})</span>
                                 </Link>
                             </td>
                             <td id="scores-mobile">{this.getScores(awayTeam)}</td>
                             <td id="logo-schedule"><img id="thumb" alt="logo.png" src={homeTeam.team.logos !== undefined ? homeTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                             <td className="schedule-mobile">
-                                <Link to={this.getTeamIdentifier(this.props.league, homeTeam.team)}>
+                                <Link to={homeTeam.team.id}>
                                     {homeTeam.team.abbreviation} <span style={{fontSize: `${recordSize}`}}>({team1Record})</span>
                                 </Link>
                             </td>
