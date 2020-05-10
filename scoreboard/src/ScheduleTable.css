@@ -107,10 +107,10 @@
     width: 99%;
     background-color: #f2f2f2;
     white-space: nowrap;
-    -webkit-animation: scheduleMobile 1s ease-in-out; /* Safari 4+ */
-    -moz-animation:    scheduleMobile 1s ease-in-out; /* Fx 5+ */
-    -o-animation:      scheduleMobile 1s ease-in-out; /* Opera 12+ */
-    animation:         scheduleMobile 1s ease-in-out; /* IE 10+, Fx 29+ */
+    -webkit-animation: scheduleMobile 0.5s ease-in-out; /* Safari 4+ */
+    -moz-animation:    scheduleMobile 0.5s ease-in-out; /* Fx 5+ */
+    -o-animation:      scheduleMobile 0.5s ease-in-out; /* Opera 12+ */
+    animation:         scheduleMobile 0.5s ease-in-out; /* IE 10+, Fx 29+ */
 }
 
 .scheduleTable-mobile td {
