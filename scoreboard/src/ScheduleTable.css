@@ -144,42 +144,34 @@
 @-o-keyframes scheduleMobile {
     0% { 
         opacity: 0;
-        width: 25%;
     }
     100% { 
         opacity: 1;
-        width: 100%;
     }
   }
 @keyframes scheduleMobile {
     0% { 
         opacity: 0;
-        width: 25%;
     }
     100% { 
         opacity: 1;
-        width: 100%;
     }
   }
 
 @-webkit-keyframes scheduleMobile {
     0% { 
         opacity: 0;
-        width: 25%;
     }
     100% { 
         opacity: 1;
-        width: 100%;
     }
   }
 @-moz-keyframes scheduleMobile {
     0% { 
         opacity: 0;
-        width: 25%;
     }
     100% { 
         opacity: 1;
-        width: 100%;
     }
   }
 
