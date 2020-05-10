@@ -53,6 +53,7 @@ export class ScheduleTable extends Component {
         let record;
         let color;
         let team;
+        let conference;
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${urlParams[1]}/${urlParams[2]}/teams/${urlParams[3]}/schedule`)
             .then(function (response) {
                 if (response.ok) {
@@ -87,7 +88,6 @@ export class ScheduleTable extends Component {
                         matchups: joined,
                         record: record,
                         team: team,
-                        color: color,
                     })
                 }
                 this.setState({ loading: false })
