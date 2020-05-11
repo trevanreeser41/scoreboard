@@ -44,7 +44,7 @@ const ScoreboardTable = (props) => {
             </span>  
         )   
         return array
-    })
+    });
 
     var newData = []
     if (width > 769) {
@@ -142,7 +142,6 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
     </tr>
 }
 
-
 function getHomeTeam(matchup){
     return matchup.competitors[1]
 }
@@ -150,15 +149,6 @@ function getHomeTeam(matchup){
 function getAwayTeam(matchup){
     return matchup.competitors[0]
 }
-
-// function getTeamIdentifier(league, team) {
-//     if (league === "usa.1" || league === "uefa.champions" || league === "nhl" || league === "nba") {
-//         return new Date().getFullYear() + "/standings";
-//     }
-//     else {
-//         return team.id;
-//     }
-// }
 
 function openToVenue(matchup){
     if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {

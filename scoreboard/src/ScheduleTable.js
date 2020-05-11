@@ -54,6 +54,9 @@ export class ScheduleTable extends Component {
         let color;
         let team;
         let conference = this.getConferenceObject(urlParams[2]);
+        if (urlParams[3] === "standings") {
+            return "";
+        }
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${urlParams[1]}/${urlParams[2]}/teams/${urlParams[3]}/schedule`)
             .then(function (response) {
                 if (response.ok) {
@@ -66,7 +69,10 @@ export class ScheduleTable extends Component {
                 let events = data.events;
                 color = data.team.color;
                 team = data.team.displayName;
-                if (urlParams[2] === "college-football" || urlParams[2] === "mens-college-basketball") {
+                if (urlParams[2] === "nfl" || urlParams[2] === "mlb" || urlParams[2] === '') {
+                    conference = conference[`${data.team.groups.parent.id}`];
+                }
+                else if (urlParams[2] === "college-football" || urlParams[2] === "mens-college-basketball") {
                     conference = conference[`${data.team.groups.id}`];
                 }
                 if (data.team.recordSummary !== undefined){
@@ -117,6 +123,12 @@ export class ScheduleTable extends Component {
         else if (league === "mens-college-basketball") {
             return require('./CBBConf.json');
         }
+        else if (league === "nfl") {
+            return {"7": "NFC", "8": "AFC"};
+        }
+        else if (league === 'mlb') {
+            return {"7": "AL", "8": "NL"};
+        }
         else {
             return undefined;
         }
@@ -162,7 +174,7 @@ export class ScheduleTable extends Component {
                 let network_logos = ["FOX", "CBS", "NBC", "ESPN", "TNT", "ABC", "NBATV", "NBCSN", "FSN", "BYUTV", "YES", "AT&TSN", "NFL"];
                 if (network_logos.includes(network)){
                     return <td id="win">
-                        <img id="thumb" src={`${imgPath}/${network}.png`} alt="H"/>
+                        <img id="thumb" src={`${imgPath}/${network}.png`} alt=""/>
                         </td>
                 }
                 else {
@@ -318,7 +330,7 @@ export class ScheduleTable extends Component {
                 </div>
             )
         }
-        else{
+        else if (!window.location.pathname.includes("standings")){
             return(
                 <div id="loading">
                 <h1>Loading</h1>
@@ -329,6 +341,10 @@ export class ScheduleTable extends Component {
                     <div className="bounce3"></div>
                 </div>
                 </div>          
-            )}
+            )
+        }
+        else {
+            return "";
+        }
     }
 }

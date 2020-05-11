@@ -50,17 +50,17 @@ export class Team extends Component {
                     id: "s:20~l:28~t:26",
                 },
                 {
+                    team: '4771', //Real Salt Lake
+                    sport: 'soccer',
+                    league: 'usa.1',
+                    id: "s:600~t:4771",
+                },
+                {
                     team: 'sf',
                     sport: 'baseball',
                     league: 'mlb',
                     id: "s:1~l:10~t:26",
-                },
-                {
-                    team: 'la',
-                    sport: 'hockey',
-                    league: 'nhl',
-                    id: "s:70~l:90~t:8",
-                }
+                }                
             ],
             data: [],
         };
@@ -90,7 +90,6 @@ export class Team extends Component {
                 if (response.ok) {
                     return response.json();
                 }
-
                 throw new Error("Unable to retrieve required data from server.");
             })
             .then(data => {
@@ -129,6 +128,15 @@ export class Team extends Component {
             tempArray.push(myChunk);
         }    
         return tempArray;
+    }
+
+    retrieveTeamId = (competitorIndex, index) => {
+        try {
+            return this.state.data[index].team.nextEvent[0].competitions[0].competitors[competitorIndex].team.id;
+        }
+        catch {
+            return "";
+        }
     }
 
     testForMatchupScores = (competitorIndex, index) => {
@@ -235,10 +243,14 @@ export class Team extends Component {
                                     <tbody>
                                         <tr>
                                             <td>
+                                            <Link to={`${teamData.sport}/${teamData.league}/${this.retrieveTeamId(1, index)}`}>
                                                 {this.testForMatchupScores(1, index)}<br/>{awayScores}
+                                            </Link>
                                             </td>
                                             <td>
+                                            <Link to={`${teamData.sport}/${teamData.league}/${this.retrieveTeamId(0, index)}`}>
                                                 {this.testForMatchupScores(0, index)}<br/>{homeScores}
+                                            </Link>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -265,8 +277,8 @@ export class Team extends Component {
                 if (this.state.width > 769) {
                     for (let index = 0; index < tableData.length; index=index+3) {
                         newData.push( 
-                            <div>                              
-                            <div key={this.state.data[index].team.id} className="flexcontainer">
+                            <div key={this.state.data[index].team.id}>                              
+                            <div className="flexcontainer">
                                 <table id="card-table-team">
                                     {tableData[index]}
                                 </table>
