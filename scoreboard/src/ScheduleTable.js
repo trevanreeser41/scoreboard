@@ -178,7 +178,7 @@ export class ScheduleTable extends Component {
                         </td>
                 }
                 else {
-                    return <td id="win" style={{fontSize: '6pt'}}>{network}</td>
+                    return <td id="win" style={{fontSize: '5pt'}}>{network}</td>
                 }
             }
         }
@@ -316,9 +316,17 @@ export class ScheduleTable extends Component {
                             fontSize: `${scheduleHeadingSize}`, 
                         }} colSpan="10">
                             {this.state.league === "college-football" || this.state.league === "mens-college-basketball" ?
-                            <span><span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/></span>:
+                            <span>
+                                <span id="heading">{this.state.team} Schedule {this.state.record}</span>
+                                {this.state.league === "mlb" || this.state.league === "nfl" || this.state.league === "college-football" || this.state.league === "mens-college-basketball" ? 
+                                <img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>:
+                                <span></span>}
+                                </span>:
                             <Link style={{color: "white"}} to={`${"standings"}`}>
-                                <span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>
+                                <span id="heading">{this.state.team} Schedule {this.state.record}</span>
+                                {this.state.league === "mlb" || this.state.league === "nfl" || this.state.league === "college-football" || this.state.league === "mens-college-basketball" ? 
+                                <img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>:
+                                <span></span>}
                             </Link>}
                         </th>
                         </tr>

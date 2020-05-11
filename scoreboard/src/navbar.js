@@ -39,7 +39,7 @@ export class NavBar extends Component {
                     </span>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav" onClick={this.toggleNavbar}>
-                            <Link className="nav-item nav-link" to="/">Personal Scoreboard</Link>                 
+                            <Link className="nav-item nav-link" to="/">Matt's Scoreboard</Link>                 
                             <Link className="nav-item nav-link" to="/NBA">NBA</Link>
                             <Link className="nav-item nav-link" to="/CollegeFootball">NCAAF</Link>
                             <Link className="nav-item nav-link" to="/CollegeBasketball">NCAAM</Link>
