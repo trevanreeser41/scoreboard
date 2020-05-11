@@ -33,9 +33,9 @@ export class NavBar extends Component {
                     <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <span id="corner"><img id="nav-thumb" src={process.env.PUBLIC_URL + "images/BYU.png"} alt=""/>
-                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/SEA.png"} alt=""/>
-                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/JAZZ.png"} alt=""/>
+                    <span id="corner"><img id="nav-thumb" src={process.env.PUBLIC_URL + "images/Kansas.png"} alt=""/>
+                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/KC.png"} alt=""/>
+                    <img id="nav-thumb" src={process.env.PUBLIC_URL + "images/USU.png"} alt=""/>
                     </span>
                     <div className={`${classOne}`} id="navbarNavAltMarkup">
                         <div className="navbar-nav" onClick={this.toggleNavbar}>

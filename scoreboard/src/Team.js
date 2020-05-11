@@ -24,12 +24,18 @@ export class Team extends Component {
             awayScores: [],
             width: 0,
             height: 0,
-            selectedTeams: [
+            selectedTeams: [                
                 {
-                    team: 'BYU',
+                    team: 'KC',
+                    sport: 'football',
+                    league: 'nfl',
+                    id: "s:20~l:28~t:12",
+                },                
+                {
+                    team: 'Kansas',
                     sport: 'basketball',
                     league: 'mens-college-basketball',
-                    id: 's:40~l:41~t:252'
+                    id: 's:40~l:41~t:2305'
                 },
                 {
                     team: 'BYU',
@@ -38,17 +44,29 @@ export class Team extends Component {
                     id: 's:20~l:23~t:252'
                 },
                 {
+                    team: 'UtahSt',
+                    sport: 'basketball',
+                    league: 'mens-college-basketball',
+                    id: 's:40~l:41~t:328'
+                },
+                {
+                    team: 'USU',
+                    sport: 'football',
+                    league: 'college-football',
+                    id: 's:20~l:23~t:328'
+                },
+                {
+                    team: '142', //Feyenoord
+                    sport: 'soccer',
+                    league: 'ned.1',
+                    id: "s:600~t:142",
+                },  
+                {
                     team: 'utah',
                     sport: 'basketball',
                     league: 'nba',
                     id: 's:40~l:46~t:26'
-                },
-                {
-                    team: 'sea',
-                    sport: 'football',
-                    league: 'nfl',
-                    id: "s:20~l:28~t:26",
-                },
+                },                
                 {
                     team: '4771', //Real Salt Lake
                     sport: 'soccer',
@@ -56,11 +74,11 @@ export class Team extends Component {
                     id: "s:600~t:4771",
                 },
                 {
-                    team: 'sf',
+                    team: 'KC',
                     sport: 'baseball',
                     league: 'mlb',
-                    id: "s:1~l:10~t:26",
-                }                
+                    id: 's:1~l:10~t:7'
+                },                              
             ],
             data: [],
         };
@@ -149,7 +167,7 @@ export class Team extends Component {
     }
 
     testForProfessionalTeam = (league) => {
-        var professionalLeagues = ["nfl","nba","mlb","nhl","wnba", "usa.1", "uefa.champions"];
+        var professionalLeagues = ["nfl","nba","mlb","nhl","wnba", "usa.1", "uefa.champions", "ned.1"];
         if (professionalLeagues.includes(league)) {
             return "Playoff Seed:";
         }
@@ -161,7 +179,12 @@ export class Team extends Component {
             return this.state.data[index].team.record.items[0].stats[0].value;
         }
         catch {
-            return this.state.data[index].team.rank;
+            if (this.state.data[index].team.rank !== undefined) {
+                return this.state.data[index].team.rank;
+            }
+            else {
+                return "-";
+            }
         }
     }
 
