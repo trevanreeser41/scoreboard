@@ -96,7 +96,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
     {matchup.competitors[1].winner === true ? 
     <td id="scoreboard-teams">
         <b>
-            <Link to={`/${props.sport}/${props.league}/${getTeamIdentifier(props.league, matchup.competitors[1].team)}`}>
+            <Link to={`/${props.sport}/${props.league}/${matchup.competitors[1].team.id}`}>
                 {AwayRanking} {matchup.competitors[1].team.displayName + " "} 
             </Link>    
             <span id="record">
@@ -105,7 +105,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
         </b>
     </td>: 
     <td id="scoreboard-teams">
-        <Link to={`/${props.sport}/${props.league}/${getTeamIdentifier(props.league,matchup.competitors[1].team)}`}>
+        <Link to={`/${props.sport}/${props.league}/${matchup.competitors[1].team.id}`}>
             {awayTeamBox} {matchup.competitors[1].team.displayName + " "} 
         </Link>
         <span id="record">
@@ -122,7 +122,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
         {matchup.competitors[0].winner === true ? 
         <td id="scoreboard-teams">
             <b>
-                <Link to={`${props.sport}/${props.league}/${getTeamIdentifier(props.league, matchup.competitors[0].team)}`}>
+                <Link to={`${props.sport}/${props.league}/${matchup.competitors[0].team.id}`}>
                     {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
                 </Link>    
                 <span id="record">
@@ -131,7 +131,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
             </b>
         </td>: 
         <td id="scoreboard-teams">
-            <Link to={`${props.sport}/${props.league}/${getTeamIdentifier(props.league,matchup.competitors[0].team)}`}>
+            <Link to={`${props.sport}/${props.league}/${matchup.competitors[0].team.id}`}>
                 {HomeRanking} {matchup.competitors[0].team.displayName + " "} 
             </Link>
             <span id="record">
@@ -151,14 +151,14 @@ function getAwayTeam(matchup){
     return matchup.competitors[0]
 }
 
-function getTeamIdentifier(league, team) {
-    if (league === "usa.1" || league === "uefa.champions") {
-        return new Date().getFullYear() + "/standings";
-    }
-    else {
-        return team.id;
-    }
-}
+// function getTeamIdentifier(league, team) {
+//     if (league === "usa.1" || league === "uefa.champions" || league === "nhl" || league === "nba") {
+//         return new Date().getFullYear() + "/standings";
+//     }
+//     else {
+//         return team.id;
+//     }
+// }
 
 function openToVenue(matchup){
     if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {

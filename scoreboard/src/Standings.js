@@ -2,6 +2,7 @@ import React from 'react';
 import { useLayoutEffect, useState } from "react";
 import './Standings.css';
 import useFetchAppDataScoreboard from './Hooks';
+import {Link} from 'react-router-dom';
 
 const Standings = (props) => {
 
@@ -75,7 +76,9 @@ function teamBox(division, width){
         <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries[t].stats[8].displayValue}</b></td>
         <td id="logo"><img id="thumb" alt="" src={entries[t].team.logos[0].href}/></td>
         <td id="team">
-            <b>{width > 769 ? entries[t].team.displayName : entries[t].team.shortDisplayName}</b>
+            <Link to={`${entries[t].team.id}`}>
+                <b>{width > 769 ? entries[t].team.displayName : entries[t].team.shortDisplayName}</b>
+            </Link>
         </td>
         <td id="scores">{entries[t].stats[0].displayValue}</td>
         <td id="scores">{entries[t].stats[1].displayValue}</td>

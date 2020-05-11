@@ -19,6 +19,19 @@
     margin:0 auto;
 }
 
+#conf-logo {
+    width: 1.5em; 
+    height: auto;
+    margin-right: 0.5em;
+    float: right;
+}
+
+#heading {
+    text-align: center;
+    z-index: 1;
+    margin-left: 2.5em;
+}
+
 #date {
     font-size: small;
     font-weight: bold;
@@ -123,6 +136,7 @@
     padding-bottom: 8px;
     text-align: center;    
     color: white;
+    position: relative;
 }
 
 .scheduleTable-mobile .rank{

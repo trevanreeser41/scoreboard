@@ -15,8 +15,8 @@ export class ScheduleTable extends Component {
 			title: props.title,
             matchups: [],
             loading: true,
-            sport: props.sport,
-            league: props.league,
+            sport: "",
+            league: "",
             homeScores: [],
             awayScores: [],
             width: 0,
@@ -45,7 +45,7 @@ export class ScheduleTable extends Component {
         if (this.props.team !== prevProps.team) {
             let urlParams = window.location.pathname.split("/");
             this.populateSchedule(urlParams);
-            this.setState({ loading: true })
+            this.setState({ loading: true, sport: urlParams[1], league: urlParams[2] })
         }
     }
 
@@ -53,6 +53,30 @@ export class ScheduleTable extends Component {
         let record;
         let color;
         let team;
+        let conference = {
+            "44": "ACC",
+            "45": "ACC",
+            "163": "American",
+            "164": "American",
+            "149": "MountainWest",
+            "150": "MountainWest",
+            "13": "MAC",
+            "14": "MAC",
+            "18": "Independent",
+            "167": "SunBelt",
+            "47": "CUSA",
+            "52": "BigTen",
+            "53": "BigTen",
+            "6": "SEC",
+            "7": "SEC",
+            "54": "Pac12",
+            "55": "Pac12",
+            "4": "Big12",
+            "29": "WCC",
+            "3": "A10",
+            "5": "BigSky",
+            "20": "BigSky",
+        };
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${urlParams[1]}/${urlParams[2]}/teams/${urlParams[3]}/schedule`)
             .then(function (response) {
                 if (response.ok) {
@@ -65,6 +89,7 @@ export class ScheduleTable extends Component {
                 let events = data.events;
                 color = data.team.color;
                 team = data.team.displayName;
+                conference = conference[`${data.team.groups.id}`];
                 if (data.team.recordSummary !== undefined){
                     record = "(" + data.team.recordSummary + ")"; 
                 }
@@ -88,6 +113,9 @@ export class ScheduleTable extends Component {
                         record: record,
                         team: team,
                         color: color,
+                        conference: conference,
+                        sport: urlParams[1],
+                        league: urlParams[2]
                     })
                 }
                 this.setState({ loading: false })
@@ -147,7 +175,7 @@ export class ScheduleTable extends Component {
                         </td>
                 }
                 else {
-                    return <td id="win" style={{fontSize: '7pt'}}>{network}</td>
+                    return <td id="win" style={{fontSize: '6pt'}}>{network}</td>
                 }
             }
         }
@@ -226,7 +254,7 @@ export class ScheduleTable extends Component {
                     tableData1.push(
                         <tr key={this.state.matchups[index].id + Date.now().toString()}>
                             <td id="date">{this.state.matchups[index].date.substr(0,10)}
-                    <br/><a href={this.openToVenue(this.state.matchups[index])} target="_blank" rel="noopener noreferrer" id="scheduleVenue">{this.retrieveVenue(this.state.matchups[index])}</a>
+                        <br/><a href={this.openToVenue(this.state.matchups[index])} target="_blank" rel="noopener noreferrer" id="scheduleVenue">{this.retrieveVenue(this.state.matchups[index])}</a>
                             </td>
                             <td id="logo-schedule"><img id="thumb" alt="logo" src={awayTeam.team.logos !== undefined ? awayTeam.team.logos[0].href : "https://cdn2.sportngin.com/attachments/photo/7726/1525/No_Logo_Available.png"}/></td>
                             <td className="schedule">
@@ -245,7 +273,7 @@ export class ScheduleTable extends Component {
                             {this.checkForWinner(homeTeam, awayTeam, index)}
                             <td>{this.state.matchups[index].status.type.detail}</td>
                         </tr>
-                    );   
+                    );
                 }
                 else {
                     let recordSize = this.props.league === 'nhl' ? '4pt' : '5pt';
@@ -271,7 +299,9 @@ export class ScheduleTable extends Component {
                     )
                 }
             }
-
+            if (this.state.sport === "soccer") {
+                tableData1.reverse();
+            }
             return (
                 <div className={this.state.width > 769 ? "flexcontainer" : "flexcontainer-mobile"}>
                     <table className={this.state.width > 769 ? "scheduleTable" : "scheduleTable-mobile"}>   
@@ -282,9 +312,11 @@ export class ScheduleTable extends Component {
                             border: `1px solid #${this.state.color}`,
                             fontSize: `${scheduleHeadingSize}`, 
                         }} colSpan="10">
-                            {this.state.team} Schedule {this.state.record}
+                            <Link style={{color: "white"}} to={`${"standings"}`}>
+                                <span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>
+                            </Link>
                         </th>
-                        </tr>  
+                        </tr>
                         </thead>
                         <tbody style={this.state.width > 769 ? {fontSize: '12pt'} : {fontSize: '6pt'}}>                   
                         {tableData1} 
