@@ -53,30 +53,7 @@ export class ScheduleTable extends Component {
         let record;
         let color;
         let team;
-        let conference = {
-            "44": "ACC",
-            "45": "ACC",
-            "163": "American",
-            "164": "American",
-            "149": "MountainWest",
-            "150": "MountainWest",
-            "13": "MAC",
-            "14": "MAC",
-            "18": "Independent",
-            "167": "SunBelt",
-            "47": "CUSA",
-            "52": "BigTen",
-            "53": "BigTen",
-            "6": "SEC",
-            "7": "SEC",
-            "54": "Pac12",
-            "55": "Pac12",
-            "4": "Big12",
-            "29": "WCC",
-            "3": "A10",
-            "5": "BigSky",
-            "20": "BigSky",
-        };
+        let conference = this.getConferenceObject(urlParams[2]);
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${urlParams[1]}/${urlParams[2]}/teams/${urlParams[3]}/schedule`)
             .then(function (response) {
                 if (response.ok) {
@@ -89,7 +66,9 @@ export class ScheduleTable extends Component {
                 let events = data.events;
                 color = data.team.color;
                 team = data.team.displayName;
-                conference = conference[`${data.team.groups.id}`];
+                if (urlParams[2] === "college-football" || urlParams[2] === "mens-college-basketball") {
+                    conference = conference[`${data.team.groups.id}`];
+                }
                 if (data.team.recordSummary !== undefined){
                     record = "(" + data.team.recordSummary + ")"; 
                 }
@@ -129,6 +108,18 @@ export class ScheduleTable extends Component {
         this.setState({
             urlParams: [this.state.sport, this.state.league, team.abbreviation]
         })
+    }
+
+    getConferenceObject (league) {
+        if (league === "college-football") {
+            return require('./CFBConf.json');
+        }
+        else if (league === "mens-college-basketball") {
+            return require('./CBBConf.json');
+        }
+        else {
+            return undefined;
+        }
     }
 
     getMatchup(x){
@@ -312,9 +303,11 @@ export class ScheduleTable extends Component {
                             border: `1px solid #${this.state.color}`,
                             fontSize: `${scheduleHeadingSize}`, 
                         }} colSpan="10">
+                            {this.state.league === "college-football" || this.state.league === "mens-college-basketball" ?
+                            <span><span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/></span>:
                             <Link style={{color: "white"}} to={`${"standings"}`}>
                                 <span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>
-                            </Link>
+                            </Link>}
                         </th>
                         </tr>
                         </thead>
