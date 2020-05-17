@@ -116,9 +116,9 @@ function teamBox (entries, width, index) {
     return <tr key={entries.team.id}>
         <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[0].displayValue}</b></td>
         <td id="logo"><img id="thumb" alt="" src={entries.team.logos[0].href}/></td>
-        <td id="teamBox" style={entries.team.shortDisplayName.length > 8 ? {fontSize: "8pt"} : {fontSize: "10pt"}}>
+        <td id="teamBox" style={width < 769 && entries.team.shortDisplayName.length > 8 ? {fontSize: "7pt"} : {fontSize: "10pt"}}>
             <Link to={`${entries.team.id}`}>
-                <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName}</b>
+                <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName }</b>
             </Link>
         </td>
         <td id="scores">{entries.stats[1].displayValue}</td>

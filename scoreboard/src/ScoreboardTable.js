@@ -4,9 +4,6 @@ import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
 import GameStatus from './GameStatus';
-//import { UpdateScore } from './UpdateScore';
-
-//var fetchNeeded = true;
 
 const ScoreboardTable = (props) => {
 

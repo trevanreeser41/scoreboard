@@ -22,12 +22,8 @@ export class NavBar extends Component {
         });
     }
 
-    refresh() {
-        window.location.reload(false);
-      }
-
     render() {
-        const collapsed = this.state.collapsed;
+        const collapsed = this.state.collapsed;        
         const classOne = collapsed ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
         const classTwo = collapsed ? 'navbar-toggler collapsed mr-auto' : 'navbar-toggler mr-auto';
 
@@ -55,6 +51,9 @@ export class NavBar extends Component {
                             <Link className="nav-item nav-link" to="/Rankings">Rankings</Link>
                         </div>
                     </div>
+                    {/* {window.innerWidth > 769 ?
+                    <button type="button" className="btn btn-success" onClick={}>Live</button>:
+                    <span></span>} */}
                 </nav>
             </header>
         );
