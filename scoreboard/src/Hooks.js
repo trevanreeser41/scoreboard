@@ -23,7 +23,7 @@ export default function useFetchAppDataScoreboard(league, sport, page, site) {
         }
     }, [isLoading, setMatchups, sport, league, page, site])
 
-    return matchups;
+    return [matchups, setMatchups];
 }
 
 function loadScoreboard(json) {

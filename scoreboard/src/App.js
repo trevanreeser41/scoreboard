@@ -7,7 +7,6 @@ import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
 import Standings from './Standings';
-//import { NFLDraft } from './NFLDraft';
 
 function App() {
 
@@ -37,8 +36,8 @@ function App() {
         <Route path='/MLS'>
           <ScoreboardTable sport="soccer" league="usa.1"/>
         </Route>
-        <Route path='/ChampionsLeague'>
-          <ScoreboardTable sport="soccer" league="uefa.champions"/>
+        <Route path='/Bundesliga'>
+          <ScoreboardTable sport="soccer" league="ger.1"/>
         </Route>              
         <Route path='/Rankings'>
           <Rankings  />

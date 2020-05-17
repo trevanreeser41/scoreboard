@@ -11,12 +11,16 @@ import GameStatus from './GameStatus';
 const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
-    const matchups = useFetchAppDataScoreboard(props.league, props.sport, "scoreboard", "/site");
+    const [matchups, setMatchups] = useFetchAppDataScoreboard(props.league, props.sport, "scoreboard", "/site");
+    const [isActive, setIsActive] = useState(true);
+    const [buttonDisplay, setButtonDisplay] = useState("#5cb85c");
+    const [buttonText, setButtonText] = useState("Get Live Scores");
     const [width] = useMediaQuery();
     let team1Record = '';
     let team2Record = '';
     var AwayRanking;
     var HomeRanking;    
+    let intervalId = null;
 
     var tableData = matchups.map(matchup => {
         var array = []
@@ -71,12 +75,33 @@ const ScoreboardTable = (props) => {
         newData.push(
             <div key="footer-btn">
                 <br/><br/><br/>
-            <div className="footer" onClick={refresh} href="#top">
-                Get Live Scores
+            <div className="footer" style={{backgroundColor: buttonDisplay}}onClick={() => refetch(props.league, props.sport, "scoreboard", "/site")} href="#top">
+                {buttonText}
             </div>
             </div>
         )
     }
+
+    function refetch(league, sport, page, site) {        
+        setIsActive(!isActive);        
+        if (isActive) {
+            setButtonDisplay("#d9534f");
+            setButtonText("Disable Live Scores");
+            intervalId = setInterval(async () => {
+                const URL_API = `http://site.api.espn.com/apis${site}/v2/sports/${sport}/${league}/${page}`;
+                let response = await fetch(URL_API)
+                let json = await response.json();
+                setMatchups(loadScoreboard(json));
+            }, 30000);
+        }
+        else {
+            setButtonDisplay("#5cb85c");
+            setButtonText("Get Live Scores");
+            return () => clearInterval(intervalId);
+        }        
+        return () => clearInterval(intervalId);
+    }
+
     return (
         <span> 
             {newData}
@@ -84,9 +109,16 @@ const ScoreboardTable = (props) => {
     )
 };
 
-function refresh() {
-    window.location.reload();
-}
+function loadScoreboard(json) {
+    let events = json.events;
+    var games = [];
+    for (var i = 0; i < events.length; i++) {
+        for (var j = 0; j < events[i].competitions.length; j++) {
+            games.push(events[i].competitions[j]);
+        }
+    }
+    return games;
+  }
 
 //HELPER FUNCTIONS TO BUILD HTML
 function includeRankings(league, matchup){

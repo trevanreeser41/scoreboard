@@ -51,7 +51,7 @@ export class NavBar extends Component {
                             <Link className="nav-item nav-link" to="/NHL">NHL</Link>                            
                             <Link className="nav-item nav-link" to="/MLB">MLB</Link>
                             <Link className="nav-item nav-link" to="/MLS">MLS</Link>
-                            <Link className="nav-item nav-link" to="/ChampionsLeague">UEFA</Link>
+                            <Link className="nav-item nav-link" to="/Bundesliga">Bundesliga</Link>
                             <Link className="nav-item nav-link" to="/Rankings">Rankings</Link>
                         </div>
                     </div>
