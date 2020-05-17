@@ -7,12 +7,12 @@ import {Link} from 'react-router-dom';
 const Standings = (props) => {
 
     //Constructor
-    const divisions = useFetchAppDataScoreboard(props.league, props.sport, props.page, "");
+    // eslint-disable-next-line
+    const [divisions, setDivisions] = useFetchAppDataScoreboard(props.league, props.sport, props.page, "");
     const [width] = useMediaQuery();
 
     var tableData = divisions.map(division => {
         var array = [];
-
         array.push(
             <span key={division.uid} id="standings-card-table">
                 <table>
@@ -116,7 +116,7 @@ function teamBox (entries, width, index) {
     return <tr key={entries.team.id}>
         <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[0].displayValue}</b></td>
         <td id="logo"><img id="thumb" alt="" src={entries.team.logos[0].href}/></td>
-        <td id="team">
+        <td id="teamBox" style={entries.team.shortDisplayName.length > 8 ? {fontSize: "8pt"} : {fontSize: "10pt"}}>
             <Link to={`${entries.team.id}`}>
                 <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName}</b>
             </Link>

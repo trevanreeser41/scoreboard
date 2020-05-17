@@ -38,6 +38,10 @@ table {
     width: 100%;
 }
 
+#teamBox {
+    font-size: small;
+}
+
 #team-sport {
     text-align: center;
     font-weight: bold;
