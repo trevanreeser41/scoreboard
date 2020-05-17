@@ -87,6 +87,7 @@ const ScoreboardTable = (props) => {
         if (isActive) {
             setButtonDisplay("#d9534f");
             setButtonText("Disable Live Scores");
+            setMatchups(loadScoreboard(json));
             intervalId = setInterval(async () => {
                 const URL_API = `http://site.api.espn.com/apis${site}/v2/sports/${sport}/${league}/${page}`;
                 let response = await fetch(URL_API)
