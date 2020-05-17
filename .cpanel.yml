@@ -1,5 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/trevanre/public_html/scoreboard.trevanreeser.com
-    - /bin/cp -r ./scoreboard/build/* $DEPLOYPATH

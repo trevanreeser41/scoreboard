@@ -25,6 +25,25 @@ h1 {
     font-weight: bold;
 }
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #5cb85c;
+    padding-bottom: 2em;
+    padding-top: 1em;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    border-top: solid 1px darkgray;
+}
+
+.footer :hover {
+    background-color: #225722;
+}
+
 #winner {
     background: darkgray;
     color: white;

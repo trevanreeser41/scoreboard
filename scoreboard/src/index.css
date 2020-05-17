@@ -1,4 +1,8 @@
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   /* background: url(https://i0.wp.com/www.crowneagency.com/wp-content/uploads/2017/01/wood-court-3.jpg?ssl=1) no-repeat center center fixed; */
   background: url(https://wonderfulengineering.com/wp-content/uploads/2016/01/black-wallpaper-6.jpg);

@@ -4,16 +4,19 @@ import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
 import GameStatus from './GameStatus';
+//import { UpdateScore } from './UpdateScore';
+
+//var fetchNeeded = true;
 
 const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
-    const matchups = useFetchAppDataScoreboard(props.league, props.sport, "scoreboard", "/site")
+    const matchups = useFetchAppDataScoreboard(props.league, props.sport, "scoreboard", "/site");
     const [width] = useMediaQuery();
     let team1Record = '';
     let team2Record = '';
     var AwayRanking;
-    var HomeRanking;
+    var HomeRanking;    
 
     var tableData = matchups.map(matchup => {
         var array = []
@@ -21,7 +24,6 @@ const ScoreboardTable = (props) => {
         var awayTeam = getAwayTeam(matchup)
         homeTeam.records !== undefined ? team1Record = homeTeam.records[0].summary : team1Record = "0-0"
         awayTeam.records !== undefined ? team2Record = awayTeam.records[0].summary : team2Record = "0-0"
-        
 
         AwayRanking = includeRankings(props.league, matchup)[1]
         AwayRanking = includeRankings(props.league, matchup)[0]
@@ -42,7 +44,7 @@ const ScoreboardTable = (props) => {
                 </h5>
                 <br/>
             </span>  
-        )   
+        );
         return array
     });
 
@@ -56,7 +58,7 @@ const ScoreboardTable = (props) => {
                     {tableData[index+2]}
                 </div>
             )
-        }
+        }        
     }
     else {
         for (let index = 0; index < tableData.length; index++) {
@@ -66,6 +68,14 @@ const ScoreboardTable = (props) => {
                 </div>
             )
         }
+        newData.push(
+            <div key="footer-btn">
+                <br/><br/><br/>
+            <div className="footer" onClick={refresh} href="#top">
+                Get Live Scores
+            </div>
+            </div>
+        )
     }
     return (
         <span> 
@@ -73,6 +83,10 @@ const ScoreboardTable = (props) => {
         </span>
     )
 };
+
+function refresh() {
+    window.location.reload();
+}
 
 //HELPER FUNCTIONS TO BUILD HTML
 function includeRankings(league, matchup){
@@ -112,6 +126,8 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
             ({team1Record})
         </span>
     </td>}
+    {/* <UpdateScore sport={props.sport} league={props.league} index={1} refetch={fetchNeeded}/>
+    {fetchNeeded = false} */}
     <td id="scoreboard-scores">{matchup.competitors[1].score}</td>
 </tr>
 }
@@ -139,6 +155,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
             </span>
         </td>}
         <td id="scoreboard-scores">{matchup.competitors[0].score}</td>
+        {/* <UpdateScore sport={props.sport} league={props.league} index={0} refetch={fetchNeeded}/> */}
     </tr>
 }
 
@@ -182,6 +199,6 @@ function useMediaQuery() {
     }, []);
     
     return screenSize;
-  }  
+  }   
 
 export default ScoreboardTable;

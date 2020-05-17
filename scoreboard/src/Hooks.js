@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import React from 'react';
 
 export default function useFetchAppDataScoreboard(league, sport, page, site) {
     const [matchups, setMatchups] = useState([]);
@@ -40,6 +41,16 @@ function loadStandings(json) {
   return json.children;
 }
 
+export function usePersistedState(key, defaultValue) {
+  const [state, setState] = React.useState(
+    JSON.parse(localStorage.getItem(key)) || defaultValue
+  );
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(state));
+  }, [key, state]);
+  return [state, setState];
+}
+
 export function useInterval(callback, delay) {
     const savedCallback = useRef();
   
@@ -59,3 +70,5 @@ export function useInterval(callback, delay) {
       }
     }, [delay]);
   }
+
+  
