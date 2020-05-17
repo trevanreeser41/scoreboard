@@ -82,17 +82,21 @@ const ScoreboardTable = (props) => {
         )
     }
 
+    async function retrieveData(league, sport, page, site) {
+        const URL_API = `http://site.api.espn.com/apis${site}/v2/sports/${sport}/${league}/${page}`;
+        let response = await fetch(URL_API)
+        let json = await response.json();
+        setMatchups(loadScoreboard(json));
+    }
+
     function refetch(league, sport, page, site) {        
         setIsActive(!isActive);        
         if (isActive) {
             setButtonDisplay("#d9534f");
             setButtonText("Disable Live Scores");
-            setMatchups(loadScoreboard(json));
+            retrieveData(league, sport, page, site);
             intervalId = setInterval(async () => {
-                const URL_API = `http://site.api.espn.com/apis${site}/v2/sports/${sport}/${league}/${page}`;
-                let response = await fetch(URL_API)
-                let json = await response.json();
-                setMatchups(loadScoreboard(json));
+                retrieveData(league, sport, page, site);
             }, 30000);
         }
         else {

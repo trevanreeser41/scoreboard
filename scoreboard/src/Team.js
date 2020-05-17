@@ -161,7 +161,12 @@ export class Team extends Component {
             return this.state.data[index].team.record.items[0].stats[0].value;
         }
         catch {
-            return this.state.data[index].team.rank;
+            if (this.state.data[index].team.rank !== undefined) {
+                return this.state.data[index].team.rank;
+            }
+            else {
+                return "-";
+            }
         }
     }
 
@@ -277,7 +282,7 @@ export class Team extends Component {
                 if (this.state.width > 769) {
                     for (let index = 0; index < tableData.length; index=index+3) {
                         newData.push( 
-                            <div key={this.state.data[index].team.id}>                              
+                            <div key={this.state.data[index].team.uid}>                              
                             <div className="flexcontainer">
                                 <table id="card-table-team">
                                     {tableData[index]}
@@ -297,7 +302,7 @@ export class Team extends Component {
                 else {
                     for (let index = 0; index < tableData.length; index++) {
                         newData.push(
-                            <div key={this.state.data[index].team.id}>
+                            <div key={this.state.data[index].team.uid}>
                                 <table className="mobile-card-table-team">
                                     {tableData[index]}
                                     <br/><br/>
@@ -306,12 +311,12 @@ export class Team extends Component {
                         );
                     }
                 }
-                return (
-                    <div> 
-                        {newData}
-                    </div>
-                )           
-        }
+            return (
+                <div> 
+                    {newData}
+                </div>
+            )           
+    }
         else{
         return(
             <div id="loading">
