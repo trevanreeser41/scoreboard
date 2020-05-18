@@ -70,7 +70,7 @@ function generateHeading(division, width, props) {
 
 function soccerTeamHeading(division, width) {
     return <tr style={{border: "solid 2.5px grey", fontSize: "3vh"}}>
-        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="3">{division.name}</th>
+        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="2">{division.name}</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>W</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>D</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>L</th>
@@ -79,10 +79,9 @@ function soccerTeamHeading(division, width) {
 
 function teamHeading(division, width) {
     return <tr style={{border: "solid 2.5px grey", fontSize: "3vh"}}>
-        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="3">{division.name}</th>
+        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="2">{division.name}</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>W</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>L</th>
-        {/* <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>T</th> */}
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>STRK</th>
     </tr>
 }
@@ -115,9 +114,8 @@ function generateTeamBox(division, width, props){
 function teamBox (entries, width, index) {
     return <tr key={entries.team.id}>
         <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[0].displayValue}</b></td>
-        <td id="logo"><img id="thumb" alt="" src={entries.team.logos[0].href}/></td>
-        <td id="teamBox" style={width < 769 && entries.team.shortDisplayName.length > 8 ? {fontSize: "7pt"} : {fontSize: "10pt"}}>
-            <Link to={`${entries.team.id}`}>
+        <td id="standings-logo"><img id="thumb" alt="" src={entries.team.logos[0].href} style={{marginRight: "0.5em"}}/>
+            <Link to={`${entries.team.id}`} style={entries.team.shortDisplayName.length > 7 ? {fontSize: "7pt"} : {fontSize: "9pt"}}>
                 <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName }</b>
             </Link>
         </td>
@@ -130,8 +128,7 @@ function teamBox (entries, width, index) {
 function soccerTeamBox (entries, width) {
     return <tr key={entries.team.id}>
     <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[8].displayValue}</b></td>
-    <td id="logo"><img id="thumb" alt="" src={entries.team.logos[0].href}/></td>
-    <td id="team">
+    <td id="standings-logo"><img id="thumb" alt="" src={entries.team.logos[0].href} style={{marginRight: "0.5em"}}/>
         <Link to={`${entries.team.id}`}>
             <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName}</b>
         </Link>

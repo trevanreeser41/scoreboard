@@ -5,6 +5,7 @@ import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
 import GameStatus from './GameStatus';
 
+let intervalId = null;
 const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
@@ -16,8 +17,7 @@ const ScoreboardTable = (props) => {
     let team1Record = '';
     let team2Record = '';
     var AwayRanking;
-    var HomeRanking;    
-    let intervalId = null;
+    var HomeRanking;       
 
     var tableData = matchups.map(matchup => {
         var array = []
@@ -51,6 +51,11 @@ const ScoreboardTable = (props) => {
 
     var newData = []
     if (width > 769) {
+        newData.push(
+            <div key="desktop-live-btn" style={{backgroundColor: buttonDisplay}} className="btn btn-success desktop-live-btn" onClick={() => refetch(props.league, props.sport, "scoreboard", "/site")}>
+                {buttonText}
+            </div>
+        );
         for (let index = 0; index < tableData.length; index=index+3) {
             newData.push(
                 <div key={props.league + index.toString()} className="flexcontainer">                        
@@ -72,7 +77,7 @@ const ScoreboardTable = (props) => {
         newData.push(
             <div key="footer-btn">
                 <br/><br/><br/>
-            <div className="footer" style={{backgroundColor: buttonDisplay}}onClick={() => refetch(props.league, props.sport, "scoreboard", "/site")} href="#top">
+            <div className="footer" style={{backgroundColor: buttonDisplay}} onClick={() => refetch(props.league, props.sport, "scoreboard", "/site")} href="#top">
                 {buttonText}
             </div>
             </div>
@@ -99,9 +104,8 @@ const ScoreboardTable = (props) => {
         else {
             setButtonDisplay("#5cb85c");
             setButtonText("Get Live Scores");
-            return () => clearInterval(intervalId);
-        }        
-        return () => clearInterval(intervalId);
+            clearInterval(intervalId);
+        }
     }
 
     return (

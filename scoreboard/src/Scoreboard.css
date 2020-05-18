@@ -162,6 +162,15 @@ h1 {
     animation:         scoreboardFade 0.5s; /* IE 10+, Fx 29+ */
  }
 
+ .desktop-live-btn {
+     top: 0;
+     right: 0;
+     margin-top: 0.75vw;
+     margin-right: 0.75vw;
+     position: absolute;
+     font-size: 1.1vw;
+ }
+
 .card-table-schedule{
     margin: 20px;
 }

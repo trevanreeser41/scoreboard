@@ -11,9 +11,8 @@ export class NavBar extends Component {
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
-            teams: {},
+            teams: {}
         };
-
     }
 
     toggleNavbar() {
@@ -51,9 +50,6 @@ export class NavBar extends Component {
                             <Link className="nav-item nav-link" to="/Rankings">Rankings</Link>
                         </div>
                     </div>
-                    {/* {window.innerWidth > 769 ?
-                    <button type="button" className="btn btn-success" onClick={}>Live</button>:
-                    <span></span>} */}
                 </nav>
             </header>
         );
