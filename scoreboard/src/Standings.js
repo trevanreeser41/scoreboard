@@ -113,29 +113,29 @@ function generateTeamBox(division, width, props){
 
 function teamBox (entries, width, index) {
     return <tr key={entries.team.id}>
-        <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[0].displayValue}</b></td>
+        <td id="scores-mobile" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[0].displayValue}</b></td>
         <td id="standings-logo"><img id="thumb" alt="" src={entries.team.logos[0].href} style={{marginRight: "0.5em"}}/>
-            <Link to={`${entries.team.id}`} style={entries.team.shortDisplayName.length > 7 ? {fontSize: "7pt"} : {fontSize: "9pt"}}>
-                <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName }</b>
+            <Link to={`${entries.team.id}`}>
+                <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName}</b>
             </Link>
         </td>
-        <td id="scores">{entries.stats[1].displayValue}</td>
-        <td id="scores">{entries.stats[2].displayValue}</td>
-        <td id="scores">{entries.stats[index].displayValue}</td>
+        <td id="scores-mobile">{entries.stats[1].displayValue}</td>
+        <td id="scores-mobile">{entries.stats[2].displayValue}</td>
+        <td id="scores-mobile">{entries.stats[index].displayValue}</td>
     </tr>
 }
 
 function soccerTeamBox (entries, width) {
     return <tr key={entries.team.id}>
-    <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[8].displayValue}</b></td>
+    <td id="scores-mobile" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[8].displayValue}</b></td>
     <td id="standings-logo"><img id="thumb" alt="" src={entries.team.logos[0].href} style={{marginRight: "0.5em"}}/>
         <Link to={`${entries.team.id}`}>
             <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName}</b>
         </Link>
     </td>
-    <td id="scores">{entries.stats[0].displayValue}</td>
-    <td id="scores">{entries.stats[2].displayValue}</td>
-    <td id="scores">{entries.stats[1].displayValue}</td>
+    <td id="scores-mobile">{entries.stats[0].displayValue}</td>
+    <td id="scores-mobile">{entries.stats[2].displayValue}</td>
+    <td id="scores-mobile">{entries.stats[1].displayValue}</td>
     </tr>
 };
 
