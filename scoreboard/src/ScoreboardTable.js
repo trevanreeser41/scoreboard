@@ -1,11 +1,12 @@
 import React from 'react';
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
 import './Scoreboard.css';
 import useFetchAppDataScoreboard from './Hooks';
 import {Link} from 'react-router-dom';
 import GameStatus from './GameStatus';
 
 let intervalId = null;
+localStorage.clear();
 const ScoreboardTable = (props) => {
 
     //CONSTRUCTORS
@@ -14,11 +15,11 @@ const ScoreboardTable = (props) => {
     const [buttonDisplay, setButtonDisplay] = useState("#5cb85c");
     const [buttonText, setButtonText] = useState("Get Live Scores");
     const [width] = useMediaQuery();
+    const [initialRender, setInitialRender] = useState(true);
     let team1Record = '';
     let team2Record = '';
     var AwayRanking;
-    var HomeRanking;      
-    var prevScores = {};       
+    var HomeRanking;                    
 
     var tableData = matchups.map(matchup => {
         var array = [];        
@@ -28,17 +29,14 @@ const ScoreboardTable = (props) => {
         awayTeam.records !== undefined ? team2Record = awayTeam.records[0].summary : team2Record = "0-0"
 
         AwayRanking = includeRankings(props.league, matchup)[1]
-        AwayRanking = includeRankings(props.league, matchup)[0]
-
-        var initialRender = true; 
-        prevScores[`${matchup.id}`] = [matchup.competitors[0].score, matchup.competitors[1].score];
+        AwayRanking = includeRankings(props.league, matchup)[0]       
 
         array.push(
-            <span key={matchup.id} id="matchup">
+            <span key={matchup.uid} id="matchup">
                 <table id="card-table">
                 <tbody className="scoreboard">
-                {awayTeamBox(matchup, AwayRanking, team1Record, props, prevScores, initialRender)}
-                {homeTeamBox(matchup, HomeRanking, team2Record, props, prevScores, initialRender)}
+                {awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender)}
+                {homeTeamBox(matchup, HomeRanking, team2Record, props, initialRender)}
                 <tr id="status">
                     <td colSpan="3"><GameStatus league={props.league} period={matchup.status.period} matchup={matchup} completed={matchup.status.type.completed}/></td>
                 </tr>
@@ -50,7 +48,8 @@ const ScoreboardTable = (props) => {
                 <br/>
             </span>  
         );
-        initialRender = false;     
+        saveState(matchup.uid, [matchup.competitors[0].score, matchup.competitors[1].score]);
+                     
         return array
     });
 
@@ -97,11 +96,12 @@ const ScoreboardTable = (props) => {
     }
 
     function refetch(league, sport, page, site) {        
-        setIsActive(!isActive);        
+        setIsActive(!isActive);
+        setInitialRender(!initialRender);       
         if (isActive) {            
             setButtonDisplay("#d9534f");
             setButtonText("Disable Live Scores");
-            retrieveData(league, sport, page, site);
+            retrieveData(league, sport, page, site);            
             intervalId = setInterval(async () => {
                 retrieveData(league, sport, page, site);
             }, 30000);
@@ -112,6 +112,21 @@ const ScoreboardTable = (props) => {
             clearInterval(intervalId);
         }
     }
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (!isActive){
+                console.log("Live fetching timed out due to inactivity. Button will be reset.");
+                setButtonDisplay("#5cb85c");
+                setButtonText("Get Live Scores");
+                clearInterval(intervalId);
+                if (document.hasFocus()){
+                    alert("Live fetching timed out due to inactivity. Button will be reset.");
+                }
+            }
+        }, 900000);
+        return () => clearTimeout(timer);
+    }, [isActive]);
 
     return (
         <span> 
@@ -147,7 +162,14 @@ function includeRankings(league, matchup){
     return [HomeRanking, AwayRanking]
 }
 
-function awayTeamBox(matchup, AwayRanking, team1Record, props, prevScores, initialRender){
+function awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender){
+    let previousScore;
+    if (initialRender === false) {
+        previousScore = loadState(matchup.uid)[1];
+    }
+    else {
+        previousScore = matchup.competitors[1].score;
+    }
     return <tr>
     <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[1].team.logo}/></td>
     {matchup.competitors[1].winner === true ? 
@@ -169,11 +191,18 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props, prevScores, initi
             ({team1Record})
         </span>
     </td>}
-    <td id="scoreboard-scores" style={prevScores[`${matchup.id}`] !== matchup.competitors[1].score && initialRender === false && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
+    <td id="scoreboard-scores" style={previousScore !== matchup.competitors[1].score && matchup.status.type.state === "post" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
 </tr>
 }
 
-function homeTeamBox(matchup, HomeRanking, team2Record, props, prevScores, initialRender){
+function homeTeamBox(matchup, HomeRanking, team2Record, props, initialRender){
+    let previousScore;
+    if (initialRender === false) {
+        previousScore = loadState(matchup.uid)[0];
+    }
+    else {
+        previousScore = matchup.competitors[0].score;
+    }
     return <tr>
         <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[0].team.logo}/></td>
         {matchup.competitors[0].winner === true ? 
@@ -195,7 +224,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props, prevScores, initi
                 ({team2Record})
             </span>
         </td>}
-        <td id="scoreboard-scores" style={prevScores[`${matchup.id}`] !== matchup.competitors[0].score && initialRender === false && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
+        <td id="scoreboard-scores" style={previousScore !== matchup.competitors[0].score && matchup.status.type.state === "post" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
     </tr>
 }
 
@@ -241,4 +270,24 @@ function useMediaQuery() {
     return screenSize;
   }   
 
+function loadState (key) {
+    try {
+        const serializedState = localStorage.getItem(key);
+        if(serializedState === null){
+            return undefined;
+        }
+        return JSON.parse(serializedState);
+    } catch (err) {
+        return undefined;
+    }
+};
+
+function saveState(key, value) {
+    try{
+        const serializedState = JSON.stringify(value);
+        localStorage.setItem(`${key}`, serializedState);
+    } catch (err){
+        return undefined;
+    }
+}
 export default ScoreboardTable;

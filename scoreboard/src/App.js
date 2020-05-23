@@ -16,28 +16,28 @@ function App() {
           <Team />
         </Route>
         <Route path='/NBA'>
-            <ScoreboardTable sport="basketball" league="nba"/>
+            <ScoreboardTable sport="basketball" league="nba" initialRender={true}/>
         </Route>
         <Route path='/CollegeBasketball'>
-          <ScoreboardTable sport="basketball" league="mens-college-basketball" />
+          <ScoreboardTable sport="basketball" league="mens-college-basketball" initialRender={true}/>
         </Route>
         <Route path='/CollegeFootball'>
-          <ScoreboardTable sport="football" league="college-football"/>
+          <ScoreboardTable sport="football" league="college-football" initialRender={true}/>
         </Route>
         <Route path='/NFL'>
-          <ScoreboardTable sport="football" league="nfl"/>
+          <ScoreboardTable sport="football" league="nfl" initialRender={true}/>
         </Route>
         <Route path='/MLB'>
-          <ScoreboardTable sport="baseball" league="mlb"/>
+          <ScoreboardTable sport="baseball" league="mlb" initialRender={true}/>
         </Route>  
         <Route path='/NHL'>
-          <ScoreboardTable sport="hockey" league="nhl"/>
+          <ScoreboardTable sport="hockey" league="nhl" initialRender={true}/>
         </Route>   
         <Route path='/MLS'>
-          <ScoreboardTable sport="soccer" league="usa.1"/>
+          <ScoreboardTable sport="soccer" league="usa.1" initialRender={true}/>
         </Route>
         <Route path='/Bundesliga'>
-          <ScoreboardTable sport="soccer" league="ger.1"/>
+          <ScoreboardTable sport="soccer" league="ger.1" initialRender={true}/>
         </Route>              
         <Route path='/Rankings'>
           <Rankings  />
