@@ -17,10 +17,11 @@ const ScoreboardTable = (props) => {
     let team1Record = '';
     let team2Record = '';
     var AwayRanking;
-    var HomeRanking;       
+    var HomeRanking;      
+    var prevScores = {};       
 
     var tableData = matchups.map(matchup => {
-        var array = []
+        var array = [];        
         var homeTeam = getHomeTeam(matchup)
         var awayTeam = getAwayTeam(matchup)
         homeTeam.records !== undefined ? team1Record = homeTeam.records[0].summary : team1Record = "0-0"
@@ -29,12 +30,15 @@ const ScoreboardTable = (props) => {
         AwayRanking = includeRankings(props.league, matchup)[1]
         AwayRanking = includeRankings(props.league, matchup)[0]
 
+        var initialRender = true; 
+        prevScores[`${matchup.id}`] = [matchup.competitors[0].score, matchup.competitors[1].score];
+
         array.push(
             <span key={matchup.id} id="matchup">
                 <table id="card-table">
                 <tbody className="scoreboard">
-                {awayTeamBox(matchup, AwayRanking, team1Record, props)}
-                {homeTeamBox(matchup, HomeRanking, team2Record, props)}
+                {awayTeamBox(matchup, AwayRanking, team1Record, props, prevScores, initialRender)}
+                {homeTeamBox(matchup, HomeRanking, team2Record, props, prevScores, initialRender)}
                 <tr id="status">
                     <td colSpan="3"><GameStatus league={props.league} period={matchup.status.period} matchup={matchup} completed={matchup.status.type.completed}/></td>
                 </tr>
@@ -46,6 +50,7 @@ const ScoreboardTable = (props) => {
                 <br/>
             </span>  
         );
+        initialRender = false;     
         return array
     });
 
@@ -93,7 +98,7 @@ const ScoreboardTable = (props) => {
 
     function refetch(league, sport, page, site) {        
         setIsActive(!isActive);        
-        if (isActive) {
+        if (isActive) {            
             setButtonDisplay("#d9534f");
             setButtonText("Disable Live Scores");
             retrieveData(league, sport, page, site);
@@ -142,7 +147,7 @@ function includeRankings(league, matchup){
     return [HomeRanking, AwayRanking]
 }
 
-function awayTeamBox(matchup, AwayRanking, team1Record, props){
+function awayTeamBox(matchup, AwayRanking, team1Record, props, prevScores, initialRender){
     return <tr>
     <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[1].team.logo}/></td>
     {matchup.competitors[1].winner === true ? 
@@ -164,13 +169,11 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props){
             ({team1Record})
         </span>
     </td>}
-    {/* <UpdateScore sport={props.sport} league={props.league} index={1} refetch={fetchNeeded}/>
-    {fetchNeeded = false} */}
-    <td id="scoreboard-scores">{matchup.competitors[1].score}</td>
+    <td id="scoreboard-scores" style={prevScores[`${matchup.id}`] !== matchup.competitors[1].score && initialRender === false && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
 </tr>
 }
 
-function homeTeamBox(matchup, HomeRanking, team2Record, props){
+function homeTeamBox(matchup, HomeRanking, team2Record, props, prevScores, initialRender){
     return <tr>
         <td id="scoreboard-logo"><img id="thumb" alt="" src={matchup.competitors[0].team.logo}/></td>
         {matchup.competitors[0].winner === true ? 
@@ -192,8 +195,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props){
                 ({team2Record})
             </span>
         </td>}
-        <td id="scoreboard-scores">{matchup.competitors[0].score}</td>
-        {/* <UpdateScore sport={props.sport} league={props.league} index={0} refetch={fetchNeeded}/> */}
+        <td id="scoreboard-scores" style={prevScores[`${matchup.id}`] !== matchup.competitors[0].score && initialRender === false && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
     </tr>
 }
 
