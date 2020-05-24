@@ -37,11 +37,7 @@ function App() {
           <ScoreboardTable sport="soccer" league="usa.1" initialRender={true}/>
         </Route>
         <Route path='/Bundesliga'>
-<<<<<<< HEAD
-          <ScoreboardTable sport="soccer" league="ger.1"/>
-=======
           <ScoreboardTable sport="soccer" league="ger.1" initialRender={true}/>
->>>>>>> master
         </Route>              
         <Route path='/Rankings'>
           <Rankings  />
