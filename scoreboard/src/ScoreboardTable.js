@@ -101,10 +101,11 @@ const ScoreboardTable = (props) => {
         if (isActive) {            
             setButtonDisplay("#d9534f");
             setButtonText("Disable Live Scores");
-            retrieveData(league, sport, page, site);            
+            retrieveData(league, sport, page, site);                      
             intervalId = setInterval(async () => {
                 retrieveData(league, sport, page, site);
             }, 30000);
+            saveState(intervalId.toString(), intervalId);
         }
         else {
             setButtonDisplay("#5cb85c");
@@ -119,7 +120,10 @@ const ScoreboardTable = (props) => {
                 console.log("Live fetching timed out due to inactivity. Button will be reset.");
                 setButtonDisplay("#5cb85c");
                 setButtonText("Get Live Scores");
-                clearInterval(intervalId);
+                for (var i = 1; i <= Number(intervalId); i++){
+                    clearInterval(loadState(i.toString()));
+                    localStorage.removeItem(i.toString());
+                }                
                 if (document.hasFocus()){
                     alert("Live fetching timed out due to inactivity. Button will be reset.");
                 }
@@ -191,7 +195,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender){
             ({team1Record})
         </span>
     </td>}
-    <td id="scoreboard-scores" style={previousScore !== matchup.competitors[1].score && matchup.status.type.state === "post" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
+    <td id="scoreboard-scores" style={previousScore !== matchup.competitors[1].score && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
 </tr>
 }
 
@@ -224,7 +228,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props, initialRender){
                 ({team2Record})
             </span>
         </td>}
-        <td id="scoreboard-scores" style={previousScore !== matchup.competitors[0].score && matchup.status.type.state === "post" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
+        <td id="scoreboard-scores" style={previousScore !== matchup.competitors[0].score && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
     </tr>
 }
 
