@@ -104,31 +104,35 @@ const ScoreboardTable = (props) => {
             retrieveData(league, sport, page, site);                      
             intervalId = setInterval(async () => {
                 retrieveData(league, sport, page, site);
-            }, 30000);
+            }, 3000);
             saveState(intervalId.toString(), intervalId);
         }
         else {
-            setButtonDisplay("#5cb85c");
-            setButtonText("Get Live Scores");
-            clearInterval(intervalId);
+            disableLiveScores();
+            setIsActive(!isActive);
         }
     }
+
+    function disableLiveScores() {
+        setButtonDisplay("#5cb85c");
+        setButtonText("Get Live Scores");
+        for (var i = 1; i <= Number(intervalId); i++){
+            clearInterval(loadState(i.toString()));
+            localStorage.removeItem(i.toString());
+        }    
+    };
 
     useEffect(() => {
         const timer = setTimeout(() => {
             if (!isActive){
                 console.log("Live fetching timed out due to inactivity. Button will be reset.");
-                setButtonDisplay("#5cb85c");
-                setButtonText("Get Live Scores");
-                for (var i = 1; i <= Number(intervalId); i++){
-                    clearInterval(loadState(i.toString()));
-                    localStorage.removeItem(i.toString());
-                }                
+                disableLiveScores();  
+                setIsActive(!isActive);       
                 if (document.hasFocus()){
                     alert("Live fetching timed out due to inactivity. Button will be reset.");
                 }
             }
-        }, 900000);
+        }, 30000);
         return () => clearTimeout(timer);
     }, [isActive]);
 
