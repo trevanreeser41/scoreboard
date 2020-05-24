@@ -104,7 +104,7 @@ const ScoreboardTable = (props) => {
             retrieveData(league, sport, page, site);                      
             intervalId = setInterval(async () => {
                 retrieveData(league, sport, page, site);
-            }, 3000);
+            }, 30000);
             saveState(intervalId.toString(), intervalId);
         }
         else {
@@ -132,7 +132,7 @@ const ScoreboardTable = (props) => {
                     alert("Live fetching timed out due to inactivity. Button will be reset.");
                 }
             }
-        }, 30000);
+        }, 900000);
         return () => clearTimeout(timer);
     }, [isActive]);
 
