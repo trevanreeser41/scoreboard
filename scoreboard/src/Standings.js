@@ -7,12 +7,12 @@ import {Link} from 'react-router-dom';
 const Standings = (props) => {
 
     //Constructor
-    const divisions = useFetchAppDataScoreboard(props.league, props.sport, props.page, "");
+    // eslint-disable-next-line
+    const [divisions, setDivisions] = useFetchAppDataScoreboard(props.league, props.sport, props.page, "");
     const [width] = useMediaQuery();
 
     var tableData = divisions.map(division => {
         var array = [];
-
         array.push(
             <span key={division.uid} id="standings-card-table">
                 <table>
@@ -70,7 +70,7 @@ function generateHeading(division, width, props) {
 
 function soccerTeamHeading(division, width) {
     return <tr style={{border: "solid 2.5px grey", fontSize: "3vh"}}>
-        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="3">{division.name}</th>
+        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="2">{division.name}</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>W</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>D</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>L</th>
@@ -79,10 +79,9 @@ function soccerTeamHeading(division, width) {
 
 function teamHeading(division, width) {
     return <tr style={{border: "solid 2.5px grey", fontSize: "3vh"}}>
-        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="3">{division.name}</th>
+        <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}} colSpan="2">{division.name}</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>W</th>
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>L</th>
-        {/* <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>T</th> */}
         <th id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#428bca"}}>STRK</th>
     </tr>
 }
@@ -114,31 +113,29 @@ function generateTeamBox(division, width, props){
 
 function teamBox (entries, width, index) {
     return <tr key={entries.team.id}>
-        <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[0].displayValue}</b></td>
-        <td id="logo"><img id="thumb" alt="" src={entries.team.logos[0].href}/></td>
-        <td id="team">
+        <td id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[0].displayValue}</b></td>
+        <td id="standings-logo"><img id="thumb" alt="" src={entries.team.logos[0].href} style={{marginRight: "0.5em"}}/>
             <Link to={`${entries.team.id}`}>
                 <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName}</b>
             </Link>
         </td>
-        <td id="scores">{entries.stats[1].displayValue}</td>
-        <td id="scores">{entries.stats[2].displayValue}</td>
-        <td id="scores">{entries.stats[index].displayValue}</td>
+        <td id={width > 769 ? "scores" : "scores-mobile"}>{entries.stats[1].displayValue}</td>
+        <td id={width > 769 ? "scores" : "scores-mobile"}>{entries.stats[2].displayValue}</td>
+        <td id={width > 769 ? "scores" : "scores-mobile"}>{entries.stats[index].displayValue}</td>
     </tr>
 }
 
 function soccerTeamBox (entries, width) {
     return <tr key={entries.team.id}>
-    <td id="scores" style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[8].displayValue}</b></td>
-    <td id="logo"><img id="thumb" alt="" src={entries.team.logos[0].href}/></td>
-    <td id="team">
+    <td id={width > 769 ? "scores" : "scores-mobile"} style={{backgroundColor: "#A9A9A9"}}><b>{entries.stats[8].displayValue}</b></td>
+    <td id="standings-logo"><img id="thumb" alt="" src={entries.team.logos[0].href} style={{marginRight: "0.5em"}}/>
         <Link to={`${entries.team.id}`}>
             <b>{width > 769 ? entries.team.displayName : entries.team.shortDisplayName}</b>
         </Link>
     </td>
-    <td id="scores">{entries.stats[0].displayValue}</td>
-    <td id="scores">{entries.stats[2].displayValue}</td>
-    <td id="scores">{entries.stats[1].displayValue}</td>
+    <td id={width > 769 ? "scores" : "scores-mobile"}>{entries.stats[0].displayValue}</td>
+    <td id={width > 769 ? "scores" : "scores-mobile"}>{entries.stats[2].displayValue}</td>
+    <td id={width > 769 ? "scores" : "scores-mobile"}>{entries.stats[1].displayValue}</td>
     </tr>
 };
 

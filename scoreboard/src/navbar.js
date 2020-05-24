@@ -11,9 +11,8 @@ export class NavBar extends Component {
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
-            teams: {},
+            teams: {}
         };
-
     }
 
     toggleNavbar() {
@@ -23,7 +22,7 @@ export class NavBar extends Component {
     }
 
     render() {
-        const collapsed = this.state.collapsed;
+        const collapsed = this.state.collapsed;        
         const classOne = collapsed ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
         const classTwo = collapsed ? 'navbar-toggler collapsed mr-auto' : 'navbar-toggler mr-auto';
 

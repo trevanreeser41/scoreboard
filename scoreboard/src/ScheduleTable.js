@@ -239,6 +239,24 @@ export class ScheduleTable extends Component {
         }
     }
 
+    getContrast(hexcolor){
+        // If a leading # is provided, remove it
+        if (hexcolor.slice(0, 1) === '#') {
+            hexcolor = hexcolor.slice(1);
+        }
+    
+        // Convert to RGB value
+        var r = parseInt(hexcolor.substr(0,2),16);
+        var g = parseInt(hexcolor.substr(2,2),16);
+        var b = parseInt(hexcolor.substr(4,2),16);
+    
+        // Get YIQ ratio
+        var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    
+        // Check contrast
+        return (yiq >= 128) ? 'black' : 'white';
+    };
+
     render() {
         if (this.state.loading===false){
             let team1Record = '';
@@ -316,6 +334,7 @@ export class ScheduleTable extends Component {
                             fontSize: `${scheduleHeadingSize}`, 
                         }} colSpan="10">
                             {this.state.league === "college-football" || this.state.league === "mens-college-basketball" ?
+<<<<<<< HEAD
                             <span>
                                 <span id="heading">{this.state.team} Schedule {this.state.record}</span>
                                 {this.state.league === "mlb" || this.state.league === "nfl" || this.state.league === "college-football" || this.state.league === "mens-college-basketball" ? 
@@ -327,6 +346,11 @@ export class ScheduleTable extends Component {
                                 {this.state.league === "mlb" || this.state.league === "nfl" || this.state.league === "college-football" || this.state.league === "mens-college-basketball" ? 
                                 <img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>:
                                 <span></span>}
+=======
+                            <span><span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/></span>:
+                            <Link style={{color: this.getContrast(this.state.color)}} to={`${"standings"}`}>
+                                <span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>
+>>>>>>> master
                             </Link>}
                         </th>
                         </tr>
