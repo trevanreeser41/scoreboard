@@ -334,23 +334,9 @@ export class ScheduleTable extends Component {
                             fontSize: `${scheduleHeadingSize}`, 
                         }} colSpan="10">
                             {this.state.league === "college-football" || this.state.league === "mens-college-basketball" ?
-<<<<<<< HEAD
-                            <span>
-                                <span id="heading">{this.state.team} Schedule {this.state.record}</span>
-                                {this.state.league === "mlb" || this.state.league === "nfl" || this.state.league === "college-football" || this.state.league === "mens-college-basketball" ? 
-                                <img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>:
-                                <span></span>}
-                                </span>:
-                            <Link style={{color: "white"}} to={`${"standings"}`}>
-                                <span id="heading">{this.state.team} Schedule {this.state.record}</span>
-                                {this.state.league === "mlb" || this.state.league === "nfl" || this.state.league === "college-football" || this.state.league === "mens-college-basketball" ? 
-                                <img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>:
-                                <span></span>}
-=======
                             <span><span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/></span>:
                             <Link style={{color: this.getContrast(this.state.color)}} to={`${"standings"}`}>
                                 <span id="heading">{this.state.team} Schedule {this.state.record}</span><img id="conf-logo" src={`${imgPath}/${this.state.conference}.png`} alt=""/>
->>>>>>> master
                             </Link>}
                         </th>
                         </tr>
