@@ -1,7 +1,12 @@
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   /* background: url(https://i0.wp.com/www.crowneagency.com/wp-content/uploads/2017/01/wood-court-3.jpg?ssl=1) no-repeat center center fixed; */
-  background: url(https://wonderfulengineering.com/wp-content/uploads/2016/01/black-wallpaper-6.jpg);
+  /* background: url(https://wonderfulengineering.com/wp-content/uploads/2016/01/black-wallpaper-6.jpg); */
+  background: url('background-desktop.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-position: -30%;
@@ -12,6 +17,7 @@ body {
 @media (max-width: 768px){
   .body {
     width: 100%;
+    background: url('background-mobile.jpg');
   }
 
   .container {

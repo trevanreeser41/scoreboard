@@ -38,6 +38,7 @@ export class Team extends Component {
                     id: "s:20~l:28~t:26",
                 },
                 {
+<<<<<<< HEAD
                     team: 'Nebraska',
                     sport: 'football',
                     league: 'college-football',
@@ -61,6 +62,19 @@ export class Team extends Component {
                     league: 'college-football',
                     id: 's:20~l:23~t:328',
                 },
+=======
+                    team: '4771', //Real Salt Lake
+                    sport: 'soccer',
+                    league: 'usa.1',
+                    id: "s:600~t:4771",
+                },
+                {
+                    team: 'sf',
+                    sport: 'baseball',
+                    league: 'mlb',
+                    id: "s:1~l:10~t:26",
+                }                
+>>>>>>> master
             ],
             data: [],
         };
@@ -90,7 +104,6 @@ export class Team extends Component {
                 if (response.ok) {
                     return response.json();
                 }
-
                 throw new Error("Unable to retrieve required data from server.");
             })
             .then(data => {
@@ -131,6 +144,15 @@ export class Team extends Component {
         return tempArray;
     }
 
+    retrieveTeamId = (competitorIndex, index) => {
+        try {
+            return this.state.data[index].team.nextEvent[0].competitions[0].competitors[competitorIndex].team.id;
+        }
+        catch {
+            return "";
+        }
+    }
+
     testForMatchupScores = (competitorIndex, index) => {
         try {
             return this.state.data[index].team.nextEvent[0].competitions[0].competitors[competitorIndex].team.abbreviation;
@@ -153,7 +175,12 @@ export class Team extends Component {
             return this.state.data[index].team.record.items[0].stats[0].value;
         }
         catch {
-            return this.state.data[index].team.rank;
+            if (this.state.data[index].team.rank !== undefined) {
+                return this.state.data[index].team.rank;
+            }
+            else {
+                return "-";
+            }
         }
     }
 
@@ -235,10 +262,14 @@ export class Team extends Component {
                                     <tbody>
                                         <tr>
                                             <td>
+                                            <Link to={`${teamData.sport}/${teamData.league}/${this.retrieveTeamId(1, index)}`}>
                                                 {this.testForMatchupScores(1, index)}<br/>{awayScores}
+                                            </Link>
                                             </td>
                                             <td>
+                                            <Link to={`${teamData.sport}/${teamData.league}/${this.retrieveTeamId(0, index)}`}>
                                                 {this.testForMatchupScores(0, index)}<br/>{homeScores}
+                                            </Link>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -265,8 +296,8 @@ export class Team extends Component {
                 if (this.state.width > 769) {
                     for (let index = 0; index < tableData.length; index=index+3) {
                         newData.push( 
-                            <div>                              
-                            <div key={this.state.data[index].team.id} className="flexcontainer">
+                            <div key={this.state.data[index].team.uid}>                              
+                            <div className="flexcontainer">
                                 <table id="card-table-team">
                                     {tableData[index]}
                                 </table>
@@ -285,7 +316,7 @@ export class Team extends Component {
                 else {
                     for (let index = 0; index < tableData.length; index++) {
                         newData.push(
-                            <div key={this.state.data[index].team.id}>
+                            <div key={this.state.data[index].team.uid}>
                                 <table className="mobile-card-table-team">
                                     {tableData[index]}
                                     <br/><br/>
@@ -294,12 +325,12 @@ export class Team extends Component {
                         );
                     }
                 }
-                return (
-                    <div> 
-                        {newData}
-                    </div>
-                )           
-        }
+            return (
+                <div> 
+                    {newData}
+                </div>
+            )           
+    }
         else{
         return(
             <div id="loading">

@@ -13,12 +13,12 @@ h1 {
 #scores-mobile {
     background: lightgray;
     width: 2em;
-    padding: 5px 5px 5px 5px;
+    padding: 7px 7px 7px 7px;
     text-align: center;
     font-weight: bold;
 }
 
-#logo {
+#standings-logo {
     background: white;
     text-align: left;
 }
@@ -36,6 +36,10 @@ h1 {
 
 table {
     width: 100%;
+}
+
+#teamBox {
+    font-size: small;
 }
 
 #team-sport {

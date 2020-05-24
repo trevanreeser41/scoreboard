@@ -11,9 +11,8 @@ export class NavBar extends Component {
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
             collapsed: true,
-            teams: {},
+            teams: {}
         };
-
     }
 
     toggleNavbar() {
@@ -23,7 +22,7 @@ export class NavBar extends Component {
     }
 
     render() {
-        const collapsed = this.state.collapsed;
+        const collapsed = this.state.collapsed;        
         const classOne = collapsed ? 'collapse navbar-collapse' : 'collapse navbar-collapse show';
         const classTwo = collapsed ? 'navbar-toggler collapsed mr-auto' : 'navbar-toggler mr-auto';
 
@@ -47,7 +46,7 @@ export class NavBar extends Component {
                             <Link className="nav-item nav-link" to="/NHL">NHL</Link>                            
                             <Link className="nav-item nav-link" to="/MLB">MLB</Link>
                             <Link className="nav-item nav-link" to="/MLS">MLS</Link>
-                            <Link className="nav-item nav-link" to="/ChampionsLeague">UEFA</Link>
+                            <Link className="nav-item nav-link" to="/Bundesliga">Bundesliga</Link>
                             <Link className="nav-item nav-link" to="/Rankings">Rankings</Link>
                         </div>
                     </div>

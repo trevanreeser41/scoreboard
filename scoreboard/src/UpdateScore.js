@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import './Scoreboard.css';
 
 export class UpdateScore extends Component{
@@ -7,18 +7,13 @@ export class UpdateScore extends Component{
         super(props)
         this.state = {
             matchups: [],
-            index: props.index,
-            teamIndex: props.teamIndex,
-            sport: props.sport,
-            league: props.league,
-            scores: props.scores,
-            hour: new Date().getHours(),
+            scores: [],
         }
     }
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.state.sport}/${this.state.league}/scoreboard`)
+            fetch(`http://site.api.espn.com/apis/site/v2/sports/${this.props.sport}/${this.props.league}/scoreboard`)
                 .then(function (response) {
                     if (response.ok) {
                         return response.json();
@@ -38,7 +33,7 @@ export class UpdateScore extends Component{
                 .then(games => {
                     for (let index = 0; index < games.length; index++) {
                         var joined = this.state.matchups.concat(games[index]);
-                        var scores = this.state.scores.concat(games[index].competitors[this.state.teamIndex].score);
+                        var scores = this.state.scores.concat(games[index].competitors[0].score);
                         this.setState({ 
                             matchups: joined,
                             scores: scores
@@ -47,17 +42,29 @@ export class UpdateScore extends Component{
                 })
                 .catch(function (error) {
                 console.log("Error: ", error.message);
+                //this.usePersistedState("newScores", this.state.scores);
+                // localStorage.setItem('newScores', this.state.scores);
             });
-        }, this.state.hour >= 24 ? 10000 : 360000); //only refresh often if in primetime (16:00-23:59)
+        }, 30000);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
     }
 
+    // usePersistedState(key, defaultValue) {
+    //     const [state, setState] = React.useState(
+    //       () => JSON.parse(localStorage.getItem(key)) || defaultValue
+    //     );
+    //     useEffect(() => {
+    //       localStorage.setItem(key, JSON.stringify(state));
+    //     }, [key, state]);
+    //     return [state, setState];
+    // }      
+
     render() {
         return (
-            <td id="scores">{this.state.scores[this.state.index]}</td>
+            <td id="scores">{this.state.scores[this.props.index]}</td>
         )
     }
 }

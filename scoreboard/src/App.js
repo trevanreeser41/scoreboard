@@ -7,7 +7,6 @@ import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
 import Standings from './Standings';
-//import { NFLDraft } from './NFLDraft';
 
 function App() {
 
@@ -17,33 +16,33 @@ function App() {
           <Team />
         </Route>
         <Route path='/NBA'>
-            <ScoreboardTable sport="basketball" league="nba"/>
+            <ScoreboardTable sport="basketball" league="nba" initialRender={true}/>
         </Route>
         <Route path='/CollegeBasketball'>
-          <ScoreboardTable sport="basketball" league="mens-college-basketball" />
+          <ScoreboardTable sport="basketball" league="mens-college-basketball" initialRender={true}/>
         </Route>
         <Route path='/CollegeFootball'>
-          <ScoreboardTable sport="football" league="college-football"/>
+          <ScoreboardTable sport="football" league="college-football" initialRender={true}/>
         </Route>
         <Route path='/NFL'>
-          <ScoreboardTable sport="football" league="nfl"/>
+          <ScoreboardTable sport="football" league="nfl" initialRender={true}/>
         </Route>
         <Route path='/MLB'>
-          <ScoreboardTable sport="baseball" league="mlb"/>
+          <ScoreboardTable sport="baseball" league="mlb" initialRender={true}/>
         </Route>  
         <Route path='/NHL'>
-          <ScoreboardTable sport="hockey" league="nhl"/>
+          <ScoreboardTable sport="hockey" league="nhl" initialRender={true}/>
         </Route>   
         <Route path='/MLS'>
-          <ScoreboardTable sport="soccer" league="usa.1"/>
+          <ScoreboardTable sport="soccer" league="usa.1" initialRender={true}/>
         </Route>
-        <Route path='/ChampionsLeague'>
-          <ScoreboardTable sport="soccer" league="uefa.champions"/>
+        <Route path='/Bundesliga'>
+          <ScoreboardTable sport="soccer" league="ger.1" initialRender={true}/>
         </Route>              
         <Route path='/Rankings'>
           <Rankings  />
         </Route>
-        <Route exact path='/soccer/:league/:year/standings' render={() => (<Standings sport={window.location.pathname.split("/")[1]} league={window.location.pathname.split("/")[2]} page="standings"/>)}/>
+        <Route exact path='/:sport/:league/standings' render={() => (<Standings sport={window.location.pathname.split("/")[1]} league={window.location.pathname.split("/")[2]} page="standings"/>)}/>
         <Route exact path='/:sport/:league/:team' render={() => (<ScheduleTable league={window.location.pathname.split("/")[2]} team={window.location.pathname.split("/")[3]}/>)}/>
         <br/>
       </Layout >
