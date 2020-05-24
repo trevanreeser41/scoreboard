@@ -244,18 +244,6 @@ function getAwayTeam(matchup){
     return matchup.competitors[0]
 }
 
-<<<<<<< HEAD
-function getTeamIdentifier(league, team) {
-    if (league === "usa.1" || league === "uefa.champions") {
-        return new Date().getFullYear() + "/standings";
-    }
-    else {
-        return team.id;
-    }
-}
-
-=======
->>>>>>> master
 function openToVenue(matchup){
     if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
         return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;

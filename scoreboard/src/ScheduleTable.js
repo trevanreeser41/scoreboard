@@ -53,14 +53,10 @@ export class ScheduleTable extends Component {
         let record;
         let color;
         let team;
-<<<<<<< HEAD
-        let conference;
-=======
         let conference = this.getConferenceObject(urlParams[2]);
         if (urlParams[3] === "standings") {
             return "";
         }
->>>>>>> master
         fetch(`http://site.api.espn.com/apis/site/v2/sports/${urlParams[1]}/${urlParams[2]}/teams/${urlParams[3]}/schedule`)
             .then(function (response) {
                 if (response.ok) {
@@ -101,13 +97,10 @@ export class ScheduleTable extends Component {
                         matchups: joined,
                         record: record,
                         team: team,
-<<<<<<< HEAD
-=======
                         color: color,
                         conference: conference,
                         sport: urlParams[1],
                         league: urlParams[2]
->>>>>>> master
                     })
                 }
                 this.setState({ loading: false })

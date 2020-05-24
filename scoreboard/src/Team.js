@@ -38,7 +38,6 @@ export class Team extends Component {
                     id: "s:20~l:28~t:26",
                 },
                 {
-<<<<<<< HEAD
                     team: 'Nebraska',
                     sport: 'football',
                     league: 'college-football',
@@ -62,19 +61,6 @@ export class Team extends Component {
                     league: 'college-football',
                     id: 's:20~l:23~t:328',
                 },
-=======
-                    team: '4771', //Real Salt Lake
-                    sport: 'soccer',
-                    league: 'usa.1',
-                    id: "s:600~t:4771",
-                },
-                {
-                    team: 'sf',
-                    sport: 'baseball',
-                    league: 'mlb',
-                    id: "s:1~l:10~t:26",
-                }                
->>>>>>> master
             ],
             data: [],
         };
