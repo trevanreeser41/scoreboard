@@ -199,7 +199,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender){
             ({team1Record})
         </span>
     </td>}
-    <td id="scoreboard-scores" style={previousScore !== matchup.competitors[1].score && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
+    <td id="scoreboard-scores" style={previousScore !== matchup.competitors[1].score ? {animation: "fadeMe 1s 4"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
 </tr>
 }
 
@@ -232,7 +232,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props, initialRender){
                 ({team2Record})
             </span>
         </td>}
-        <td id="scoreboard-scores" style={previousScore !== matchup.competitors[0].score && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
+        <td id="scoreboard-scores" style={previousScore !== matchup.competitors[0].score ? {animation: "fadeMe 1s 4"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
     </tr>
 }
 
