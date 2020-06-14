@@ -43,7 +43,7 @@ const ScoreboardTable = (props) => {
                 </tbody>
                 </table>
                 <h5 colSpan="3">
-                    {matchup.venue.fullName.includes("(" || ")") ? <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} {returnVenueLocation(matchup)}</a>}
+                    {retrieveVenue(matchup).includes("(" || ")") ? <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{retrieveVenue(matchup)}</a> : <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{retrieveVenue(matchup)} {returnVenueLocation(matchup)}</a>}
                 </h5>
                 <br/>
             </span>  
@@ -170,6 +170,15 @@ function includeRankings(league, matchup){
     return [HomeRanking, AwayRanking]
 }
 
+function retrieveVenue(matchup) {
+    try {
+        return matchup.venue.fullName;
+    }
+    catch {
+        return "Venue TBD";
+    }
+}
+
 function awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender){
     let previousScore;
     if (initialRender === false) {
@@ -245,20 +254,30 @@ function getAwayTeam(matchup){
 }
 
 function openToVenue(matchup){
-    if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
-        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+    try {
+        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+        }
+        else {
+            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+        }
     }
-    else {
-        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+    catch {
+        return "";
     }
 }
 
 function returnVenueLocation(matchup){
-    if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
-        return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+    try {
+        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+            return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+        }
+        else 
+        {
+            return "";
+        }
     }
-    else 
-    {
+    catch {
         return "";
     }
 }
