@@ -225,3 +225,9 @@ h1 {
       background-color: lightgray;
     }
   }
+
+  @keyframes fadeMeFinal {
+    0%, 49% {
+      color: white;
+    }
+  }

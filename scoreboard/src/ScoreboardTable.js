@@ -22,14 +22,15 @@ const ScoreboardTable = (props) => {
     var HomeRanking;                    
 
     var tableData = matchups.map(matchup => {
-        var array = [];        
+        var array = [];    
+        var gameCompleted;    
         var homeTeam = getHomeTeam(matchup)
         var awayTeam = getAwayTeam(matchup)
         homeTeam.records !== undefined ? team1Record = homeTeam.records[0].summary : team1Record = "0-0"
         awayTeam.records !== undefined ? team2Record = awayTeam.records[0].summary : team2Record = "0-0"
 
         AwayRanking = includeRankings(props.league, matchup)[1]
-        AwayRanking = includeRankings(props.league, matchup)[0]       
+        AwayRanking = includeRankings(props.league, matchup)[0]   
 
         array.push(
             <span key={matchup.uid} id="matchup">
@@ -38,7 +39,10 @@ const ScoreboardTable = (props) => {
                 {awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender)}
                 {homeTeamBox(matchup, HomeRanking, team2Record, props, initialRender)}
                 <tr id="status">
-                    <td colSpan="3"><GameStatus league={props.league} period={matchup.status.period} matchup={matchup} completed={matchup.status.type.completed}/></td>
+                    {initialRender ? gameCompleted = matchup.status.type.completed : gameCompleted = loadState(matchup.uid + " Status")}
+                    <td colSpan="3" style={gameCompleted !== matchup.status.type.completed ? {animation: "fadeMeFinal 1s 4"}: {backgroundColor: "white"}}>
+                        <GameStatus league={props.league} period={matchup.status.period} matchup={matchup} completed={matchup.status.type.completed}/>
+                    </td>
                 </tr>
                 </tbody>
                 </table>
@@ -49,6 +53,7 @@ const ScoreboardTable = (props) => {
             </span>  
         );
         saveState(matchup.uid, [matchup.competitors[0].score, matchup.competitors[1].score]);
+        saveState(matchup.uid + " Status", matchup.status.type.completed);
                      
         return array
     });
