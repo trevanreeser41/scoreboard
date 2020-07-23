@@ -264,14 +264,14 @@ export class Team extends Component {
                         </tr>
                         <tr>
                             <td>Status:</td>
-                            <td id="scores">
+                            <td id="team-status">
                                 <GameStatus league={this.props.league} matchup={this.retrieveMatchup(index)} completed={this.retrieveMatchup(index).status.type.completed} period={this.retrieveMatchup(index).status.period}/>
                             </td>
                         </tr>
                         <tr>
                             <td colSpan="2">
                                 <strong>
-                                    {this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Off Season"}
+                                    {this.state.data[index].team.standingSummary !== undefined ? this.state.data[index].team.standingSummary : "Standing Unavailable"}
                                 </strong>
                             </td>
                         </tr>

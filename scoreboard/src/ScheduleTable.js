@@ -17,6 +17,7 @@ export class ScheduleTable extends Component {
             loading: true,
             sport: "",
             league: "",
+            color: "",
             homeScores: [],
             awayScores: [],
             width: 0,
@@ -69,10 +70,10 @@ export class ScheduleTable extends Component {
                 let events = data.events;
                 color = data.team.color;
                 team = data.team.displayName;
-                if (urlParams[2] === "nfl" || urlParams[2] === "mlb" || urlParams[2] === '') {
+                if (urlParams[2] === "nfl" || urlParams[2] === '') {
                     conference = conference[`${data.team.groups.parent.id}`];
                 }
-                else if (urlParams[2] === "college-football" || urlParams[2] === "mens-college-basketball") {
+                else if (urlParams[2] === "college-football" || urlParams[2] === "mlb" || urlParams[2] === "mens-college-basketball" ) {
                     conference = conference[`${data.team.groups.id}`];
                 }
                 if (data.team.recordSummary !== undefined){
@@ -90,17 +91,19 @@ export class ScheduleTable extends Component {
                 return games
             })
             .then(games => {
-                this.setState({ matchups: [] });
+                this.setState({ 
+                    matchups: [],
+                    record: record,
+                    team: team,
+                    color: color,
+                    conference: conference,
+                    sport: urlParams[1],
+                    league: urlParams[2]
+                })
                 for (let index = 0; index < games.length; index++) {
                     var joined = this.state.matchups.concat(games[index]);
                     this.setState({ 
-                        matchups: joined,
-                        record: record,
-                        team: team,
-                        color: color,
-                        conference: conference,
-                        sport: urlParams[1],
-                        league: urlParams[2]
+                        matchups: joined
                     })
                 }
                 this.setState({ loading: false })

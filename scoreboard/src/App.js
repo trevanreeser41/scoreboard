@@ -36,8 +36,8 @@ function App() {
         <Route path='/MLS'>
           <ScoreboardTable sport="soccer" league="usa.1" initialRender={true}/>
         </Route>
-        <Route path='/Bundesliga'>
-          <ScoreboardTable sport="soccer" league="ger.1" initialRender={true}/>
+        <Route path='/UEFA'>
+          <ScoreboardTable sport="soccer" league="uefa.champions" initialRender={true}/>
         </Route>              
         <Route path='/Rankings'>
           <Rankings  />
