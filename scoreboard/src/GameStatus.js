@@ -47,9 +47,9 @@ const GameStatus = (props) => {
         }
     } 
     else if (props.period === 0) {
-        data = props.matchup.status.type.detail
+        data = props.matchup.status.type.shortDetail
     } else {
-        data = props.matchup.status.type.detail
+        data = props.matchup.status.type.shortDetail
     }
     return <span>{data}</span>;
 }

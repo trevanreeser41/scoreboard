@@ -175,10 +175,10 @@ export class Team extends Component {
             return this.state.data[index].team.record.items[0].summary;
         }
         catch {
-            if (this.state.data[index].team.nextEvent[0] !== undefined) {
+            try {
                 return this.state.data[index].team.nextEvent[0].competitions[0].competitors[0].record[0].displayValue;
             }
-            else {
+            catch {
                 return "0-0";
             }
         }
@@ -276,8 +276,7 @@ export class Team extends Component {
                             </td>
                         </tr>
                     </tbody>
-                )   
-                }
+                )}
                 var newData = []
                 if (this.state.width > 769) {
                     for (let index = 0; index < tableData.length; index=index+3) {
