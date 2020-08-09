@@ -26,12 +26,17 @@ a.nav-item {
 
 .navbar {
     background-color: white;
-    opacity: 0.9;
     padding: 0.5rem 1rem;
     padding-top: 0.5rem;
     padding-right: 1rem;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
+    width: 100%;
+    position: fixed;
+}
+
+#buffer {
+    height: 52px;
 }
 
 html {

@@ -30,7 +30,16 @@ h1 {
     width: 3em;
     padding: 15px 15px 15px 15px;
     text-align: center;
-    font-weight: bold;
+    font-weight: bold;    
+}
+
+#team-status {
+    height: 90px;
+    background: lightgray;
+    width: 3em;
+    padding: 15px 15px 15px 15px;
+    text-align: center;
+    font-weight: bold; 
 }
 
 #winner {

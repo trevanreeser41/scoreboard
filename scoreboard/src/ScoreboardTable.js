@@ -22,14 +22,15 @@ const ScoreboardTable = (props) => {
     var HomeRanking;                    
 
     var tableData = matchups.map(matchup => {
-        var array = [];        
+        var array = [];    
+        var gameCompleted;    
         var homeTeam = getHomeTeam(matchup)
         var awayTeam = getAwayTeam(matchup)
         homeTeam.records !== undefined ? team1Record = homeTeam.records[0].summary : team1Record = "0-0"
         awayTeam.records !== undefined ? team2Record = awayTeam.records[0].summary : team2Record = "0-0"
 
         AwayRanking = includeRankings(props.league, matchup)[1]
-        AwayRanking = includeRankings(props.league, matchup)[0]       
+        AwayRanking = includeRankings(props.league, matchup)[0]   
 
         array.push(
             <span key={matchup.uid} id="matchup">
@@ -38,17 +39,21 @@ const ScoreboardTable = (props) => {
                 {awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender)}
                 {homeTeamBox(matchup, HomeRanking, team2Record, props, initialRender)}
                 <tr id="status">
-                    <td colSpan="3"><GameStatus league={props.league} period={matchup.status.period} matchup={matchup} completed={matchup.status.type.completed}/></td>
+                    {initialRender ? gameCompleted = matchup.status.type.completed : gameCompleted = loadState(matchup.uid + " Status")}
+                    <td colSpan="3" style={gameCompleted !== matchup.status.type.completed ? {animation: "fadeMeFinal 1s 4"}: {backgroundColor: "white"}}>
+                        <GameStatus league={props.league} period={matchup.status.period} matchup={matchup} completed={matchup.status.type.completed}/>
+                    </td>
                 </tr>
                 </tbody>
                 </table>
                 <h5 colSpan="3">
-                    {matchup.venue.fullName.includes("(" || ")") ? <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName}</a> : <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{matchup.venue.fullName} {returnVenueLocation(matchup)}</a>}
+                    {retrieveVenue(matchup).includes("(" || ")") ? <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{retrieveVenue(matchup)}</a> : <a href={openToVenue(matchup)} target="_blank" rel="noopener noreferrer" id="venue">{retrieveVenue(matchup)} {returnVenueLocation(matchup)}</a>}
                 </h5>
                 <br/>
             </span>  
         );
         saveState(matchup.uid, [matchup.competitors[0].score, matchup.competitors[1].score]);
+        saveState(matchup.uid + " Status", matchup.status.type.completed);
                      
         return array
     });
@@ -170,6 +175,15 @@ function includeRankings(league, matchup){
     return [HomeRanking, AwayRanking]
 }
 
+function retrieveVenue(matchup) {
+    try {
+        return matchup.venue.fullName;
+    }
+    catch {
+        return "Venue TBD";
+    }
+}
+
 function awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender){
     let previousScore;
     if (initialRender === false) {
@@ -199,7 +213,7 @@ function awayTeamBox(matchup, AwayRanking, team1Record, props, initialRender){
             ({team1Record})
         </span>
     </td>}
-    <td id="scoreboard-scores" style={previousScore !== matchup.competitors[1].score && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
+    <td id="scoreboard-scores" style={previousScore !== matchup.competitors[1].score ? {animation: "fadeMe 1s 4"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[1].score}</td>
 </tr>
 }
 
@@ -232,7 +246,7 @@ function homeTeamBox(matchup, HomeRanking, team2Record, props, initialRender){
                 ({team2Record})
             </span>
         </td>}
-        <td id="scoreboard-scores" style={previousScore !== matchup.competitors[0].score && matchup.status.type.state === "in" ? {animation: "fadeMe 1s 2"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
+        <td id="scoreboard-scores" style={previousScore !== matchup.competitors[0].score ? {animation: "fadeMe 1s 4"}: {backgroundColor: "lightgrey"}}>{matchup.competitors[0].score}</td>
     </tr>
 }
 
@@ -245,20 +259,30 @@ function getAwayTeam(matchup){
 }
 
 function openToVenue(matchup){
-    if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
-        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+    try {
+        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName + " " + matchup.venue.address.city + " " + matchup.venue.address.state;
+        }
+        else {
+            return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+        }
     }
-    else {
-        return "https://www.google.com/maps/search/?api=1&query=" + matchup.venue.fullName
+    catch {
+        return "";
     }
 }
 
 function returnVenueLocation(matchup){
-    if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
-        return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+    try {
+        if (matchup.venue.address.city !== undefined && matchup.venue.address.state !== undefined) {
+            return "(" + matchup.venue.address.city + ", " + matchup.venue.address.state + ")";
+        }
+        else 
+        {
+            return "";
+        }
     }
-    else 
-    {
+    catch {
         return "";
     }
 }

@@ -16,7 +16,7 @@ export class Layout extends Component {
 	render() {
 		return (
 			<div className="body">
-				<NavBar id="navContent" currentPage={this.getCurrentPage()}/>
+				<NavBar id="navContent" currentPage={this.getCurrentPage()}/><br/><br/><br/>
 				<Container id="bodyContent">
 					{this.props.children}
 				</Container>
