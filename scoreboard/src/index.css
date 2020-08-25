@@ -1,18 +1,12 @@
 
 html {
   scroll-behavior: smooth;
-  position: fixed;
-  overflow: hidden;
 }
 
 body {
   background: url('background-desktop.jpg');
   background-size: cover;
-  background-repeat: no-repeat;
   background-attachment: fixed;
-  -o-background-size: cover;
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
   background-position: -30%;
   opacity: 0.95;
   position: fixed;
