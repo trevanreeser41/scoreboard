@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import './ScheduleTable.css';
-import $ from "jquery";
 
 const imgPath = process.env.PUBLIC_URL + '/images';
 
@@ -189,21 +188,6 @@ export class ScheduleTable extends Component {
             return <td id="win">-</td>;
         }
     }
-    
-    fade() {
-        var onDiv = document.getElementById("scheduleTable1");
-        var offDiv = document.getElementById("scheduleTable2");
-        $(offDiv).animate({ opacity: 1}, 500);
-        $(onDiv).animate({ opacity: 0}, 500);
-    
-        const temp = onDiv;
-    
-        onDiv = offDiv;
-        offDiv = temp;
-    
-        $(onDiv).css("z-index",1);
-        $(offDiv).css("z-index",0);
-    }
 
     retrieveVenue (matchup) {
         if (matchup.venue !== undefined) {
@@ -331,7 +315,7 @@ export class ScheduleTable extends Component {
                     <table className={this.state.width > 769 ? "scheduleTable" : "scheduleTable-mobile"}>   
                     <thead>  
                         <tr>                    
-                        <th style={{ 
+                        <th style={{
                             backgroundColor: `#${this.state.color}`,
                             border: `1px solid #${this.state.color}`,
                             fontSize: `${scheduleHeadingSize}`, 

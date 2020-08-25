@@ -36,10 +36,10 @@
     border-collapse: collapse;
     width: 40vw;
     background-color: #f2f2f2;
-    -webkit-animation: rankingsFade 0.5s; /* Safari 4+ */
-    -moz-animation:    rankingsFade 0.5s; /* Fx 5+ */
-    -o-animation:      rankingsFade 0.5s; /* Opera 12+ */
-    animation:         rankingsFade 0.5s; /* IE 10+, Fx 29+ */
+    -webkit-animation: rankingsFade 0.25s; /* Safari 4+ */
+    -moz-animation:    rankingsFade 0.25s; /* Fx 5+ */
+    -o-animation:      rankingsFade 0.25s; /* Opera 12+ */
+    animation:         rankingsFade 0.25s; /* IE 10+, Fx 29+ */
 }
 
 .rankingsTable td, .rankingsTable th {

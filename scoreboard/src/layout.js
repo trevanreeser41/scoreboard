@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavBar } from './navbar.js';
 import { Container } from 'reactstrap';
-//import LiveScores from './LiveScores.js';
 
 export class Layout extends Component {
 	displayName = Layout.name
@@ -20,7 +19,6 @@ export class Layout extends Component {
 				<Container id="bodyContent">
 					{this.props.children}
 				</Container>
-				{/* <LiveScores /> */}
 			</div>
 		);
 	}

@@ -56,10 +56,10 @@ export class Team extends Component {
                     id: "s:600~t:4771",
                 },
                 {
-                    team: 'sf',
-                    sport: 'baseball',
-                    league: 'mlb',
-                    id: "s:1~l:10~t:26",
+                    team: 'VGS',
+                    sport: 'hockey',
+                    league: 'nhl',
+                    id: "s:70~l:90~t:37",
                 }                
             ],
             data: [],

@@ -35,6 +35,10 @@ a.nav-item {
     position: fixed;
 }
 
+.overlay {
+    z-index: 1;
+}
+
 #buffer {
     height: 52px;
 }

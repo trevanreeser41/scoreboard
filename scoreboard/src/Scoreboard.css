@@ -145,10 +145,10 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    -webkit-animation: scoreboardFade 0.5s; /* Safari 4+ */
-    -moz-animation:    scoreboardFade 0.5s; /* Fx 5+ */
-    -o-animation:      scoreboardFade 0.5s; /* Opera 12+ */
-    animation:         scoreboardFade 0.5s; /* IE 10+, Fx 29+ */
+    -webkit-animation: scoreboardFade 0.25s; /* Safari 4+ */
+    -moz-animation:    scoreboardFade 0.25s; /* Fx 5+ */
+    -o-animation:      scoreboardFade 0.25s; /* Opera 12+ */
+    animation:         scoreboardFade 0.25s; /* IE 10+, Fx 29+ */
  }
 
  .flexcontainer-mobile {
@@ -156,10 +156,10 @@ h1 {
     flex-direction: row;
     flex-grow: inherit;
     justify-content: space-evenly;
-    -webkit-animation: scoreboardFade 0.5s; /* Safari 4+ */
-    -moz-animation:    scoreboardFade 0.5s; /* Fx 5+ */
-    -o-animation:      scoreboardFade 0.5s; /* Opera 12+ */
-    animation:         scoreboardFade 0.5s; /* IE 10+, Fx 29+ */
+    -webkit-animation: scoreboardFade 0.25s; /* Safari 4+ */
+    -moz-animation:    scoreboardFade 0.25s; /* Fx 5+ */
+    -o-animation:      scoreboardFade 0.25s; /* Opera 12+ */
+    animation:         scoreboardFade 0.25s; /* IE 10+, Fx 29+ */
  }
 
  .desktop-live-btn {

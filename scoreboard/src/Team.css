@@ -122,19 +122,19 @@ h1 {
     margin-left: 20px;
     width: 30vw;
     height: 20vh;
-    -webkit-animation: cardFade 1s; /* Safari 4+ */
-    -moz-animation:    cardFade 1s; /* Fx 5+ */
-    -o-animation:      cardFade 1s; /* Opera 12+ */
-    animation:         cardFade 1s; /* IE 10+, Fx 29+ */
+    -webkit-animation: cardFade 0.75s; /* Safari 4+ */
+    -moz-animation:    cardFade 0.75s; /* Fx 5+ */
+    -o-animation:      cardFade 0.75s; /* Opera 12+ */
+    animation:         cardFade 0.75s; /* IE 10+, Fx 29+ */
 }
 
 .mobile-card-table-team{
     margin: 5%;
     width: 90%;
-    -webkit-animation: cardFade 1.5s; /* Safari 4+ */
-    -moz-animation:    cardFade 1.5s; /* Fx 5+ */
-    -o-animation:      cardFade 1.5s; /* Opera 12+ */
-    animation:         cardFade 1.5s; /* IE 10+, Fx 29+ */
+    -webkit-animation: cardFade 0.25s; /* Safari 4+ */
+    -moz-animation:    cardFade 0.25s; /* Fx 5+ */
+    -o-animation:      cardFade 0.25s; /* Opera 12+ */
+    animation:         cardFade 0.25s; /* IE 10+, Fx 29+ */
 }
 
 
