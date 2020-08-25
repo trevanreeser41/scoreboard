@@ -7,10 +7,12 @@ body {
   background: url('background-desktop.jpg');
   background-size: cover;
   background-attachment: fixed;
-  background-position: -30%;
+  background-position: fixed;
+  background-repeat: no-repeat;
   opacity: 0.95;
   position: fixed;
   overflow: hidden;
+  z-index: -1;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
@@ -18,7 +20,7 @@ body > #root {
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; /* enables “momentum” (smooth) scrolling */
+  /* -webkit-overflow-scrolling: touch; enables “momentum” (smooth) scrolling */
 }
 
 @media (max-width: 768px){
