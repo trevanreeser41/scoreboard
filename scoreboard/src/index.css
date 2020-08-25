@@ -26,7 +26,6 @@ body > #root {
 @media (max-width: 768px){
   .body {
     width: 100%;
-    background: url('background-mobile.jpg');
     overflow: auto;
   }
 
