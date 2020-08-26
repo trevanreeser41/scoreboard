@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  background: url('background.jpg') 0 0;
+  background: url('background.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-position: fixed;
@@ -20,6 +20,19 @@ body > #root {
   height: 100vh;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch; /*enables “momentum” (smooth) scrolling*/
+}
+
+@media (max-width: 768px){
+  .body {
+    width: 100%;
+    overflow: auto;
+  }
+
+  .container {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 0;
+  }
 }
 
 .icon {
