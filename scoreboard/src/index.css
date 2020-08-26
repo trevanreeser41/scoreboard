@@ -2,7 +2,6 @@
 html {
   scroll-behavior: smooth;
   overflow: hidden;
-  position: relative;
 }
 
 body {
