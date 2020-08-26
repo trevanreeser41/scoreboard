@@ -61,7 +61,7 @@ const ScoreboardTable = (props) => {
     var newData = []
     if (width > 769) {
         newData.push(
-            <div key="desktop-live-btn" style={{backgroundColor: buttonDisplay, zIndex: 2}} className="btn btn-success desktop-live-btn" onClick={() => refetch(props.league, props.sport, "scoreboard", "/site")}>
+            <div key="desktop-live-btn" style={{backgroundColor: buttonDisplay, zIndex: 3}} className="btn btn-success desktop-live-btn" onClick={() => refetch(props.league, props.sport, "scoreboard", "/site")}>
                 {buttonText}
             </div>
         );
