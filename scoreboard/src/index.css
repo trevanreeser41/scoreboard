@@ -6,7 +6,7 @@ html {
 body {
   background: url('background.jpg') 0 0;
   background-size: cover;
-    -webkit-background-size:cover;
+    -webkit-background-size: cover;
   background-attachment: fixed;
   background-position: fixed;
   opacity: 0.95;
