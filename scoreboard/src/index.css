@@ -10,7 +10,7 @@ body {
   background-position: fixed;
   opacity: 0.95;
   position: fixed;
-  overflow: auto;
+  overflow: hidden;
   z-index: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }

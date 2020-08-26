@@ -8,13 +8,6 @@ import App from './App';
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
-var fixed = document.getElementById('background');
-
-fixed.addEventListener('touchmove', function(e) {
-
-        e.preventDefault();
-
-}, false);
 
 
 ReactDOM.render(<BrowserRouter basename={baseUrl}>
