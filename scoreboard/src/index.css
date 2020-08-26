@@ -2,7 +2,7 @@
 html {
   scroll-behavior: smooth;
   overflow: hidden;
-  position: relative;
+  position: fixed;
 }
 
 body {
@@ -21,6 +21,7 @@ body > #root {
   width: 100vw;
   height: 100vh;
   overflow-y: scroll;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch; /*enables “momentum” (smooth) scrolling*/
 }
 
