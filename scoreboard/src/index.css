@@ -22,6 +22,19 @@ body > #root {
   -webkit-overflow-scrolling: touch; /*enables “momentum” (smooth) scrolling*/
 }
 
+@media (max-width: 768px){
+  .body {
+    width: 100%;
+    overflow: auto;
+  }
+
+  .container {
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 0;
+  }
+}
+
 .icon {
 opacity: 0.9;
 }
