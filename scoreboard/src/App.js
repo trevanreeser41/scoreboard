@@ -6,11 +6,7 @@ import ScoreboardTable from './ScoreboardTable.js';
 import { Team } from './Team';
 import {Rankings} from './Rankings'
 import { ScheduleTable } from './ScheduleTable';
-<<<<<<< HEAD
 import Standings from './Standings';
-=======
-import { NFLDraft } from './NFLDraft';
->>>>>>> jason
 
 function App() {
 
