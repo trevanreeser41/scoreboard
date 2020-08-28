@@ -7,7 +7,15 @@ export class UpdateScore extends Component{
         super(props)
         this.state = {
             matchups: [],
+<<<<<<< HEAD
             scores: [],
+=======
+            index: props.index,
+            teamIndex: props.teamIndex,
+            sport: props.sport,
+            league: props.league,
+            scores: props.scores,
+>>>>>>> jason
         }
     }
 
@@ -45,7 +53,11 @@ export class UpdateScore extends Component{
                 //this.usePersistedState("newScores", this.state.scores);
                 // localStorage.setItem('newScores', this.state.scores);
             });
+<<<<<<< HEAD
         }, 30000);
+=======
+        }, 60000); //only refresh often if in primetime (16:00-23:59)
+>>>>>>> jason
     }
 
     componentWillUnmount() {
